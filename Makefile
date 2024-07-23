@@ -1,6 +1,6 @@
 NAME	= cub3D
 CC		= cc
-CFLAGS	= -Wextra -Wall -Werror
+CFLAGS	= -Wextra -Wall -Werror -g
 LIBMLX	= ./lib/MLX42/build/libmlx42.a
 LIBFT	= ./lib/libft/libft.a
 MAND	= ./srcs/mandatory
@@ -9,7 +9,7 @@ BONUS	= ./srcs/bonus
 HEADERS	= -I ./lib/MLX42/include -I ./lib/libft -I ./incl
 LIBS	= $(LIBMLX) $(LIBFT) -ldl -pthread -lm -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
-SRCS	= $(MAND)/main.c $(MAND)/error_and_exit.c
+SRCS	= $(MAND)/main.c $(MAND)/error_and_exit.c $(MAND)/get_map.c
 OBJS	= ${SRCS:.c=.o}
 
 BONSRCS	= 

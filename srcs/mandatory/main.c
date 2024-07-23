@@ -14,30 +14,41 @@
 
 void init_data(t_data *data)
 {
-	data->map = NULL;
 	data->mlx = NULL;
-	data->wall_img = NULL;
+	data->map = NULL;
+	data->wall_img_n = NULL;
+	data->wall_img_w = NULL;
+	data->wall_img_s = NULL;
+	data->wall_img_w = NULL;
 }
 
 int main(int argc, char *argv[])
 {
 	t_data *data;
 
-	if (argc == 1 || argv == NULL) // ARGV is here just to satisfy the compiler :D
+	if (argc != 2)
 	{
-		ft_putendl_fd("ERROR!", 2);
-		ft_putendl_fd("Please pass a map (.cub -file) as an argument", 2);
+		ft_putendl_fd("Error", 2);
+		ft_putendl_fd("Please give one map (.cub -file) as an argument", 2);
 		return (1);
 	}
 
-	data = malloc(sizeof(data));
+	data = malloc(sizeof(t_data));
 	if (data == NULL)
 		sys_error_exit(data, "Malloc failed", 0);
-	init_data(data);
 
-	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", false);
-	mlx_loop(data->mlx);
-	mlx_terminate(data->mlx);
+	init_data(data);
+	get_map(data, argv[1]);
+
+	// PANU (NOTE TO SELF)
+	// Next start writing ray_casting() -function!
+	// First, try to draw a single image based on map && player coords.
+
+//	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", false);
+//	mlx_loop(data->mlx);
+//	mlx_terminate(data->mlx);
+
+	free_data(data);
 
 	return (0);
 }

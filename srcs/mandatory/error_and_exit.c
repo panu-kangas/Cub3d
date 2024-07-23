@@ -30,7 +30,7 @@ void	error_exit(t_data *data, char *err_str, int init_flag)
 {
 	if (err_str != NULL)
 	{
-		ft_putendl_fd("ERROR!", 2);
+		ft_putendl_fd("Error", 2);
 		ft_putendl_fd(err_str, 2);
 	}
 
@@ -44,7 +44,7 @@ void	error_exit(t_data *data, char *err_str, int init_flag)
 
 void	sys_error_exit(t_data *data, char *err_str, int init_flag)
 {
-	ft_putendl_fd("ERROR!", 2);
+	ft_putendl_fd("Error", 2);
 	perror(err_str);
 	
 	if (init_flag == 1 && data->mlx != NULL)

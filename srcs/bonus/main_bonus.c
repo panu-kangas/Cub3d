@@ -25,7 +25,7 @@ int main(int argc, char *argv[])
 
 	if (argc == 1 || argv == NULL) // ARGV is here just to satisfy the compiler :D
 	{
-		ft_putendl_fd("ERROR!", 2);
+		ft_putendl_fd("Error", 2);
 		ft_putendl_fd("Please pass a map (.cub -file) as an argument", 2);
 		return (1);
 	}
