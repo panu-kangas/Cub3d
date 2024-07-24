@@ -12,7 +12,7 @@
 
 #include "cubed.h"
 
-void init_data(t_data *data)
+void	init_data(t_data *data)
 {
 	data->mlx = NULL;
 	data->map = NULL;
@@ -22,9 +22,9 @@ void init_data(t_data *data)
 	data->wall_img_w = NULL;
 }
 
-int main(int argc, char *argv[])
+int	main(int argc, char *argv[])
 {
-	t_data *data;
+	t_data	*data;
 
 	if (argc != 2)
 	{
@@ -40,9 +40,7 @@ int main(int argc, char *argv[])
 	init_data(data);
 	get_map(data, argv[1]);
 
-	// PANU (NOTE TO SELF)
-	// Next start writing ray_casting() -function!
-	// First, try to draw a single image based on map && player coords.
+	draw_image(data);
 
 //	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", false);
 //	mlx_loop(data->mlx);

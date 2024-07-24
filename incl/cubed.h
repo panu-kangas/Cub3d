@@ -18,12 +18,15 @@
 # include <stdio.h> // printf, perror
 # include <stdlib.h> // malloc
 
+# include <math.h>
+
 # include <MLX42/MLX42.h>
 # include "libft.h"
 
 # define WINDOW_WIDTH 1920
 # define WINDOW_HEIGHT 1080
 # define IMG_SIZE 64 // 64 x 64 pixels
+# define PI 3.14159265358979323846
 
 
 typedef struct s_map
@@ -66,7 +69,8 @@ typedef struct s_data
 	
 	int			map_height; // is this needed?
 	int			map_width; // is this needed?
-	long int	player_coord[2]; // x and y coord of the player (will be in pixels)
+	long long	player_coord[2]; // x and y coord of the player (will be in pixels)
+	double		player_angle; // 0 means player is facing north, 90 east, 180 south, 270 west. 360 is again 0.
 }			t_data;
 
 
@@ -85,6 +89,17 @@ void	free_map(t_data *data);
 // MAP HANDLING
 
 void	get_map(t_data *data, char *map_name);
+
+// IMAGE DRAWING
+
+void    draw_image(t_data *data);
+
+
+// UTILS
+
+double  convert_to_radians(double angle_in_degrees);
+
+
 
 
 

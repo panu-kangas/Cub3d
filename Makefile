@@ -9,7 +9,8 @@ BONUS	= ./srcs/bonus
 HEADERS	= -I ./lib/MLX42/include -I ./lib/libft -I ./incl
 LIBS	= $(LIBMLX) $(LIBFT) -ldl -pthread -lm -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
-SRCS	= $(MAND)/main.c $(MAND)/error_and_exit.c $(MAND)/get_map.c
+SRCS	= $(MAND)/main.c $(MAND)/error_and_exit.c $(MAND)/get_map.c $(MAND)/utils.c \
+		$(MAND)/draw_image.c
 OBJS	= ${SRCS:.c=.o}
 
 BONSRCS	= 
@@ -24,7 +25,7 @@ $(LIBFT):
 	make -C ./lib/libft/.
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	$(CC) $(OBJS) $(LIBS) $(HEADERS) -fsanitize=address,undefined -o $(NAME)
 
 bonus: .bonus
 
