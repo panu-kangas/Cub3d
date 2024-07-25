@@ -32,8 +32,6 @@ void    assign_map(t_data *data)
     while (x < data->map_width)
         data->map[y][x++].type = '1';
 
-    data->player_coord[0] = 6 * IMG_SIZE - 1; // Player is in the middle of the map in this test
-    data->player_coord[1] = 6 * IMG_SIZE - 1;
     
 }
 

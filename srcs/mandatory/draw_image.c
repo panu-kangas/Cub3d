@@ -1,64 +1,47 @@
 #include "cubed.h"
 
-int check_for_wall(t_data *data, long long *vert_wall_coord)
+void    get_exact_vert_coord(t_data *data, double ray_angle, long long *w_coord)
 {
-    long long   x;
-    long long   y;
-
-    x = vert_wall_coord[0];
-    y = vert_wall_coord[1];
-
-    if (data->map[y][x].type == '1')
-        return (1);
-
-    return (0);
-}
-
-void    get_first_intersection(t_data *data, double ray_angle, long long *w_coord)
-{
-    long long   *p_coord;
     long long   temp_coord[2];
+    long long   *p_coord;
 
+    temp_coord[0] = w_coord[0];
+    temp_coord[1] = w_coord[1];
     p_coord = data->player_coord;
-    if (ray_angle > 180 && ray_angle < 360)
-        temp_coord[0] = (p_coord[0] - (p_coord[0] % IMG_SIZE));
-    else
-        temp_coord[0] = (p_coord[0] + (IMG_SIZE - (p_coord[0] % IMG_SIZE)));
-    
-    w_coord[0] = (temp_coord[0] - 1) / IMG_SIZE;
 
-    // add other quarters here too
-    if (ray_angle > 270)
-    {
-        temp_coord[1] = p_coord[1] - ((p_coord[0] - temp_coord[0]) * tan(convert_to_radians(ray_angle - 270)));
-        if (temp_coord[1] < 0)
-            w_coord[1] = -1;
-        else
-            w_coord[1] = temp_coord[1] / IMG_SIZE;
-    }
-    
+    w_coord[0] = (temp_coord[0] + 1) * IMG_SIZE;
 
-    
+    if (ray_angle < 90)
+        w_coord[1] = p_coord[1] - ((w_coord[0] - p_coord[0]) * tan(convert_to_radians(90 - ray_angle)));
+	else if (ray_angle > 270)
+        w_coord[1] = p_coord[1] - ((p_coord[0] - w_coord[0]) * tan(convert_to_radians(ray_angle - 270)));
+
 }
 
-double  find_wall(t_data *data, double ray_angle)
+void	draw_pixels(t_data *data, double ray_angle, double wall_height)
 {
-    long long   vert_wall_coord[2];
-    // long long  horizon_wall_coord[2];
+	uint8_t	*pixels;
+	double	x;
+	double	y;
 
-    // special condition if ray-angle is 0, 90, 180 or 270
+	if (data->v_h_flag == 0)
+	{
+		if (data->player_coord[0] > data->vert_intersection_coord[0])
+			pixels = data->wall_img_w->pixels;
+		else
+			pixels = data->wall_img_e->pixels;
+	}
+	else
+	{
+		if (data->player_coord[1] > data->horizon_intersection_coord[1])
+			pixels = data->wall_img_n->pixels;
+		else
+			pixels = data->wall_img_s->pixels;
+	}
 
+	// count the right column to be drawn
+	// draw pixel by pixel
 
-    get_first_intersection(data, ray_angle, vert_wall_coord);
-
-    printf("%lld and %lld\n", vert_wall_coord[0], vert_wall_coord[1]);
-
-    // if no wall was found at first intersection, enter a loop where you continue ray.
-
-
-
-    return (0);
-    
 }
 
 
@@ -66,8 +49,11 @@ void    draw_image(t_data *data)
 {
     double  ray_angle;
     double  dist_to_wall;
+	double	drawn_wall_height;
 
     data->player_angle = 0; // TEST
+    data->player_coord[0] = 6 * IMG_SIZE - 1; // TEST
+    data->player_coord[1] = 6 * IMG_SIZE - 1; // TEST
 
     ray_angle = data->player_angle - 30;
     if (ray_angle < 0)
@@ -75,30 +61,9 @@ void    draw_image(t_data *data)
 
     // while loop here, ray_angle as the iterator
 
-    dist_to_wall = find_wall(data, ray_angle);
-    // count wall height (based on the distance)
-    // get intersection coord (based on the distance)
-    // get pixel info (based on intersection coords)
-    // draw pixels
+    dist_to_wall = find_wall_distance(data, ray_angle);
+	drawn_wall_height = (IMG_SIZE / dist_to_wall) * PP_DIST;
+	draw_pixels(data, ray_angle, drawn_wall_height);
+
 
 }
-
-
-
-/*double  get_vertical_distance(t_data *data, double ray_angle)
-{
-    double      distance;
-    long long   w_coord[2]; // rename this! Leikkauspisteen koordinaaatti tms
-    long long   *p_coord;
-
-    p_coord = data->player_coord;
-    if (ray_angle > 180 && ray_angle < 360)
-        w_coord[0] = p_coord[0] - (p_coord[0] % IMG_SIZE);
-    else
-        w_coord[0] = p_coord[0] + (IMG_SIZE - (p_coord[0] % IMG_SIZE));
-
-    if (ray_angle > 270)
-        w_coord[1] =  p_coord[1] - ((p_coord[0] - w_coord[0]) / tan(convert_to_radians(360 - ray_angle)));
-
-
-}*/

@@ -26,12 +26,12 @@ void	free_data(t_data *data)
 	}
 }
 
-void	error_exit(t_data *data, char *err_str, int init_flag)
+void	error_exit(t_data *data, const char *err_str, int init_flag)
 {
 	if (err_str != NULL)
 	{
 		ft_putendl_fd("Error", 2);
-		ft_putendl_fd(err_str, 2);
+		ft_putendl_fd((char*)err_str, 2);
 	}
 
 	if (init_flag == 1 && data->mlx != NULL)

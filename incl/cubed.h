@@ -27,6 +27,7 @@
 # define WINDOW_HEIGHT 1080
 # define IMG_SIZE 64 // 64 x 64 pixels
 # define PI 3.14159265358979323846
+# define PP_DIST 255 // Projection Plane Distance
 
 
 typedef struct s_map
@@ -60,15 +61,20 @@ typedef struct s_map
 typedef struct s_data
 {
 	mlx_t		*mlx;
-	mlx_image_t	*wall_img_n; // North-facing wall image
+	mlx_image_t	*wall_img_n; // Northern wall image
 	mlx_image_t	*wall_img_e; // etc...
 	mlx_image_t	*wall_img_s;
 	mlx_image_t	*wall_img_w;
 
 	t_map		**map;
+
+	int			v_h_flag; // vertical intersection found wall = 0, horizontal intersection = 1 (used in find_wall_distance.c)
+	double		vert_intersection_coord[2];
+	double		horizon_intersection_coord[2];
 	
 	int			map_height; // is this needed?
 	int			map_width; // is this needed?
+	
 	long long	player_coord[2]; // x and y coord of the player (will be in pixels)
 	double		player_angle; // 0 means player is facing north, 90 east, 180 south, 270 west. 360 is again 0.
 }			t_data;
@@ -77,7 +83,7 @@ typedef struct s_data
 
 // ERROR HANDLING
 
-void	error_exit(t_data *data, char *err_str, int init_flag);
+void	error_exit(t_data *data, const char *err_str, int init_flag);
 void	sys_error_exit(t_data *data, char *err_str, int mlx_flag);
 
 // FREE FUNCTIONS
@@ -92,7 +98,9 @@ void	get_map(t_data *data, char *map_name);
 
 // IMAGE DRAWING
 
+void    get_images(t_data *data);
 void    draw_image(t_data *data);
+double  find_wall_distance(t_data *data, double ray_angle);
 
 
 // UTILS

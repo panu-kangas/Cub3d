@@ -20,6 +20,7 @@ void	init_data(t_data *data)
 	data->wall_img_w = NULL;
 	data->wall_img_s = NULL;
 	data->wall_img_w = NULL;
+	data->v_h_flag = -1;
 }
 
 int	main(int argc, char *argv[])
@@ -39,10 +40,13 @@ int	main(int argc, char *argv[])
 
 	init_data(data);
 	get_map(data, argv[1]);
+	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", false);
+	if (!data->mlx)
+		error_exit(data, mlx_strerror(mlx_errno), 0);
+	get_images(data);
 
 	draw_image(data);
 
-//	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", false);
 //	mlx_loop(data->mlx);
 //	mlx_terminate(data->mlx);
 
