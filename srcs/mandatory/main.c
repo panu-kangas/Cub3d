@@ -47,8 +47,10 @@ int	main(int argc, char *argv[])
 
 	draw_image(data);
 
-//	mlx_loop(data->mlx);
-//	mlx_terminate(data->mlx);
+	mlx_image_to_window(data->mlx, data->game_img, 0, 0); // error handling
+
+	mlx_loop(data->mlx);
+	mlx_terminate(data->mlx);
 
 	free_data(data);
 

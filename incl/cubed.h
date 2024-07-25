@@ -61,14 +61,18 @@ typedef struct s_map
 typedef struct s_data
 {
 	mlx_t		*mlx;
+	mlx_image_t	*game_img;
+
 	mlx_image_t	*wall_img_n; // Northern wall image
 	mlx_image_t	*wall_img_e; // etc...
 	mlx_image_t	*wall_img_s;
 	mlx_image_t	*wall_img_w;
 
+
 	t_map		**map;
 
 	int			v_h_flag; // vertical intersection found wall = 0, horizontal intersection = 1 (used in find_wall_distance.c)
+	int			ray_iterator;
 	double		vert_intersection_coord[2];
 	double		horizon_intersection_coord[2];
 	
@@ -78,7 +82,6 @@ typedef struct s_data
 	long long	player_coord[2]; // x and y coord of the player (will be in pixels)
 	double		player_angle; // 0 means player is facing north, 90 east, 180 south, 270 west. 360 is again 0.
 }			t_data;
-
 
 
 // ERROR HANDLING
