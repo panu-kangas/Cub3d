@@ -4,14 +4,14 @@ void	get_wall_sw_images(t_data *data)
 {
 	mlx_texture_t	*wall_text;
 
-    wall_text = mlx_load_png("./tiles/wall_s");
+    wall_text = mlx_load_png("./tiles/wall_s.png");
 	if (!wall_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->wall_img_s = mlx_texture_to_image(data->mlx, wall_text);
 	if (!data->wall_img_s)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	mlx_delete_texture(wall_text);
-    wall_text = mlx_load_png("./tiles/wall_w");
+    wall_text = mlx_load_png("./tiles/wall_w.png");
 	if (!wall_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->wall_img_w = mlx_texture_to_image(data->mlx, wall_text);
@@ -25,14 +25,14 @@ void	get_wall_ne_images(t_data *data)
 {
 	mlx_texture_t	*wall_text;
 
-	wall_text = mlx_load_png("./tiles/wall_n");
+	wall_text = mlx_load_png("./tiles/wall_n.png");
 	if (!wall_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->wall_img_n = mlx_texture_to_image(data->mlx, wall_text);
 	if (!data->wall_img_n)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	mlx_delete_texture(wall_text);
-    wall_text = mlx_load_png("./tiles/wall_e");
+    wall_text = mlx_load_png("./tiles/wall_e.png");
 	if (!wall_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->wall_img_e = mlx_texture_to_image(data->mlx, wall_text);

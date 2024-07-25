@@ -23,11 +23,11 @@
 # include <MLX42/MLX42.h>
 # include "libft.h"
 
-# define WINDOW_WIDTH 1920
-# define WINDOW_HEIGHT 1080
+# define WINDOW_WIDTH 800 // 1920
+# define WINDOW_HEIGHT 600 // 1080
 # define IMG_SIZE 64 // 64 x 64 pixels
 # define PI 3.14159265358979323846
-# define PP_DIST 255 // Projection Plane Distance
+# define PP_DIST 255 // Projection Plane Distance, 255 is recommendation
 
 
 typedef struct s_map
