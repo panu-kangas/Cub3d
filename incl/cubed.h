@@ -26,8 +26,10 @@
 # define WINDOW_WIDTH 800 // 1920
 # define WINDOW_HEIGHT 600 // 1080
 # define IMG_SIZE 64 // 64 x 64 pixels
-# define PI 3.14159265358979323846
+# define PI 3.14159265358979323846 // Not the dessert... sadly
 # define PP_DIST 255 // Projection Plane Distance, 255 is recommendation
+# define PLAYER_SPEED 14 // X pixels per keypress
+# define PLAYER_TURN_SPEED 7 // X degrees change to angle per keypress
 
 
 typedef struct s_map
@@ -71,6 +73,9 @@ typedef struct s_data
 
 	t_map		**map;
 
+	int			ceiling_colour;
+	int			floor_colour;
+
 	int			v_h_flag; // vertical intersection found wall = 0, horizontal intersection = 1 (used in find_wall_distance.c)
 	int			ray_iterator;
 	double		vert_intersection_coord[2];
@@ -94,7 +99,6 @@ void	sys_error_exit(t_data *data, char *err_str, int mlx_flag);
 void	free_data(t_data *data);
 void	free_map(t_data *data);
 
-
 // MAP HANDLING
 
 void	get_map(t_data *data, char *map_name);
@@ -104,7 +108,12 @@ void	get_map(t_data *data, char *map_name);
 void    get_images(t_data *data);
 void    draw_image(t_data *data);
 double  find_wall_distance(t_data *data, double ray_angle);
+int 	get_rgba(int r, int g, int b, int a);
 
+
+// HOOK FUNCTIONS
+
+void	keyhook(mlx_key_data_t keydata, void *param);
 
 // UTILS
 

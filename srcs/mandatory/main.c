@@ -45,9 +45,18 @@ int	main(int argc, char *argv[])
 		error_exit(data, mlx_strerror(mlx_errno), 0);
 	get_images(data);
 
+	data->player_coord[0] = 2 * IMG_SIZE - 1; // TEST
+    data->player_coord[1] = 2 * IMG_SIZE - 1; // TEST
+	data->player_angle = 120; // TEST
+	
+	data->floor_colour = get_rgba(77, 71, 58, 255); // TEST
+	data->ceiling_colour = get_rgba(18, 17, 16, 255); // TEST
+
 	draw_image(data);
 
 	mlx_image_to_window(data->mlx, data->game_img, 0, 0); // error handling
+
+	mlx_key_hook(data->mlx, &keyhook, (void*)data);
 
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);

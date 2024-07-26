@@ -20,8 +20,12 @@ void    assign_map(t_data *data)
         {
             if (x == 0 || x == data->map_width - 1)
                 data->map[y][x].type = '1';
-            else if (x == 6 && y == 6)
+            else if (x == 2 && y == 2)
                 data->map[y][x].type = 'P';
+			else if (x == 4 && y == 4)
+                data->map[y][x].type = '1';
+			else if (x == 8 && y == 7)
+                data->map[y][x].type = '1';
             else
                 data->map[y][x].type = '0';
             x++;
@@ -74,8 +78,8 @@ void    get_map(t_data *data, char *map_name)
     // If map is valid, then we allocate map based on map height and width
     // I'll use now some random values for testing!
 
-    data->map_width = 12;
-    data->map_height = 12;
+    data->map_width = 12; // TEST
+    data->map_height = 12; // TEST
 
     allocate_map(data);
 
