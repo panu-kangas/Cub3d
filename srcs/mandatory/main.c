@@ -54,12 +54,15 @@ int	main(int argc, char *argv[])
 
 	draw_image(data);
 
-	mlx_image_to_window(data->mlx, data->game_img, 0, 0); // error handling
+	if (mlx_image_to_window(data->mlx, data->game_img, 0, 0) < 0)
+		error_exit(data, mlx_strerror(mlx_errno), 1);
 
 	mlx_key_hook(data->mlx, &keyhook, (void*)data);
 
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
+
+	print_goodbye_message();
 
 	free_data(data);
 

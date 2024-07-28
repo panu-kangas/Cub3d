@@ -1,28 +1,27 @@
 #include "cubed.h"
 
-int get_rgba(int r, int g, int b, int a)
-{
-    return (r << 24 | g << 16 | b << 8 | a);
-}
 
-void	execute_drawing(t_data *data, uint8_t *pixels, int column, double wall_height)
+int	draw_wall(t_data *data, int i, double wall_height, int start_coord)
 {
-	int		i;
 	int		colour;
-	int		start_coord;
+	int		pixel_counter;
 	double	pixel_iter;
+	uint8_t	*pixels;
 
-	i = 0;
-	start_coord = (WINDOW_HEIGHT / 2) - (wall_height / 2);
+	pixel_counter = 0;
 	pixel_iter = 0.0;
+	pixels = data->pixels;
 
-	while (i < start_coord)
-		mlx_put_pixel(data->game_img, data->ray_iterator, i++, data->ceiling_colour); // error handling...?
-	i = column * 4;
-	while (i < (IMG_SIZE * IMG_SIZE * 4))
+	while (i < (IMG_SIZE * IMG_SIZE * 4) && pixel_counter < WINDOW_HEIGHT)
 	{
-		colour = get_rgba(pixels[i], pixels[i + 1], pixels[i + 2], pixels[i + 3]);
-		mlx_put_pixel(data->game_img, data->ray_iterator, start_coord++, colour); // error handling...?
+		if (start_coord < 0)
+			start_coord++;
+		else
+		{
+			colour = get_rgba(pixels[i], pixels[i + 1], pixels[i + 2], pixels[i + 3]);
+			mlx_put_pixel(data->game_img, data->ray_iterator, start_coord++, colour);
+			pixel_counter++;
+		}
 		pixel_iter += (IMG_SIZE / wall_height);
 		if (pixel_iter > 1)
 		{
@@ -33,33 +32,46 @@ void	execute_drawing(t_data *data, uint8_t *pixels, int column, double wall_heig
 			}
 		}
 	}
+	return (start_coord);
+}
+
+void	execute_drawing(t_data *data, int column, double wall_height)
+{
+	int		i;
+	int		start_coord;
+
+	i = 0;
+	start_coord = (WINDOW_HEIGHT / 2) - (wall_height / 2);
+
+	while (start_coord > 0 &&  i < start_coord)
+		mlx_put_pixel(data->game_img, data->ray_iterator, i++, data->ceiling_colour);
+	start_coord = draw_wall(data, (column * 4), wall_height, start_coord);
 	while (start_coord < WINDOW_HEIGHT)
-		mlx_put_pixel(data->game_img, data->ray_iterator, start_coord++, data->floor_colour); // error handling...?
+		mlx_put_pixel(data->game_img, data->ray_iterator, start_coord++, data->floor_colour);
 }
 
 void	draw_pixels(t_data *data, double wall_height)
 {
-	uint8_t	*pixels;
 	int		column_to_draw;
 
 	if (data->v_h_flag == 0)
 	{
 		if (data->player_coord[0] > data->vert_intersection_coord[0])
-			pixels = data->wall_img_w->pixels;
+			data->pixels = data->wall_img_w->pixels;
 		else
-			pixels = data->wall_img_e->pixels;
+			data->pixels = data->wall_img_e->pixels;
 		column_to_draw = (int)data->vert_intersection_coord[1] % IMG_SIZE; // this might be wrong!
 	}
 	else
 	{
 		if (data->player_coord[1] > data->horizon_intersection_coord[1])
-			pixels = data->wall_img_n->pixels;
+			data->pixels = data->wall_img_n->pixels;
 		else
-			pixels = data->wall_img_s->pixels;
+			data->pixels = data->wall_img_s->pixels;
 		column_to_draw = (int)data->horizon_intersection_coord[0] % IMG_SIZE; // this might be wrong!
 	}
 
-	execute_drawing(data, pixels, column_to_draw, wall_height);
+	execute_drawing(data, column_to_draw, wall_height);
 
 
 }
@@ -91,22 +103,3 @@ void    draw_image(t_data *data)
 
 }
 
-/*
-void    get_exact_vert_coord(t_data *data, double ray_angle, long long *w_coord)
-{
-    long long   temp_coord[2];
-    long long   *p_coord;
-
-    temp_coord[0] = w_coord[0];
-    temp_coord[1] = w_coord[1];
-    p_coord = data->player_coord;
-
-    w_coord[0] = (temp_coord[0] + 1) * IMG_SIZE;
-
-    if (ray_angle < 90)
-        w_coord[1] = p_coord[1] - ((w_coord[0] - p_coord[0]) * tan(convert_to_radians(90 - ray_angle)));
-	else if (ray_angle > 270)
-        w_coord[1] = p_coord[1] - ((p_coord[0] - w_coord[0]) * tan(convert_to_radians(ray_angle - 270)));
-
-}
-*/

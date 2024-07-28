@@ -8,7 +8,7 @@ int check_for_wall(t_data *data, long long *wall_coord)
     x = wall_coord[0];
     y = wall_coord[1];
 
-	printf ("WALL CHECK COORDS: x=%lld, y=%lld\n", x, y);
+//	printf ("WALL CHECK COORDS: x=%lld, y=%lld\n", x, y);
 
     if (data->map[y][x].type == '1')
         return (1);
@@ -45,7 +45,7 @@ double  compare_distance(t_data *data, double ray_angle, long long *vert_coord, 
     	horizon_distance = (p_coord[1] - ((horizon_coord[1] + 1) * IMG_SIZE)) / sin(convert_to_radians(ray_angle - 270));  // eventually use ABS-value
 
 //	printf("VERT_COORD: x=%lld, y=%lld, HORI_COORD: x=%lld, y=%lld\n", vert_coord[0], vert_coord[1], horizon_coord[0], horizon_coord[1]);
-	printf("VERT_DIST: %f\nHORI_DIST: %f\n\n", vert_distance, horizon_distance);
+//	printf("VERT_DIST: %f\nHORI_DIST: %f\n\n", vert_distance, horizon_distance);
 
 	if (vert_distance < horizon_distance)
     {
@@ -76,8 +76,6 @@ void    get_horizon_intersection(t_data *data, double ray_angle, long long *w_co
 		w_coord[1] = (temp_coord[1] + 1) / IMG_SIZE;
 	}
 
-
-    // add other quarters here too
     if (ray_angle < 90) // up right
     {
         temp_coord[0] = p_coord[0] + ((p_coord[1] - temp_coord[1]) / tan(convert_to_radians(90 - ray_angle)));
@@ -133,7 +131,6 @@ void    get_vert_intersection(t_data *data, double ray_angle, long long *w_coord
 		w_coord[0] = (temp_coord[0] - 1) / IMG_SIZE;
 	}
     
-
     if (ray_angle < 90) // up right
     {
         temp_coord[1] = p_coord[1] - ((temp_coord[0] - p_coord[0]) * tan(convert_to_radians(90 - ray_angle)));
@@ -183,14 +180,14 @@ double  find_wall_distance(t_data *data, double ray_angle)
     if (ray_angle == 0.0000 || ray_angle - 90.0000 == 0 || ray_angle - 180.0000 == 0 || ray_angle - 270.0000 == 0)
 		ray_angle += 0.075;
 
-	printf("\nVERT INTER\n");
+//	printf("\nVERT INTER\n");
 
     get_vert_intersection(data, ray_angle, vert_wall_coord, 0);    
     i = 1;
     while (check_for_wall(data, vert_wall_coord) != 1)
 		get_vert_intersection(data, ray_angle, vert_wall_coord, i++);
 
-	printf("\nHORI INTER\n");
+//	printf("\nHORI INTER\n");
 
 
     get_horizon_intersection(data, ray_angle, horizon_wall_coord, 0);

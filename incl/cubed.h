@@ -28,7 +28,7 @@
 # define IMG_SIZE 64 // 64 x 64 pixels
 # define PI 3.14159265358979323846 // Not the dessert... sadly
 # define PP_DIST 255 // Projection Plane Distance, 255 is recommendation
-# define PLAYER_SPEED 14 // X pixels per keypress
+# define PLAYER_SPEED 14 // move X pixels per keypress
 # define PLAYER_TURN_SPEED 7 // X degrees change to angle per keypress
 
 
@@ -70,6 +70,7 @@ typedef struct s_data
 	mlx_image_t	*wall_img_s;
 	mlx_image_t	*wall_img_w;
 
+	uint8_t		*pixels; // pixel data of a single wall
 
 	t_map		**map;
 
@@ -81,8 +82,8 @@ typedef struct s_data
 	double		vert_intersection_coord[2];
 	double		horizon_intersection_coord[2];
 	
-	int			map_height; // is this needed?
-	int			map_width; // is this needed?
+	int			map_height;
+	int			map_width;
 	
 	long long	player_coord[2]; // x and y coord of the player (will be in pixels)
 	double		player_angle; // 0 means player is facing north, 90 east, 180 south, 270 west. 360 is again 0.
@@ -93,6 +94,7 @@ typedef struct s_data
 
 void	error_exit(t_data *data, const char *err_str, int init_flag);
 void	sys_error_exit(t_data *data, char *err_str, int mlx_flag);
+void	success_exit(t_data *data);
 
 // FREE FUNCTIONS
 
@@ -118,9 +120,7 @@ void	keyhook(mlx_key_data_t keydata, void *param);
 // UTILS
 
 double  convert_to_radians(double angle_in_degrees);
-
-
-
+void	print_goodbye_message(void);
 
 
 #endif

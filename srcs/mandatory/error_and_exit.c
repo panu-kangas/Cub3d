@@ -54,3 +54,14 @@ void	sys_error_exit(t_data *data, char *err_str, int init_flag)
 
 	exit(1);
 }
+
+void	success_exit(t_data *data)
+{
+	print_goodbye_message();
+	
+	mlx_terminate(data->mlx);
+
+	free_data(data);
+
+	exit(0);
+}

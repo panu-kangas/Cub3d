@@ -25,7 +25,7 @@ $(LIBFT):
 	make -C ./lib/libft/.
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(LIBS) $(HEADERS) -fsanitize=address,undefined -o $(NAME)
+	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME) -fsanitize=address,undefined
 
 bonus: .bonus
 
