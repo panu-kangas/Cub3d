@@ -1,4 +1,4 @@
-#include "cubed.h"
+#include "cubed_bonus.h"
 
 long long	get_up_right_y(t_data *data, long long *t_coord, double ray_angle)
 {

@@ -1,4 +1,4 @@
-#include "cubed.h"
+#include "cubed_bonus.h"
 
 double	get_vert_distance(t_data *data, double ray_angle, long long *v_coord)
 {

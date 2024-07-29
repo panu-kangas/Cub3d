@@ -18,7 +18,7 @@ OBJS	= ${SRCS:.c=.o}
 BONSRCS	= $(BONUS)/main_bonus.c $(BONUS)/error_and_exit_bonus.c $(BONUS)/get_map_bonus.c $(BONUS)/utils_bonus.c \
 		$(BONUS)/draw_image_bonus.c $(BONUS)/find_wall_distance_bonus.c $(BONUS)/get_images_bonus.c $(BONUS)/keyhook_bonus.c \
 		$(BONUS)/get_intersection_x_bonus.c $(BONUS)/get_intersection_y_bonus.c $(BONUS)/key_actions_bonus.c \
-		$(BONUS)/compare_distance_bonus.c $(BONUS)/check_for_collision_bonus.c
+		$(BONUS)/compare_distance_bonus.c $(BONUS)/check_for_collision_bonus.c $(BONUS)/draw_functions_bonus.c
 BONOBJS	= ${BONSRCS:.c=.o}
 
 all: $(LIBMLX) $(LIBFT) $(NAME)
@@ -35,7 +35,7 @@ $(NAME): $(OBJS)
 bonus: .bonus
 
 .bonus: $(LIBMLX) $(LIBFT) $(BONOBJS)
-	$(CC) $(BONOBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	$(CC) $(BONOBJS) $(LIBS) $(HEADERS) -o $(NAME) -fsanitize=address,undefined
 	touch .bonus
 
 %.o: %.c

@@ -1,4 +1,4 @@
-#include "cubed.h"
+#include "cubed_bonus.h"
 
 int	check_for_wall(t_data *data, long long *wall_coord)
 {

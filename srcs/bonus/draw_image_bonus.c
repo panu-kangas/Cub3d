@@ -1,42 +1,4 @@
-#include "cubed.h"
-
-int	colour_the_pixel(t_data *data, int *start_coord, int pixel_counter, int i)
-{
-	int		colour;
-	uint8_t	*pixels;
-
-	pixels = data->pixels;
-	colour = get_rgba(pixels[i], pixels[i + 1], pixels[i + 2], pixels[i + 3]);
-	mlx_put_pixel(data->game_img, data->ray_iterator, *start_coord, colour);
-	*start_coord += 1;
-	return (pixel_counter + 1);
-}
-
-int	draw_wall(t_data *data, int i, double wall_height, int start_coord)
-{
-	int		px_cnt;
-	double	pixel_iter;
-
-	px_cnt = 0;
-	pixel_iter = 0.0;
-	while (i < (IMG_SIZE * IMG_SIZE * 4) && px_cnt < WINDOW_HEIGHT)
-	{
-		if (start_coord < 0)
-			start_coord++;
-		else
-			px_cnt = colour_the_pixel(data, &start_coord, px_cnt, i);
-		pixel_iter += (IMG_SIZE / wall_height);
-		if (pixel_iter > 1)
-		{
-			while (pixel_iter > 1)
-			{
-				pixel_iter -= 1;
-				i += (IMG_SIZE * 4);
-			}
-		}
-	}
-	return (start_coord);
-}
+#include "cubed_bonus.h"
 
 void	execute_drawing(t_data *data, int column, double wall_height)
 {
@@ -103,4 +65,5 @@ void	draw_image(t_data *data)
 		if (ray_angle > 360)
 			ray_angle = 0;
 	}
+	draw_minimap(data);
 }

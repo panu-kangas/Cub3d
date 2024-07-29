@@ -1,4 +1,4 @@
-#include "cubed.h"
+#include "cubed_bonus.h"
 
 void	get_wall_sw_images(t_data *data)
 {

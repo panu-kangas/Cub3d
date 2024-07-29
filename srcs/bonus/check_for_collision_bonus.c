@@ -1,4 +1,4 @@
-#include "cubed.h"
+#include "cubed_bonus.h"
 
 void	change_player_coord_left(t_data *data, double direction, int speed)
 {
