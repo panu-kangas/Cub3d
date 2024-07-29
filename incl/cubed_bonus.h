@@ -74,6 +74,7 @@ typedef struct s_data
 	mlx_image_t	*wall_img_e; // etc...
 	mlx_image_t	*wall_img_s;
 	mlx_image_t	*wall_img_w;
+	mlx_image_t *player_icon;
 
 	uint8_t		*pixels; // pixel data of a single wall
 
@@ -144,10 +145,12 @@ int		check_for_collision(t_data *data, double direction);
 double  convert_to_radians(double angle_in_degrees);
 void	print_goodbye_message(void);
 int 	get_rgba(int r, int g, int b, int a);
+void	delete_and_init_images(t_data *data);
 
 // MINIMAP FUNCTIONS
 
 void	draw_minimap(t_data *data);
+void	draw_player_icon(t_data *data);
 
 
 

@@ -58,9 +58,9 @@ int		get_colour_minimap(t_data *data, int x_counter)
 	|| draw_coord[0] >= data->map_width || draw_coord[1] >= data->map_height)
 		return (get_rgba(10, 10, 10, 255));
 
-	if (x_counter == 5 && y_counter == 5)
-		return (get_rgba(49, 120, 60, 255)); // Player (green)
-	else if (data->map[draw_coord[1]][draw_coord[0]].type == '0' ||
+//	if (x_counter == 5 && y_counter == 5)
+//		return (get_rgba(49, 120, 60, 255)); // Player (green)
+	if (data->map[draw_coord[1]][draw_coord[0]].type == '0' ||
 	data->map[draw_coord[1]][draw_coord[0]].type == 'P')
 		return (get_rgba(230, 224, 193, 255)); // Floor (brown)
 	else if (data->map[draw_coord[1]][draw_coord[0]].type == '1')
@@ -104,4 +104,5 @@ void	draw_minimap(t_data *data)
 			x_counter = 0;
 		}
 	}
+	draw_player_icon(data);
 }

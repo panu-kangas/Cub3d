@@ -57,6 +57,7 @@ int	main(int argc, char *argv[])
 
 	if (mlx_image_to_window(data->mlx, data->game_img, 0, 0) < 0)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
+	mlx_set_instance_depth(&data->game_img->instances[0], 1);
 
 	mlx_key_hook(data->mlx, &keyhook, (void*)data);
 	mlx_loop(data->mlx);
