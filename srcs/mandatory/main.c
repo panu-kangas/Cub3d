@@ -41,6 +41,7 @@ int	main(int argc, char *argv[])
 	init_data(data);
 	get_map(data, argv[1]);
 	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", false);
+
 	if (!data->mlx)
 		error_exit(data, mlx_strerror(mlx_errno), 0);
 	get_images(data);
@@ -49,8 +50,8 @@ int	main(int argc, char *argv[])
     data->player_coord[1] = 2 * IMG_SIZE - 1; // TEST
 	data->player_angle = 120; // TEST
 	
-	data->floor_colour = get_rgba(77, 71, 58, 255); // TEST
-	data->ceiling_colour = get_rgba(18, 17, 16, 255); // TEST
+	data->fl_colour = get_rgba(77, 71, 58, 255); // TEST
+	data->ceil_colour = get_rgba(18, 17, 16, 255); // TEST
 
 	draw_image(data);
 
@@ -58,13 +59,9 @@ int	main(int argc, char *argv[])
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 
 	mlx_key_hook(data->mlx, &keyhook, (void*)data);
-
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
-
 	print_goodbye_message();
-
 	free_data(data);
-
 	return (0);
 }

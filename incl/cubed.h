@@ -29,7 +29,7 @@
 # define PI 3.14159265358979323846 // Not the dessert... sadly
 # define PP_DIST 255 // Projection Plane Distance, 255 is recommendation
 # define PLAYER_SPEED 14 // move X pixels per keypress
-# define PLAYER_TURN_SPEED 7 // X degrees change to angle per keypress
+# define PLAYER_TURN_SPEED 9 // X degrees change to angle per keypress
 
 
 typedef struct s_map
@@ -74,8 +74,8 @@ typedef struct s_data
 
 	t_map		**map;
 
-	int			ceiling_colour;
-	int			floor_colour;
+	int			ceil_colour; // ceiling colour
+	int			fl_colour; // floor colour
 
 	int			v_h_flag; // vertical intersection found wall = 0, horizontal intersection = 1 (used in find_wall_distance.c)
 	int			ray_iterator;
@@ -109,13 +109,31 @@ void	get_map(t_data *data, char *map_name);
 
 void    get_images(t_data *data);
 void    draw_image(t_data *data);
-double  find_wall_distance(t_data *data, double ray_angle);
+double  find_wall_distance(t_data *data, double ray_angle, double addition);
+double  compare_distance(t_data *data, double ray_angle, \
+long long *vert_coord, long long *horizon_coord);
 int 	get_rgba(int r, int g, int b, int a);
 
+// INTERSECTION MATH HELPERS
+
+long long get_up_right_x(t_data *data, long long *t_coord, double ray_angle);
+long long get_down_right_x(t_data *data, long long *t_coord, double ray_angle);
+long long get_down_left_x(t_data *data, long long *t_coord, double ray_angle);
+long long get_up_left_x(t_data *data, long long *t_coord, double ray_angle);
+long long get_up_right_y(t_data *data, long long *t_coord, double ray_angle);
+long long get_down_right_y(t_data *data, long long *t_coord, double ray_angle);
+long long get_down_left_y(t_data *data, long long *t_coord, double ray_angle);
+long long get_up_left_y(t_data *data, long long *t_coord, double ray_angle);
 
 // HOOK FUNCTIONS
 
 void	keyhook(mlx_key_data_t keydata, void *param);
+void	key_action_w(t_data *data);
+void	key_action_a(t_data *data);
+void	key_action_s(t_data *data);
+void	key_action_d(t_data *data);
+int		check_for_collision(t_data *data, double direction);
+
 
 // UTILS
 
