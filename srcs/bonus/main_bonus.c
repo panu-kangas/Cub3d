@@ -59,7 +59,8 @@ int	main(int argc, char *argv[])
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	mlx_set_instance_depth(&data->game_img->instances[0], 1);
 
-	mlx_key_hook(data->mlx, &keyhook, (void*)data);
+	mlx_loop_hook(data->mlx, &enemy_handler, data);
+	mlx_key_hook(data->mlx, &keyhook, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 	print_goodbye_message();

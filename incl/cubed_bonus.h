@@ -74,7 +74,9 @@ typedef struct s_data
 	mlx_image_t	*wall_img_e; // etc...
 	mlx_image_t	*wall_img_s;
 	mlx_image_t	*wall_img_w;
+
 	mlx_image_t *player_icon;
+	mlx_image_t *enemy_img;
 
 	uint8_t		*pixels; // pixel data of a single wall
 
@@ -152,6 +154,9 @@ void	delete_and_init_images(t_data *data);
 void	draw_minimap(t_data *data);
 void	draw_player_icon(t_data *data);
 
+// ENEMY FUNCTIONS
+
+void	enemy_handler(void *param);
 
 
 #endif
