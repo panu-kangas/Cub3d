@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cubed.h                                            :+:      :+:    :+:   */
+/*   cubed_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,8 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBED_H
-# define CUBED_H
+#ifndef CUBED_BONUS_H
+# define CUBED_BONUS_H
 
 # include <unistd.h> // open
 # include <fcntl.h> // open flags
@@ -30,6 +30,11 @@
 # define PP_DIST 255 // Projection Plane Distance, 255 is recommendation
 # define PLAYER_SPEED 14 // move X pixels per keypress
 # define PLAYER_TURN_SPEED 9 // X degrees change to angle per keypress
+
+# define MINIMAP_WIDTH 176 // IMG_SIZE * TILE_COUNT (16 * 11)
+# define MINIMAP_HEIGHT	176
+# define MINIMAP_IMG_SIZE 16
+# define MINIMAP_TILE_COUNT 11
 
 
 typedef struct s_map
@@ -69,6 +74,7 @@ typedef struct s_data
 	mlx_image_t	*wall_img_e; // etc...
 	mlx_image_t	*wall_img_s;
 	mlx_image_t	*wall_img_w;
+	mlx_image_t *player_icon;
 
 	uint8_t		*pixels; // pixel data of a single wall
 
@@ -112,7 +118,7 @@ void    draw_image(t_data *data);
 double  find_wall_distance(t_data *data, double ray_angle, double addition);
 double  compare_distance(t_data *data, double ray_angle, \
 long long *vert_coord, long long *horizon_coord);
-int 	get_rgba(int r, int g, int b, int a);
+int		draw_wall(t_data *data, int i, double wall_height, int start_coord);
 
 // INTERSECTION MATH HELPERS
 
@@ -134,11 +140,18 @@ void	key_action_s(t_data *data);
 void	key_action_d(t_data *data);
 int		check_for_collision(t_data *data, double direction);
 
-
 // UTILS
 
 double  convert_to_radians(double angle_in_degrees);
 void	print_goodbye_message(void);
+int 	get_rgba(int r, int g, int b, int a);
+void	delete_and_init_images(t_data *data);
+
+// MINIMAP FUNCTIONS
+
+void	draw_minimap(t_data *data);
+void	draw_player_icon(t_data *data);
+
 
 
 #endif

@@ -1,4 +1,4 @@
-#include "cubed.h"
+#include "cubed_bonus.h"
 
 double	convert_to_radians(double angle_in_degrees)
 {
@@ -19,4 +19,14 @@ void	print_goodbye_message(void)
 	printf("*     See you again! =)     *\n");
 	printf(" *                           *\n");
 	printf("*****************************\n\n");
+}
+
+void	delete_and_init_images(t_data *data)
+{
+	mlx_delete_image(data->mlx, data->game_img);
+	mlx_delete_image(data->mlx, data->player_icon);
+
+	data->game_img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (!data->game_img)
+		error_exit(data, mlx_strerror(mlx_errno), 1);
 }

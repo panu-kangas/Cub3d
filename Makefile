@@ -10,10 +10,16 @@ HEADERS	= -I ./lib/MLX42/include -I ./lib/libft -I ./incl
 LIBS	= $(LIBMLX) $(LIBFT) -ldl -pthread -lm -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
 
 SRCS	= $(MAND)/main.c $(MAND)/error_and_exit.c $(MAND)/get_map.c $(MAND)/utils.c \
-		$(MAND)/draw_image.c
+		$(MAND)/draw_image.c $(MAND)/find_wall_distance.c $(MAND)/get_images.c $(MAND)/keyhook.c \
+		$(MAND)/get_intersection_x.c $(MAND)/get_intersection_y.c $(MAND)/key_actions.c \
+		$(MAND)/compare_distance.c $(MAND)/check_for_collision.c
 OBJS	= ${SRCS:.c=.o}
 
-BONSRCS	= 
+BONSRCS	= $(BONUS)/main_bonus.c $(BONUS)/error_and_exit_bonus.c $(BONUS)/get_map_bonus.c $(BONUS)/utils_bonus.c \
+		$(BONUS)/draw_image_bonus.c $(BONUS)/find_wall_distance_bonus.c $(BONUS)/get_images_bonus.c $(BONUS)/keyhook_bonus.c \
+		$(BONUS)/get_intersection_x_bonus.c $(BONUS)/get_intersection_y_bonus.c $(BONUS)/key_actions_bonus.c \
+		$(BONUS)/compare_distance_bonus.c $(BONUS)/check_for_collision_bonus.c $(BONUS)/draw_functions_bonus.c \
+		$(BONUS)/draw_player_icon_bonus.c
 BONOBJS	= ${BONSRCS:.c=.o}
 
 all: $(LIBMLX) $(LIBFT) $(NAME)
@@ -25,12 +31,12 @@ $(LIBFT):
 	make -C ./lib/libft/.
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(LIBS) $(HEADERS) -fsanitize=address,undefined -o $(NAME)
+	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME) -fsanitize=address,undefined
 
 bonus: .bonus
 
 .bonus: $(LIBMLX) $(LIBFT) $(BONOBJS)
-	$(CC) $(BONOBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	$(CC) $(BONOBJS) $(LIBS) $(HEADERS) -o $(NAME) -fsanitize=address,undefined
 	touch .bonus
 
 %.o: %.c
