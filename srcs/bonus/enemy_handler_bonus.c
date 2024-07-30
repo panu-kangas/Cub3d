@@ -2,7 +2,10 @@
 
 void	enemy_animation(t_data *data)
 {
-	int	i;
+
+	if (data == NULL)
+		return ;
+/*	int	i;
 
 	i = 0;
 //	game->e_count = 0;
@@ -16,14 +19,14 @@ void	enemy_animation(t_data *data)
 		if (game->enemies[i].is_dying == 0)
 			enemy_movement(game, i);
 		i++;
-	}
+	} */
 }
 
 void	enemy_handler(void *param)
 {
 	t_data			*data;
 	static double	prev_time;
-	static double	prev_dead_time;
+//	static double	prev_dead_time;
 	double			time;
 //	int				i;
 

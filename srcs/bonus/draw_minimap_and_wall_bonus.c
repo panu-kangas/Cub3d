@@ -49,9 +49,9 @@ int		get_colour_minimap(t_data *data, int x_counter)
 	start_pos = MINIMAP_TILE_COUNT / 2;
 	draw_coord[0] = (p_coord[0] / IMG_SIZE) - (start_pos - x_counter);
 	draw_coord[1] = (p_coord[1] / IMG_SIZE) - (start_pos - y_counter);
-	if (x_counter == 10)
+	if (x_counter == MINIMAP_TILE_COUNT - 1)
 		y_counter++;
-	if (y_counter == 11)
+	if (y_counter == MINIMAP_TILE_COUNT)
 		y_counter = 0;
 
 	if (draw_coord[0] < 0 || draw_coord[1] < 0 \

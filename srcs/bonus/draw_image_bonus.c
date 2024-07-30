@@ -66,4 +66,5 @@ void	draw_image(t_data *data)
 			ray_angle = 0;
 	}
 	draw_minimap(data);
+//	draw_enemies(data);
 }

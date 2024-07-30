@@ -22,6 +22,7 @@ void	free_data(t_data *data)
 	if (data != NULL)
 	{
 		free_map(data);
+		free(data->enemy);
 		free(data);
 	}
 }

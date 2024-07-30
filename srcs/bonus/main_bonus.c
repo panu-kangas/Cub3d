@@ -21,6 +21,13 @@ void	init_data(t_data *data)
 	data->wall_img_s = NULL;
 	data->wall_img_w = NULL;
 	data->v_h_flag = -1;
+
+	data->player_coord[0] = 2 * IMG_SIZE - 1; // TEST
+    data->player_coord[1] = 2 * IMG_SIZE - 1; // TEST
+	data->player_angle = 120; // TEST
+	
+	data->fl_colour = get_rgba(77, 71, 58, 255); // TEST
+	data->ceil_colour = get_rgba(18, 17, 16, 255); // TEST
 }
 
 int	main(int argc, char *argv[])
@@ -40,18 +47,14 @@ int	main(int argc, char *argv[])
 
 	init_data(data);
 	get_map(data, argv[1]);
+	init_enemies(data);
+
 	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", false);
 
 	if (!data->mlx)
 		error_exit(data, mlx_strerror(mlx_errno), 0);
 	get_images(data);
 
-	data->player_coord[0] = 2 * IMG_SIZE - 1; // TEST
-    data->player_coord[1] = 2 * IMG_SIZE - 1; // TEST
-	data->player_angle = 120; // TEST
-	
-	data->fl_colour = get_rgba(77, 71, 58, 255); // TEST
-	data->ceil_colour = get_rgba(18, 17, 16, 255); // TEST
 
 	draw_image(data);
 

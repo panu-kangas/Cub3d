@@ -1,14 +1,29 @@
 #include "cubed_bonus.h"
 
-int	check_for_wall(t_data *data, long long *wall_coord)
+// WORK IN PROGRESS
+int	check_for_wall(t_data *data, long long *check_coord, char vh)
 {
 	long long	x;
 	long long	y;
 
-	x = wall_coord[0];
-	y = wall_coord[1];
+	x = check_coord[0];
+	y = check_coord[1];
 	if (data->map[y][x].type == '1')
+	{
+		if (vh == 'V')
+			data->wall_or_enemy_vert = 0;
+		else
+			data->wall_or_enemy_horiz = 0;
 		return (1);
+	}
+	if (data->map[y][x].is_enemy == 1) // not enough, I need to also check if the ray actually hits enemy
+	{
+		if (vh == 'V')
+			data->wall_or_enemy_vert = 1;
+		else
+			data->wall_or_enemy_horiz = 1;
+		return (1);
+	}
 	return (0);
 }
 
@@ -83,11 +98,11 @@ double	find_wall_distance(t_data *data, double ray_angle, double addition)
 		ray_angle += addition;
 	get_vert_intersection(data, ray_angle, vert_coords, 0);
 	i = 1;
-	while (check_for_wall(data, vert_coords) != 1)
+	while (check_for_wall(data, vert_coords, 'V') != 1)
 		get_vert_intersection(data, ray_angle, vert_coords, i++);
 	get_horizon_intersection(data, ray_angle, horiz_coords, 0);
 	i = 1;
-	while (check_for_wall(data, horiz_coords) != 1)
+	while (check_for_wall(data, horiz_coords, 'H') != 1)
 		get_horizon_intersection(data, ray_angle, horiz_coords, i++);
 	return (compare_distance(data, ray_angle, vert_coords, horiz_coords));
 }

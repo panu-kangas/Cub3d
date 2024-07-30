@@ -5,21 +5,21 @@ void	set_player_icon_img(t_data *data, int direction)
 	mlx_texture_t	*player_text;
 
 	if (direction == 0)
-		player_text = mlx_load_png("./sprites/minimap_player_0.png");
+		player_text = mlx_load_png("./sprites/minimap/minimap_player_0.png");
 	else if (direction == 1)
-		player_text = mlx_load_png("./sprites/minimap_player_1.png");
+		player_text = mlx_load_png("./sprites/minimap/minimap_player_1.png");
 	else if (direction == 2)
-		player_text = mlx_load_png("./sprites/minimap_player_2.png");
+		player_text = mlx_load_png("./sprites/minimap/minimap_player_2.png");
 	else if (direction == 3)
-		player_text = mlx_load_png("./sprites/minimap_player_3.png");
+		player_text = mlx_load_png("./sprites/minimap/minimap_player_3.png");
 	else if (direction == 4)
-		player_text = mlx_load_png("./sprites/minimap_player_4.png");
+		player_text = mlx_load_png("./sprites/minimap/minimap_player_4.png");
 	else if (direction == 5)
-		player_text = mlx_load_png("./sprites/minimap_player_5.png");
+		player_text = mlx_load_png("./sprites/minimap/minimap_player_5.png");
 	else if (direction == 6)
-		player_text = mlx_load_png("./sprites/minimap_player_6.png");
+		player_text = mlx_load_png("./sprites/minimap/minimap_player_6.png");
 	else
-		player_text = mlx_load_png("./sprites/minimap_player_7.png");
+		player_text = mlx_load_png("./sprites/minimap/minimap_player_7.png");
 	if (!player_text)
 		error_exit(data,mlx_strerror(mlx_errno), 1);
 	data->player_icon = mlx_texture_to_image(data->mlx, player_text);
