@@ -47,14 +47,13 @@ int	main(int argc, char *argv[])
 
 	init_data(data);
 	get_map(data, argv[1]);
-	init_enemies(data);
 
 	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", false);
-
 	if (!data->mlx)
 		error_exit(data, mlx_strerror(mlx_errno), 0);
-	get_images(data);
 
+	get_images(data);
+	init_enemies(data);
 
 	draw_image(data);
 

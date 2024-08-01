@@ -24,8 +24,8 @@
 # include <MLX42/MLX42.h>
 # include "libft.h"
 
-# define WINDOW_WIDTH 1600 // Panu's laptop: 800 // At school: 1600
-# define WINDOW_HEIGHT 1200 // Panu's laptop: 600 // At school: 1200
+# define WINDOW_WIDTH 800 // Panu's laptop: 800 // At school: 1600
+# define WINDOW_HEIGHT 600 // Panu's laptop: 600 // At school: 1200
 
 # define IMG_SIZE 64 // 64 x 64 pixels --> NOTE: We might need bigger images for school, because on bigger game window the images strech out a lot!
 # define PI 3.14159265358979323846 // Not the dessert... sadly
@@ -33,17 +33,18 @@
 # define PLAYER_SPEED 14 // move X pixels per keypress
 # define PLAYER_TURN_SPEED 9 // X degrees change to angle per keypress
 
-# define MINIMAP_WIDTH 275 // At school: 275 = IMG_SIZE * TILE_COUNT (25 * 11) // Panu laptop: 176 = IMG_SIZE * TILE_COUNT (16 * 11)
-# define MINIMAP_HEIGHT	275 // At school: 275 // Panu laptop: 176
-# define MINIMAP_IMG_SIZE 25 // At school: 25 // Panu laptop: 16
+# define MINIMAP_WIDTH 176 // At school: 275 = IMG_SIZE * TILE_COUNT (25 * 11) // Panu laptop: 176 = IMG_SIZE * TILE_COUNT (16 * 11)
+# define MINIMAP_HEIGHT	176 // At school: 275 // Panu laptop: 176
+# define MINIMAP_IMG_SIZE 16 // At school: 25 // Panu laptop: 16
 # define MINIMAP_TILE_COUNT 11
+
+# define ENEMY_WIDTH 64
 
 
 typedef struct s_map
 {
 	char	type; // wall ('1'), empty space('0'), player ('P') etc
-	int		is_blank;
-	int		is_enemy;
+	int		is_blank; // maybe not needed...?
 }			t_map;
 
 typedef struct s_enemy
@@ -79,8 +80,6 @@ typedef struct s_data
 	int			fl_colour; // floor colour
 
 	int			v_h_flag; // vertical intersection found wall = 0, horizontal intersection = 1 (used in find_wall_distance.c)
-	int			wall_or_enemy_vert; // did ray caster find wall or enemy. Wall = 0, enemy = 1
-	int			wall_or_enemy_horiz; // did ray caster find wall or enemy. Wall = 0, enemy = 1
 	int			ray_iterator;
 	double		vert_intersection_coord[2];
 	double		horizon_intersection_coord[2];
@@ -153,6 +152,8 @@ void	draw_player_icon(t_data *data);
 
 void	init_enemies(t_data *data);
 void	enemy_handler(void *param);
+void    draw_enemy(t_data *data);
+
 
 
 #endif

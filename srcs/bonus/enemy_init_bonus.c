@@ -9,7 +9,21 @@ void	set_enemy_struct(t_data *data, int i, int x, int y)
 	data->enemy[i].is_dying = 0;
 	data->enemy[i].is_dead = 0;
 
-	data->map[y][x].is_enemy = 1;
+	data->enemy[i].e_coord[0] = 2 * IMG_SIZE; // TEST
+	data->enemy[i].e_coord[1] = 2 * IMG_SIZE; // TEST
+
+	// TEST
+
+	mlx_texture_t	*enemy_text;
+
+	enemy_text = mlx_load_png("./sprites/enemy/enemy_0.png");
+	if (!enemy_text)
+		error_exit(data, mlx_strerror(mlx_errno), 1);
+	data->enemy_img = mlx_texture_to_image(data->mlx, enemy_text);
+	if (!data->enemy_img)
+		error_exit(data, mlx_strerror(mlx_errno), 1);
+	mlx_delete_texture(enemy_text);
+
 }
 
 int	check_start_coords(t_data *data, int i, int x, int y)
@@ -31,8 +45,10 @@ int	check_start_coords(t_data *data, int i, int x, int y)
 	}
 	else
 	{
-		i = 0;
-		return (0);
+		i = 0; // TEST
+		i++; // TEST
+		i--; // TEST
+		return (i);
 	}
 /*	else
 	{

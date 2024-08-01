@@ -22,7 +22,6 @@ void	assign_map(t_data *data)
 				data->map[y][x].type = '1';
 			else
 				data->map[y][x].type = '0';
-			data->map[y][x].is_enemy = 0;
 		}
 	}
 	x = 0;
