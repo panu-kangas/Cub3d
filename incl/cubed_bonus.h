@@ -45,6 +45,7 @@ typedef struct s_map
 {
 	char	type; // wall ('1'), empty space('0'), player ('P') etc
 	int		is_blank; // maybe not needed...?
+	int		is_door; // 0 or no door, 1 for door
 }			t_map;
 
 typedef struct s_enemy
@@ -65,6 +66,9 @@ typedef struct s_data
 	mlx_image_t	*wall_img_e; // etc...
 	mlx_image_t	*wall_img_s;
 	mlx_image_t	*wall_img_w;
+	mlx_image_t	*door;
+	mlx_image_t	*door_closed_img;
+	mlx_image_t	*door_open_img;
 
 	mlx_image_t *player_icon;
 	mlx_image_t *enemy_img;
@@ -80,6 +84,11 @@ typedef struct s_data
 	int			fl_colour; // floor colour
 
 	int			v_h_flag; // vertical intersection found wall = 0, horizontal intersection = 1 (used in find_wall_distance.c)
+	int			door_found_vert;
+	int			door_found_horiz;
+
+	int			facing_door;
+
 	int			ray_iterator;
 	double		vert_intersection_coord[2];
 	double		horizon_intersection_coord[2];
@@ -139,6 +148,7 @@ int		check_for_collision(t_data *data, double direction);
 // UTILS
 
 double  convert_to_radians(double angle_in_degrees);
+double	convert_to_degrees(double angle_in_rad);
 void	print_goodbye_message(void);
 int 	get_rgba(int r, int g, int b, int a);
 void	delete_and_init_images(t_data *data);

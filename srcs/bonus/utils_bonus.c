@@ -5,6 +5,11 @@ double	convert_to_radians(double angle_in_degrees)
 	return (angle_in_degrees * (PI / 180.0));
 }
 
+double	convert_to_degrees(double angle_in_rad)
+{
+	return (angle_in_rad / (PI / 180.0));
+}
+
 int	get_rgba(int r, int g, int b, int a)
 {
 	return (r << 24 | g << 16 | b << 8 | a);

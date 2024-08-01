@@ -9,8 +9,8 @@ void	set_enemy_struct(t_data *data, int i, int x, int y)
 	data->enemy[i].is_dying = 0;
 	data->enemy[i].is_dead = 0;
 
-	data->enemy[i].e_coord[0] = 2 * IMG_SIZE; // TEST
-	data->enemy[i].e_coord[1] = 2 * IMG_SIZE; // TEST
+	data->enemy[i].e_coord[0] = 3 * IMG_SIZE; // TEST
+	data->enemy[i].e_coord[1] = 3 * IMG_SIZE; // TEST
 
 	// TEST
 

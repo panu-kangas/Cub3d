@@ -1,5 +1,19 @@
 #include "cubed_bonus.h"
 
+void	init_map_flags(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = -1;
+	while (++y < (data->map_height))
+	{
+		x = -1;
+		while (++x < data->map_width)
+			data->map[y][x].is_door = 0;
+	}
+}
+
 void	assign_map(t_data *data)
 {
 	int	x;
@@ -18,8 +32,13 @@ void	assign_map(t_data *data)
 				data->map[y][x].type = '1';
 			else if (x == 2 && y == 2)
 				data->map[y][x].type = 'P';
-			else if ((x == 4 && y == 4) || (x == 8 && y == 7))
+			else if ((x == 4 && y == 4) || (x == 6 && y == 4))
 				data->map[y][x].type = '1';
+			else if (x == 5 && y == 4)
+			{
+				data->map[y][x].type = '1';
+				data->map[y][x].is_door = 1;
+			}
 			else
 				data->map[y][x].type = '0';
 		}

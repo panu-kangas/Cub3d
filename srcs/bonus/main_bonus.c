@@ -21,6 +21,9 @@ void	init_data(t_data *data)
 	data->wall_img_s = NULL;
 	data->wall_img_w = NULL;
 	data->v_h_flag = -1;
+	data->door_found_vert = 0;
+	data->door_found_horiz = 0;
+	data->facing_door = 0;
 
 	data->player_coord[0] = 2 * IMG_SIZE - 1; // TEST
     data->player_coord[1] = 2 * IMG_SIZE - 1; // TEST

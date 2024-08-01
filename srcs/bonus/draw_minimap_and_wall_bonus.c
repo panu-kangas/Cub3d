@@ -63,6 +63,8 @@ int		get_colour_minimap(t_data *data, int x_counter)
 	if (data->map[draw_coord[1]][draw_coord[0]].type == '0' ||
 	data->map[draw_coord[1]][draw_coord[0]].type == 'P')
 		return (get_rgba(230, 224, 193, 255)); // Floor (brown)
+	else if (data->map[draw_coord[1]][draw_coord[0]].is_door == 1)
+		return (get_rgba(237, 186, 33, 255));
 	else if (data->map[draw_coord[1]][draw_coord[0]].type == '1')
 		return (get_rgba(10, 10, 10, 255)); // Wall (black)
 	else

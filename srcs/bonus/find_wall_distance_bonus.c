@@ -1,6 +1,6 @@
 #include "cubed_bonus.h"
 
-int	check_for_wall(t_data *data, long long *check_coord)
+int	check_for_wall(t_data *data, long long *check_coord, char vh)
 {
 	long long	x;
 	long long	y;
@@ -8,7 +8,16 @@ int	check_for_wall(t_data *data, long long *check_coord)
 	x = check_coord[0];
 	y = check_coord[1];
 	if (data->map[y][x].type == '1')
+	{
+		if (data->map[y][x].is_door == 1)
+		{
+			if (vh == 'V')
+				data->door_found_vert = 1;
+			else
+				data->door_found_horiz = 1;
+		}
 		return (1);
+	}
 	return (0);
 }
 
@@ -83,11 +92,11 @@ double	find_wall_distance(t_data *data, double ray_angle, double addition)
 		ray_angle += addition;
 	get_vert_intersection(data, ray_angle, vert_coords, 0);
 	i = 1;
-	while (check_for_wall(data, vert_coords) != 1)
+	while (check_for_wall(data, vert_coords, 'V') != 1)
 		get_vert_intersection(data, ray_angle, vert_coords, i++);
 	get_horizon_intersection(data, ray_angle, horiz_coords, 0);
 	i = 1;
-	while (check_for_wall(data, horiz_coords) != 1)
+	while (check_for_wall(data, horiz_coords, 'H') != 1)
 		get_horizon_intersection(data, ray_angle, horiz_coords, i++);
 	return (compare_distance(data, ray_angle, vert_coords, horiz_coords));
 }
