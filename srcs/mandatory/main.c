@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:17:31 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/01 13:47:00 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/01 14:07:25 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,9 @@ int	main(int argc, char *argv[])
 	get_map(data, argv[1]);
 	if (get_texture_paths(data) < 0)
 		error_exit(data, "Texture paths could not be read", 0);
-	printf("getting to mlx\n");
 	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", false);
 	if (!data->mlx)
 		error_exit(data, mlx_strerror(mlx_errno), 0);
-	printf("mlx_init success\n");
 	get_images(data);
 
 	data->player_coord[0] = data->player_x_pos * IMG_SIZE - 1; // TEST
