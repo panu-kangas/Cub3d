@@ -12,7 +12,9 @@ LIBS	= $(LIBMLX) $(LIBFT) -ldl -pthread -lm -lglfw -L"/Users/$(USER)/.brew/opt/g
 SRCS	= $(MAND)/main.c $(MAND)/error_and_exit.c $(MAND)/get_map.c $(MAND)/utils.c \
 		$(MAND)/draw_image.c $(MAND)/find_wall_distance.c $(MAND)/get_images.c $(MAND)/keyhook.c \
 		$(MAND)/get_intersection_x.c $(MAND)/get_intersection_y.c $(MAND)/key_actions.c \
-		$(MAND)/compare_distance.c $(MAND)/check_for_collision.c
+		$(MAND)/compare_distance.c $(MAND)/check_for_collision.c $(MAND)/check_map_borders.c \
+		$(MAND)/debug.c $(MAND)/get_paths_and_colors.c $(MAND)/map_validation.c \
+		$(MAND)/map_validation_utils.c
 OBJS	= ${SRCS:.c=.o}
 
 BONSRCS	= $(BONUS)/main_bonus.c $(BONUS)/error_and_exit_bonus.c $(BONUS)/get_map_bonus.c $(BONUS)/utils_bonus.c \
