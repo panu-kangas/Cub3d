@@ -6,17 +6,25 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:06:46 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/31 14:35:47 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/01 15:50:34 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed.h"
 
-void	assign_player_position(t_data *data, int x, int y)
+void	assign_player_position(t_data *data, int x, int y, char type)
 {
 	data->player_x_pos = x;
 	data->player_y_pos = y;
 	data->player_flag = 1;
+	if (type == 'N')
+		data->player_angle = 0;
+	else if (type == 'E')
+		data->player_angle = 90;
+	else if (type == 'S')
+		data->player_angle = 180;
+	else if (type == 'W')
+		data->player_angle = 270;
 }
 
 void	check_map_syntax(t_data *data)
@@ -37,7 +45,7 @@ void	check_map_syntax(t_data *data)
 				|| data->map[i][j].type == 'W' || data->map[i][j].type == 'S'))
 			{
 				if (data->player_flag == 0)
-					assign_player_position (data, j, i);
+					assign_player_position (data, j, i, data->map[i][j].type);
 				else
 					sys_error_exit(data, "Too many players", 0);
 			}
