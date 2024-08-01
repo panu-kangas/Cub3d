@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsaari <tsaari@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 14:34:59 by pkangas           #+#    #+#             */
-/*   Updated: 2024/06/12 10:59:32 by tsaari           ###   ########.fr       */
+/*   Updated: 2024/07/30 15:51:06 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define LIBFT_H
 
 # include <stddef.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdarg.h>
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
 
 typedef struct s_list
 {
@@ -64,4 +70,11 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
+char	*get_next_line(int fd);
+size_t	ft_strlcat_gnl(char *dst, char *src, size_t dstsize);
+size_t	ft_strlen_gnl(char *a);
+char	*ft_strchr_gnl(char *s, int c);
+size_t	ft_strlcpy_gnl(char *dst, char *src, size_t dstsize);
+char	*ft_strjoin_gnl(char *s1, char *s2);
+
 #endif

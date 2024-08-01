@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/22 11:18:35 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/01 13:42:10 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,30 +35,15 @@
 typedef struct s_map
 {
 	char	type; // wall ('1'), empty space('0'), player ('P') etc
-	int		is_blank; 
-	/* IS_BLANK USAGE:
-
-	If we have a map like this:
-
-	  11111
-	  10001
-		10001
-		11111 
-		
-	I think the easiest way to handle it is to make it a rectangle:
-
-	  11111XX
-	  10001XX
-	  XX10001
-	  XX11111 
-
-	Here all the positions with X are "blank spaces", and should have is_blank = 1.
-	I'll initialize is_blank to 0 =)
-
-	*/
-
-	// Here we can add additional flags, for example is_enemy, is_door etc
+	int		is_blank;
 }			t_map;
+
+typedef struct s_color
+{
+	int		r;
+	int		g;
+	int		b;
+}			t_color;
 
 typedef struct s_data
 {
@@ -87,6 +72,25 @@ typedef struct s_data
 	
 	long long	player_coord[2]; // x and y coord of the player (will be in pixels)
 	double		player_angle; // 0 means player is facing north, 90 east, 180 south, 270 west. 360 is again 0.
+
+	char		*map_name;
+	int			player_x_pos;
+	int			player_y_pos;
+	int			player_flag;
+	char		*texture_path_n;
+	char		*texture_path_e;
+	char		*texture_path_s;
+	char		*texture_path_w;
+	char		**map_lines;
+	char		**file;
+	int			info_lines_count;
+	int			file_height;
+	t_color		*ceiling_color;
+	t_color 	*floor_color;
+	int			map_start;
+	int			cc;
+	int			fc;
+
 }			t_data;
 
 
@@ -140,5 +144,22 @@ int		check_for_collision(t_data *data, double direction);
 double  convert_to_radians(double angle_in_degrees);
 void	print_goodbye_message(void);
 
+// VALIDATION
+
+int		get_texture_paths(t_data *data);
+int		is_map_valid(t_data *data, char *map_name);
+int		check_texture_paths(t_data *data);
+int		assign_map_contents(t_data *data);
+void	allocate_map(t_data *data);
+int		check_map_borders(t_data *data);
+void	get_widest_width(t_data *data);
+void	check_map_syntax(t_data *data);
+
+// MAP PRINTING
+
+void	print_map_lines(t_data *data);
+void	print_map(t_data *data);
+void	print_info(t_data *data);
+void	print_data(t_data *data);
 
 #endif
