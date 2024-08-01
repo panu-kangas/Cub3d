@@ -24,6 +24,8 @@ void	init_data(t_data *data)
 	data->door_found_vert = 0;
 	data->door_found_horiz = 0;
 
+	data->door_iter = 0;
+
 	data->player_coord[0] = 2 * IMG_SIZE - 1; // TEST
     data->player_coord[1] = 2 * IMG_SIZE - 1; // TEST
 	data->player_angle = 120; // TEST
@@ -63,7 +65,8 @@ int	main(int argc, char *argv[])
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	mlx_set_instance_depth(&data->game_img->instances[0], 1);
 
-	mlx_loop_hook(data->mlx, &enemy_handler, data);
+//	mlx_loop_hook(data->mlx, &enemy_handler, data);
+	mlx_loop_hook(data->mlx, &door_animation, data);
 	mlx_key_hook(data->mlx, &keyhook, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);

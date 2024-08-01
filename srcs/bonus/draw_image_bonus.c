@@ -31,7 +31,7 @@ void	draw_pixels(t_data *data, double wall_height)
 		if (data->door_found_vert == 1) // own separate function
 		{
 			if (data->map[data->door_coord_v[1]][data->door_coord_v[0]].is_open == 0)
-				data->pixels = data->door_closed_img->pixels;
+				data->pixels = data->door_closed_img[data->door_iter]->pixels;
 			else
 				data->pixels = data->door_open_img->pixels;
 		}
@@ -47,7 +47,7 @@ void	draw_pixels(t_data *data, double wall_height)
 		if (data->door_found_horiz == 1) // own separate function
 		{
 			if (data->map[data->door_coord_h[1]][data->door_coord_h[0]].is_open == 0)
-				data->pixels = data->door_closed_img->pixels;
+				data->pixels = data->door_closed_img[data->door_iter]->pixels;
 			else
 				data->pixels = data->door_open_img->pixels;
 		}
@@ -75,6 +75,7 @@ void	draw_image(t_data *data)
 	{
 		dist_to_wall = find_wall_distance(data, ray_angle, addition);
 		drawn_wall_height = (IMG_SIZE / dist_to_wall) * PP_DIST;
+		drawn_wall_height += 30; // TEST
 		draw_pixels(data, drawn_wall_height);
 		data->ray_iterator++;
 		ray_angle = ray_angle + addition;

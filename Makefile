@@ -19,7 +19,8 @@ BONSRCS	= $(BONUS)/main_bonus.c $(BONUS)/error_and_exit_bonus.c $(BONUS)/get_map
 		$(BONUS)/draw_image_bonus.c $(BONUS)/find_wall_distance_bonus.c $(BONUS)/get_images_bonus.c $(BONUS)/keyhook_bonus.c \
 		$(BONUS)/get_intersection_x_bonus.c $(BONUS)/get_intersection_y_bonus.c $(BONUS)/key_actions_bonus.c \
 		$(BONUS)/compare_distance_bonus.c $(BONUS)/check_for_collision_bonus.c $(BONUS)/draw_minimap_and_wall_bonus.c \
-		$(BONUS)/draw_player_icon_bonus.c $(BONUS)/enemy_init_bonus.c $(BONUS)/enemy_handler_bonus.c $(BONUS)/enemy_draw_bonus.c
+		$(BONUS)/draw_player_icon_bonus.c $(BONUS)/enemy_init_bonus.c $(BONUS)/enemy_handler_bonus.c $(BONUS)/enemy_draw_bonus.c \
+		$(BONUS)/door_animation.c
 BONOBJS	= ${BONSRCS:.c=.o}
 
 all: $(LIBMLX) $(LIBFT) $(NAME)
