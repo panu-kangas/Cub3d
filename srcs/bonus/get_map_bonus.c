@@ -10,7 +10,10 @@ void	init_map_flags(t_data *data)
 	{
 		x = -1;
 		while (++x < data->map_width)
+		{
 			data->map[y][x].is_door = 0;
+			data->map[y][x].is_open = 0;
+		}
 	}
 }
 
@@ -77,6 +80,7 @@ void	get_map(t_data *data, char *map_name)
 	data->map_width = 12;
 	data->map_height = 12;
 	allocate_map(data);
+	init_map_flags(data);
 	assign_map(data);
 }
 

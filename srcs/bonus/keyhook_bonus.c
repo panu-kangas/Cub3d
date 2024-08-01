@@ -1,36 +1,33 @@
 #include "cubed_bonus.h"
 
+int	change_door_stat(t_data *data, long long x, long long y)
+{
+	if (data->map[y][x].is_door == 1 && data->map[y][x].is_open == 0)
+	{
+		data->map[y][x].is_open = 1;
+		data->map[y][x].type = '0';
+	}
+	else if (data->map[y][x].is_door == 1 && data->map[y][x].is_open == 1)
+	{
+		data->map[y][x].is_open = 0;
+		data->map[y][x].type = '1';
+	}
+	return (1);
+}
+
 int	check_for_door(t_data *data, long long x, long long y)
 {
 	double	angle;
 
 	angle = data->player_angle;
-
-	if (data->facing_door == 0)
-		return (0);
 	if (angle >= 340 || angle <= 20)
-	{
-		if (data->map[y - 1][x].is_door == 1)
-			return (1);
-
-	}
+		return (change_door_stat(data, x, y - 1));
 	else if (angle >= 70 && angle <= 110)
-	{
-		if (data->map[y][x + 1].is_door == 1)
-			return (1);
-
-	}
+		return (change_door_stat(data, x + 1, y));
 	else if (angle >= 160 && angle <= 200)
-	{
-		if (data->map[y + 1][x].is_door == 1)
-			return (1);
-
-	}
+		return (change_door_stat(data, x, y + 1));
 	else if (angle >= 250 && angle <= 290)
-	{
-		if (data->map[y][x - 1].is_door == 1)
-			return (1);
-	}
+		return (change_door_stat(data, x - 1, y));
 	return (0);
 }
 
@@ -42,15 +39,8 @@ void	open_door(t_data *data)
 	x = data->player_coord[0] / IMG_SIZE;
 	y = data->player_coord[1] / IMG_SIZE;
 
-	printf("HERE\n");
-
-	printf("FACING %d\n", data->facing_door);
-
 	if (check_for_door(data, x, y) == 1)
 	{
-		printf("HERE in if\n");
-
-		data->map[y - 1][x].type = '0';
 		delete_and_init_images(data);
 		draw_image(data);
 		if (mlx_image_to_window(data->mlx, data->game_img, 0, 0) < 0)

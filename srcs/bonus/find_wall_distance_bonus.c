@@ -7,14 +7,22 @@ int	check_for_wall(t_data *data, long long *check_coord, char vh)
 
 	x = check_coord[0];
 	y = check_coord[1];
-	if (data->map[y][x].type == '1')
+	if (data->map[y][x].type == '1' || data->map[y][x].is_open == 1)
 	{
 		if (data->map[y][x].is_door == 1)
 		{
 			if (vh == 'V')
+			{
 				data->door_found_vert = 1;
+				data->door_coord_v[0] = x;
+				data->door_coord_v[1] = y;
+			}
 			else
+			{
 				data->door_found_horiz = 1;
+				data->door_coord_h[0] = x;
+				data->door_coord_h[1] = y;
+			}
 		}
 		return (1);
 	}

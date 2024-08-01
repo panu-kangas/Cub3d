@@ -30,9 +30,10 @@ void	draw_pixels(t_data *data, double wall_height)
 			data->pixels = data->wall_img_e->pixels;
 		if (data->door_found_vert == 1) // own separate function
 		{
-			data->pixels = data->door_closed_img->pixels;
-			if (data->ray_iterator == WINDOW_WIDTH / 2)
-				data->facing_door = 1;
+			if (data->map[data->door_coord_v[1]][data->door_coord_v[0]].is_open == 0)
+				data->pixels = data->door_closed_img->pixels;
+			else
+				data->pixels = data->door_open_img->pixels;
 		}
 		data->door_found_vert = 0;
 		column_to_draw = (int)data->vert_intersection_coord[1] % IMG_SIZE;
@@ -45,9 +46,10 @@ void	draw_pixels(t_data *data, double wall_height)
 			data->pixels = data->wall_img_s->pixels;
 		if (data->door_found_horiz == 1) // own separate function
 		{
-			data->pixels = data->door_closed_img->pixels;
-			if (data->ray_iterator == WINDOW_WIDTH / 2)
-				data->facing_door = 1;
+			if (data->map[data->door_coord_h[1]][data->door_coord_h[0]].is_open == 0)
+				data->pixels = data->door_closed_img->pixels;
+			else
+				data->pixels = data->door_open_img->pixels;
 		}
 		data->door_found_horiz = 0;
 		column_to_draw = (int)data->horizon_intersection_coord[0] % IMG_SIZE;

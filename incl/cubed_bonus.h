@@ -46,6 +46,7 @@ typedef struct s_map
 	char	type; // wall ('1'), empty space('0'), player ('P') etc
 	int		is_blank; // maybe not needed...?
 	int		is_door; // 0 or no door, 1 for door
+	int		is_open; // 0 for closed, 1 for open
 }			t_map;
 
 typedef struct s_enemy
@@ -85,9 +86,11 @@ typedef struct s_data
 
 	int			v_h_flag; // vertical intersection found wall = 0, horizontal intersection = 1 (used in find_wall_distance.c)
 	int			door_found_vert;
+	long long	door_coord_v[2];
 	int			door_found_horiz;
+	long long	door_coord_h[2];
 
-	int			facing_door;
+//	int			facing_door;
 
 	int			ray_iterator;
 	double		vert_intersection_coord[2];
