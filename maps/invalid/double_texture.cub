@@ -1,0 +1,12 @@
+NO ./tiles/wall_n.png
+SO ./tiles/wall_s.png
+WE ./tiles/wall_w.png
+EA ./tiles/wall_e.png
+SO ./tiles/wall_s.png
+F 220,100,0
+C 225,226,0
+
+111111111111
+100000000001
+10000N000001
+111111111111

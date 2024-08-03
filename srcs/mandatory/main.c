@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:17:31 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/01 15:52:48 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:15:49 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@ void	init_data(t_data *data)
 {
 	data->mlx = NULL;
 	data->map = NULL;
+	data->map_lines = NULL;
 	data->wall_img_n = NULL;
 	data->wall_img_w = NULL;
 	data->wall_img_s = NULL;
 	data->wall_img_w = NULL;
 	data->v_h_flag = -1;
 	data->map_height = 0;
+	data->map_name = NULL;
+	data->file = NULL;
 	data->map_width = 0;
 	data->info_lines_count = 0;
 	data->map_start = 0;
@@ -30,49 +33,44 @@ void	init_data(t_data *data)
 	data->texture_path_e = NULL;
 	data->texture_path_s = NULL;
 	data->texture_path_w = NULL;
+	data->ceiling_color = NULL;
+	data->floor_color = NULL;
 	data->cc = 0;
 	data->fc = 0;
+}
+
+int	check_ac(int ac)
+{
+	if (ac < 2)
+	{
+		ft_putendl_fd("Error\n", 2);
+		ft_putendl_fd("Please give one map (.cub -file) as an argument", 2);
+		return (1);
+	}
+	return (0);
 }
 
 int	main(int argc, char *argv[])
 {
 	t_data	*data;
 
-	if (argc != 2)
-	{
-		ft_putendl_fd("Error", 2);
-		ft_putendl_fd("Please give one map (.cub -file) as an argument", 2);
+	if (check_ac(argc) != 0)
 		return (1);
-	}
-
 	data = malloc(sizeof(t_data));
 	if (data == NULL)
 		sys_error_exit(data, "Malloc failed", 0);
-
 	init_data(data);
 	get_map(data, argv[1]);
-	if (get_texture_paths(data) < 0)
-		error_exit(data, "Texture paths could not be read", 0);
+	if (get_texture_paths(data) < 0 || check_texture_paths(data) == -1)
+		error_exit(data, "Invalid game settings given", 0);
 	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", false);
-	printf("MLX INITIALIZED\n");
 	if (!data->mlx)
 		error_exit(data, mlx_strerror(mlx_errno), 0);
-	printf("MLX INITIALIZED\n");
 	get_images(data);
-	printf("IMAGES LOADED\n");
-	data->player_coord[0] = data->player_x_pos * IMG_SIZE - 1; // TEST
-    data->player_coord[1] = data->player_y_pos * IMG_SIZE - 1; // TEST
-	//data->player_angle = 120; // TEST
-	
-	data->fl_colour = get_rgba(data->floor_color->r, data->floor_color->g, data->floor_color->b, 255); // TEST
-	data->ceil_colour = get_rgba(data->ceiling_color->r, data->ceiling_color->g, data->ceiling_color->b, 255); // TEST
-
 	draw_image(data);
-
 	if (mlx_image_to_window(data->mlx, data->game_img, 0, 0) < 0)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-
-	mlx_key_hook(data->mlx, &keyhook, (void*)data);
+	mlx_key_hook(data->mlx, &keyhook, (void *)data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 	print_goodbye_message();

@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/26 14:37:13 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/31 15:09:07 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/03 11:20:52 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,20 +55,13 @@ static int	get_file_height(t_data *data, char *map_name)
 	return (0);
 }
 
-static int	check_info_lines(t_data *data)
-{
-	if (data->info_lines_count < 6)
-		return (-1);
-	return (0);
-}
-
 int	is_map_valid(t_data *data, char *map_name)
 {
 	if (check_map_name(map_name) < 0)
 		error_exit(data, "Map name is invalid", 0);
 	if (get_file_height(data, map_name) < 0)
 		error_exit(data, "Map file is invalid", 0);
-	if (check_info_lines(data) < 0)
-		error_exit(data, "Map file is invalid", 0);
+	if (data->info_lines_count < 6)
+		error_exit(data, "Some info is missing", 0);
 	return (0);
 }

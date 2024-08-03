@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:23:47 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/01 13:45:38 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/02 16:17:12 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	rgb_atoi(t_color *color, char *rgb, int pos)
 	int		num;
 
 	num = ft_atoi(rgb);
-	if (num < 0 && num > 255)
+	if (num < 0 || num > 255)
 		return (-1);
 	if (pos == 0)
 		color->r = num;
@@ -76,18 +76,16 @@ static int	rgb_atoi(t_color *color, char *rgb, int pos)
 		return (0);
 }
 
-static int	get_rgb_color(t_color **color, char *rgb, int *flag)
+static int	get_rgb(t_color **color, char *rgb, int *flag)
 {
 	int		i;
 	int		len;
 	int		j;
 
 	i = 0;
-	j = 0;
+	j = -1;
 	len = ft_strlen(rgb);
-	if (*flag == 1)
-		return (-1);
-	if (rgb[0] == '\0' || len < 5 || len > 11
+	if (*flag == 1 || rgb[0] == '\0' || len < 5 || len > 11
 		|| ft_isdigit(rgb[0]) != 1 || check_rgb_syntax(rgb, len) != 0)
 		return (-1);
 	*color = malloc(sizeof(t_color));
@@ -96,13 +94,10 @@ static int	get_rgb_color(t_color **color, char *rgb, int *flag)
 	while (j <= 2 && i < (int)ft_strlen(rgb))
 	{
 		len = 0;
-		if (ft_isdigit(rgb[i]) == 1)
-		{
+		if (ft_isdigit(rgb[i]) == 1 && ++j < 3)
 			len = rgb_atoi(*color, rgb + i, j);
-			j++;
-		}
 		if (len == -1)
-			return (free (*color), -1);
+			return (-1);
 		i += len + 1;
 	}
 	*flag = 1;
@@ -114,9 +109,9 @@ int	get_texture_paths(t_data *data)
 	int	i;
 	int	ret;
 
-	i = 0;
+	i = -1;
 	ret = 0;
-	while (i < data->info_lines_count)
+	while (++i < data->info_lines_count)
 	{
 		if (ft_strncmp(data->file[i], "NO ", 3) == 0)
 			data->texture_path_n = ft_strdup(data->file[i] + 3);
@@ -127,17 +122,13 @@ int	get_texture_paths(t_data *data)
 		else if (ft_strncmp(data->file[i], "EA ", 3) == 0)
 			data->texture_path_e = ft_strdup(data->file[i] + 3);
 		else if (ft_strncmp(data->file[i], "F ", 2) == 0)
-			ret = get_rgb_color(&data->floor_color, data->file[i] + 2, &data->fc);
+			ret = get_rgb(&data->floor_color, data->file[i] + 2, &data->fc);
 		else if (ft_strncmp(data->file[i], "C ", 2) == 0)
-			ret = get_rgb_color(&data->ceiling_color, data->file[i] + 2, &data->cc);
+			ret = get_rgb(&data->ceiling_color, data->file[i] + 2, &data->cc);
 		else if (data->file[i][0] != '\n')
 			return (-1);
 		if (ret != 0)
 			return (-1);
-		i++;
 	}
-	if (check_texture_paths(data) == -1)
-		return (-1);
-	printf("back to main\n");
 	return (0);
 }
