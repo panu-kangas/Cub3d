@@ -1,0 +1,110 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   check_map_borders_bonus.c                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/30 16:42:51 by llitovuo          #+#    #+#             */
+/*   Updated: 2024/08/03 15:10:58 by llitovuo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "cubed_bonus.h"
+
+int	check_for_nl(char *str)
+{
+	int	i;
+
+	i = 0;
+	if (str == NULL)
+		return (-1);
+	if (*str == '\0')
+		return (-1);
+	while (str[i] != '\0')
+	{
+		if (ft_strchr(VALIDCHARS, str[i]) != NULL)
+			i++;
+		else
+			return (-1);
+	}
+	return (0);
+}
+
+int	check_first_last(char *str)
+{
+	while (*str)
+	{
+		if (*str != '1' && *str != ' ')
+			return (-1);
+		str++;
+	}
+	return (0);
+}
+
+int	check_surrounding_tiles(char **tile, int x_pos)
+{
+	if (tile[-1][x_pos - 1] == ' ' || tile[-1][x_pos - 1] == '\0')
+		return (-1);
+	if (tile[-1][x_pos] == ' ' || tile[-1][x_pos] == '\0')
+		return (-1);
+	if (tile[-1][x_pos + 1] == ' ' || tile[-1][x_pos + 1] == '\0')
+		return (-1);
+	if (tile[0][x_pos - 1] == ' ' || tile[0][x_pos - 1] == '\0')
+		return (-1);
+	if (tile[0][x_pos] == ' ' || tile[0][x_pos] == 0)
+		return (-1);
+	if (tile[0][x_pos + 1] == ' ' || tile[0][x_pos + 1] == '\0')
+		return (-1);
+	if (tile[1][x_pos - 1] == ' ' || tile[1][x_pos - 1] == '\0')
+		return (-1);
+	if (tile[1][x_pos] == ' ' || tile[1][x_pos] == '\0')
+		return (-1);
+	if (tile[1][x_pos + 1] == ' ' || tile[1][x_pos + 1] == '\0')
+		return (-1);
+	return (0);
+}
+
+int	check_if_map_closed(char **map_line)
+{
+	int	i;
+
+	i = 0;
+	while (map_line[0][i])
+	{
+		if (ft_strchr(AREACHARS, map_line[0][i]) != NULL)
+		{
+			if (check_surrounding_tiles(map_line, i) == -1)
+				return (-1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	check_map_borders(t_data *data)
+{
+	int	i;
+	int	ret;
+
+	ret = 0;
+	i = 0;
+	while (ret == 0 && i < data->map_height)
+	{
+		ret = check_for_nl(data->map_lines[i]);
+		if (i == 0 || i == data->map_height - 1)
+		{
+			if (check_first_last(data->map_lines[i]) == -1)
+				return (-1);
+		}
+		else
+		{
+			if (check_if_map_closed(&data->map_lines[i]) == -1)
+			{
+				return (-1);
+			}
+		}
+		i++;
+	}
+	return (0);
+}
