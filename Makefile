@@ -11,17 +11,27 @@ LIBS	= $(LIBMLX) $(LIBFT) -ldl -pthread -lm -lglfw -L"/Users/$(USER)/.brew/opt/g
 
 SRCS	= $(MAND)/main.c $(MAND)/error_and_exit.c $(MAND)/get_map.c $(MAND)/utils.c \
 		$(MAND)/draw_image.c $(MAND)/find_wall_distance.c $(MAND)/get_images.c $(MAND)/keyhook.c \
-		$(MAND)/get_intersection_x.c $(MAND)/get_intersection_y.c $(MAND)/map_validation_utils.c \
+		$(MAND)/get_intersection_x.c $(MAND)/get_intersection_y.c  \
 		$(MAND)/compare_distance.c $(MAND)/check_for_collision.c $(MAND)/check_map_borders.c \
-		$(MAND)/debug.c $(MAND)/get_paths_and_colors.c $(MAND)/map_validation.c \
-		$(MAND)/key_actions.c $(MAND)/get_map_utils.c
+		$(MAND)/get_paths_and_colors.c $(MAND)/map_validation.c \
+		$(MAND)/key_actions.c $(MAND)/get_map_utils.c $(MAND)/map_validation_utils.c \
+		\
+		\
+		$(MAND)/debug.c 
 OBJS	= ${SRCS:.c=.o}
 
 BONSRCS	= $(BONUS)/main_bonus.c $(BONUS)/error_and_exit_bonus.c $(BONUS)/get_map_bonus.c $(BONUS)/utils_bonus.c \
 		$(BONUS)/draw_image_bonus.c $(BONUS)/find_wall_distance_bonus.c $(BONUS)/get_images_bonus.c $(BONUS)/keyhook_bonus.c \
 		$(BONUS)/get_intersection_x_bonus.c $(BONUS)/get_intersection_y_bonus.c $(BONUS)/key_actions_bonus.c \
 		$(BONUS)/compare_distance_bonus.c $(BONUS)/check_for_collision_bonus.c $(BONUS)/draw_functions_bonus.c \
-		$(BONUS)/draw_player_icon_bonus.c
+		$(BONUS)/draw_player_icon_bonus.c $(BONUS)/check_map_borders_bonus.c \
+		$(BONUS)/get_paths_and_colors_bonus.c $(BONUS)/map_validation_bonus.c \
+		$(BONUS)/get_map_utils_bonus.c $(BONUS)/map_validation_utils_bonus.c \
+		$(BONUS)/validate_doors_and_enemies.c \
+		\
+		\
+		$(BONUS)/debug_bonus.c
+
 BONOBJS	= ${BONSRCS:.c=.o}
 
 all: $(LIBMLX) $(LIBFT) $(NAME)
