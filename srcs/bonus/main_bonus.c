@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:17:31 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/03 13:33:49 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/03 16:02:03 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	init_data(t_data *data)
 	data->floor_color = NULL;
 	data->cc = 0;
 	data->fc = 0;
+	data->enemy_count = 0;
 }
 
 static int	check_ac(int ac)

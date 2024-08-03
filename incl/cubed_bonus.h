@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/03 15:54:51 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/03 16:02:15 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct s_data
 	int			map_start;
 	int			cc;
 	int			fc;
+	int			enemy_count;
 }			t_data;
 
 // ERROR HANDLING
