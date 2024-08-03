@@ -7,7 +7,10 @@ int	colour_the_pixel(t_data *data, int *start_coord, int pixel_counter, int i)
 
 	pixels = data->pixels;
 	colour = get_rgba(pixels[i], pixels[i + 1], pixels[i + 2], pixels[i + 3]);
-	mlx_put_pixel(data->game_img, data->ray_iterator, *start_coord, colour);
+	if (data->handling_open_door == 0)
+		mlx_put_pixel(data->game_img, data->ray_iterator, *start_coord, colour);
+	else if (data->handling_open_door == 1)
+		mlx_put_pixel(data->door_canvas, data->ray_iterator, *start_coord, colour);
 	*start_coord += 1;
 	return (pixel_counter + 1);
 }
@@ -94,7 +97,7 @@ void	draw_minimap(t_data *data)
 			y_counter = 0;
 			while (y_counter < MINIMAP_IMG_SIZE)
 			{
-				mlx_put_pixel(data->game_img, x, y++, colour);
+				mlx_put_pixel(data->door_canvas, x, y++, colour);
 				y_counter++;
 			}
 			x++;

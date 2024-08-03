@@ -29,9 +29,14 @@ void	print_goodbye_message(void)
 void	delete_and_init_images(t_data *data)
 {
 	mlx_delete_image(data->mlx, data->game_img);
+	mlx_delete_image(data->mlx, data->door_canvas);
 	mlx_delete_image(data->mlx, data->player_icon);
 
 	data->game_img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!data->game_img)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
+	data->door_canvas = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (!data->door_canvas)
+		error_exit(data, mlx_strerror(mlx_errno), 1);
+	init_door_canvas(data);
 }

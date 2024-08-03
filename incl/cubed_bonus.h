@@ -62,14 +62,18 @@ typedef struct s_data
 {
 	mlx_t		*mlx;
 	mlx_image_t	*game_img;
+//	mlx_image_t	*img_to_draw;
+//	mlx_image_t	*secong_img;
 
 	mlx_image_t	*wall_img_n; // Northern wall image
 	mlx_image_t	*wall_img_e; // etc...
 	mlx_image_t	*wall_img_s;
 	mlx_image_t	*wall_img_w;
-	mlx_image_t	*door;
+
+//	mlx_image_t	*door;
 	mlx_image_t	*door_closed_img[4];
 	mlx_image_t	*door_open_img;
+	mlx_image_t *door_canvas;
 
 	int			door_iter;
 
@@ -77,6 +81,7 @@ typedef struct s_data
 	mlx_image_t *enemy_img;
 
 	uint8_t		*pixels; // pixel data of a single wall
+	uint8_t		*pixels_door; // pixel data of a single wall
 
 	t_map		**map;
 
@@ -92,7 +97,12 @@ typedef struct s_data
 	int			door_found_horiz;
 	long long	door_coord_h[2];
 
-//	int			facing_door;
+//	long long	open_door_coord_vert[2];
+//	long long	open_door_coord_horiz[2];
+	int			handling_open_door;
+	int			found_open_door_vert;
+	int			found_open_door_horiz;
+
 
 	int			ray_iterator;
 	double		vert_intersection_coord[2];
@@ -124,8 +134,12 @@ void	get_map(t_data *data, char *map_name);
 // IMAGE DRAWING
 
 void    get_images(t_data *data);
-void    draw_image(t_data *data);
+void	draw_image(t_data *data, double ray_angle, double window_width);
 double  find_wall_distance(t_data *data, double ray_angle, double addition);
+void	get_vert_intersection(t_data *data, double ray_angle, \
+long long *w_coord, int cnt);
+void	get_horizon_intersection(t_data *data, double ray_angle, \
+long long *w_coord, int cnt);
 double  compare_distance(t_data *data, double ray_angle, \
 long long *vert_coord, long long *horizon_coord);
 int		draw_wall(t_data *data, int i, double wall_height, int start_coord);
@@ -169,9 +183,12 @@ void	init_enemies(t_data *data);
 void	enemy_handler(void *param);
 void    draw_enemy(t_data *data);
 
-// ANIMATION
+// DOOR FUNCTIONS
 
 void	door_animation(void *param);
+void	init_door_canvas(t_data *data);
+void	fix_open_door_img(t_data *data, mlx_image_t *wall_img);
+void	draw_open_door(t_data *data, double ray_angle, double window_width);
 
 
 #endif

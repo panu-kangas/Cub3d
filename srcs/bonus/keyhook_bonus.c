@@ -42,10 +42,7 @@ void	open_door(t_data *data)
 	if (check_for_door(data, x, y) == 1)
 	{
 		delete_and_init_images(data);
-		draw_image(data);
-		if (mlx_image_to_window(data->mlx, data->game_img, 0, 0) < 0)
-			error_exit(data, mlx_strerror(mlx_errno), 1);
-		mlx_set_instance_depth(&data->game_img->instances[0], 1);	
+		draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 	}
 }
 
@@ -55,10 +52,7 @@ void	key_action_left(t_data *data)
 	if (data->player_angle < 0)
 		data->player_angle = 360 - (data->player_angle * -1);
 	delete_and_init_images(data);
-	draw_image(data);
-	if (mlx_image_to_window(data->mlx, data->game_img, 0, 0) < 0)
-		error_exit(data, mlx_strerror(mlx_errno), 1);
-	mlx_set_instance_depth(&data->game_img->instances[0], 1);
+	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 }
 
 void	key_action_right(t_data *data)
@@ -67,10 +61,7 @@ void	key_action_right(t_data *data)
 	if (data->player_angle >= 360)
 		data->player_angle -= 360;
 	delete_and_init_images(data);
-	draw_image(data);
-	if (mlx_image_to_window(data->mlx, data->game_img, 0, 0) < 0)
-		error_exit(data, mlx_strerror(mlx_errno), 1);
-	mlx_set_instance_depth(&data->game_img->instances[0], 1);
+	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 }
 
 void	keyhook(mlx_key_data_t keydata, void *param)

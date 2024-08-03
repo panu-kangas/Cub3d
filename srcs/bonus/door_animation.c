@@ -26,10 +26,7 @@ void	door_animation(void *param)
 			iter_dir = +1;
 		}
 		delete_and_init_images(data);
-		draw_image(data);
-		if (mlx_image_to_window(data->mlx, data->game_img, 0, 0) < 0)
-			error_exit(data, mlx_strerror(mlx_errno), 1);
-		mlx_set_instance_depth(&data->game_img->instances[0], 1);
+		draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 		prev_time = time;
 	}
 }

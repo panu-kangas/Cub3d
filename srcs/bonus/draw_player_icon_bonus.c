@@ -59,5 +59,5 @@ void	draw_player_icon(t_data *data)
 	direction = get_player_direction(data->player_angle);
 	set_player_icon_img(data, direction);
 	mlx_image_to_window(data->mlx, data->player_icon, (MINIMAP_WIDTH / 2) - 8, height - 8);
-	mlx_set_instance_depth(&data->player_icon->instances[0], 2);
+	mlx_set_instance_depth(&data->player_icon->instances[0], 3);
 }
