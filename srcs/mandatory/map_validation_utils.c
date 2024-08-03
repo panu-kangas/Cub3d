@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:06:46 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/02 10:49:49 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/03 15:17:13 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ void	check_map_syntax(t_data *data)
 		while (j < data->map_width)
 		{
 			if (ft_strchr("10NESWX", data->map[i][j].type) == NULL)
-				sys_error_exit(data, "Invalid map syntax", 0);
+				error_exit(data, "Invalid map syntax", 0);
 			if ((data->map[i][j].type == 'E' || data->map[i][j].type == 'N'
 				|| data->map[i][j].type == 'W' || data->map[i][j].type == 'S'))
 			{
 				if (data->player_flag == 0)
 					assign_player_position (data, j, i, data->map[i][j].type);
 				else
-					sys_error_exit(data, "Too many players", 0);
+					error_exit(data, "Too many players", 0);
 			}
 			j++;
 		}
