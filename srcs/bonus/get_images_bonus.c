@@ -47,4 +47,10 @@ void	get_images(t_data *data)
 	data->game_img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!data->game_img)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
+	data->player_coord[0] = data->player_x_pos * IMG_SIZE - 1;
+	data->player_coord[1] = data->player_y_pos * IMG_SIZE - 1;
+	data->fl_colour = get_rgba(data->floor_color->r, data->floor_color->g, \
+	data->floor_color->b, 255);
+	data->ceil_colour = get_rgba(data->ceiling_color->r, \
+	data->ceiling_color->g, data->ceiling_color->b, 255);
 }
