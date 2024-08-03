@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 16:42:51 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/01 10:08:43 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/01 16:15:51 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,34 +44,24 @@ int	check_first_last(char *str)
 
 int	check_surrounding_tiles(char **tile, int x_pos)
 {
-	//printf("pos -1 xpos-1 %c\n", tile[-1][x_pos - 1]);
 	if (tile[-1][x_pos - 1] == ' ' || tile[-1][x_pos - 1] == '\0')
 		return (-1);
-	//printf("pos -1 xpos %c\n", tile[-1][x_pos]);
 	if (tile[-1][x_pos] == ' ' || tile[-1][x_pos] == '\0')
 		return (-1);
-	//printf("pos -1 xpos+1 %c\n", tile[-1][x_pos + 1]);
 	if (tile[-1][x_pos + 1] == ' ' || tile[-1][x_pos + 1] == '\0')
 		return (-1);
-	//printf("pos xpos-1 %c\n", tile[0][x_pos - 1]);
 	if (tile[0][x_pos - 1] == ' ' || tile[0][x_pos - 1] == '\0')
 		return (-1);
-	//printf("pos xpos %c\n", tile[0][x_pos]);
 	if (tile[0][x_pos] == ' ' || tile[0][x_pos] == 0)
 		return (-1);
-	//printf("pos xpos+1 %c\n", tile[0][x_pos + 1]);
 	if (tile[0][x_pos + 1] == ' ' || tile[0][x_pos + 1] == '\0')
 		return (-1);
-	//printf("pos+1 xpos-1 %c\n", tile[1][x_pos - 1]);
 	if (tile[1][x_pos - 1] == ' ' || tile[1][x_pos - 1] == '\0')
 		return (-1);
-	//printf("pos+1 xpos %c\n", tile[1][x_pos]);
 	if (tile[1][x_pos] == ' ' || tile[1][x_pos] == '\0')
 		return (-1);
-	//printf("pos+1 xpos+1 %c\n", tile[1][x_pos + 1]);
 	if (tile[1][x_pos + 1] == ' ' || tile[1][x_pos + 1] == '\0')
 		return (-1);
-	//printf("tile: %c\n", tile[0][x_pos]);
 	return (0);
 }
 
@@ -99,22 +89,18 @@ int	check_map_borders(t_data *data)
 
 	ret = 0;
 	i = 0;
-	//printf("Checking map borders\n");
 	while (ret == 0 && data->map_lines[i] != NULL)
 	{
 		ret = check_for_nl(data->map_lines[i]);
-		//printf("ret: %d\n", ret);
 		if (i == 0 || i == data->map_height - 1)
 		{
-			if (check_first_last(data->map_lines[i]) == -1)	
+			if (check_first_last(data->map_lines[i]) == -1)
 				return (-1);
 		}
 		else
 		{
-			//printf("should go here: i: %d\n", i);
 			if (check_if_map_closed(&data->map_lines[i]) == -1)
 			{
-				//printf("map not closed\n");
 				return (-1);
 			}
 		}

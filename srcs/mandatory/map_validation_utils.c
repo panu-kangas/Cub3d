@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:06:46 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/01 15:50:34 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/02 10:49:49 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,3 @@ void	get_widest_width(t_data *data)
 	}
 	data->map_width = width;
 }
-
