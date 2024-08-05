@@ -1,61 +1,76 @@
 #include "cubed_bonus.h"
 
-void	door_opening_anim(t_data *data, long long x, long long y)
+int		find_open_door_iter(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < (data->map_height - 1))
+	{
+		x = 0;
+		while (x < (data->map_width - 1))
+		{
+			if (data->map[y][x].is_opening == 1 || data->map[y][x].is_closing == 1)
+				return (data->map[y][x].open_img_iter);
+			x += 1;
+		}
+		y += 1;
+	}
+	return (2);
+}
+
+void	find_opening_door(t_data *data, long long *x, long long *y)
+{
+	while (*y < WINDOW_HEIGHT)
+	{
+		*x = 0;
+		while (*x < WINDOW_WIDTH)
+		{
+			if (data->map[*y][*x].is_opening == 1 || data->map[*y][*x].is_closing == 1)
+				return ;
+			*x += 1;
+		}
+		*y += 1;
+	}
+}
+
+void	door_opening_anim(t_data *data)
 {
 	int				iter_dir;
-	double			prev_time;
-	double			time;
+	long long		x;
+	long long		y;
 
-	if (data->map[y][x].is_open == 0)
+	x = 0;
+	y = 0;
+	iter_dir = 0;
+	find_opening_door(data, &x, &y);
+
+	if (data->map[y][x].is_opening == 1)
 	{
 		data->map[y][x].type = '0';
 		data->map[y][x].is_open = 1;
-		data->door_open_iter = 0;
 		iter_dir = 1;
 	}
-	else
+	else if (data->map[y][x].is_closing == 1)
 		iter_dir = -1;
 
-//	printf("x=%lld, y=%lld\n", x, y);
-//	printf("BEFORE 1 draw: type: %c, is_open: %d, door_open_iter: %d, iter_dir: %d\n\n", \
-//	data->map[y][x].type, data->map[y][x].is_open, data->door_open_iter, iter_dir);
+	data->map[y][x].open_img_iter += iter_dir;
 
-	delete_and_init_images(data);
-	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
+	//printf("OPEN_IMG_ITER: %d\n", data->map[y][x].open_img_iter);
 
-	time = mlx_get_time();
-	prev_time = time;
-	while (time < prev_time + 0.2)
-		time = mlx_get_time();
-
-	data->door_open_iter += iter_dir;
-	delete_and_init_images(data);
-	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
-	prev_time = time;
-
-	while (time < prev_time + 0.2)
-		time = mlx_get_time();
-
-	data->door_open_iter += iter_dir;
-	delete_and_init_images(data);
-	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
-	prev_time = time;
-
-//	data->map[y][x].is_opening = 0;
-
-	while (time < prev_time + 0.3)
-		time = mlx_get_time();
-
-	if (data->door_open_iter == 0)
+	if (data->map[y][x].open_img_iter == 2)
+	{
+		data->opening_in_action = 0;
+		data->map[y][x].is_opening = 0;
+	}
+	else if (data->map[y][x].open_img_iter == 0)
 	{
 		data->map[y][x].type = '1';
 		data->map[y][x].is_open = 0;
-		delete_and_init_images(data);
-		draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
+		data->opening_in_action = 0;
+		data->map[y][x].is_closing = 0;
 	}
-	data->door_open_iter = 2;
-
-	
 }
 
 void	door_idle_anim(t_data *data)
@@ -89,6 +104,8 @@ void	door_animation(void *param)
 	if (time > prev_time + 0.2) // add ending flag here
 	{
 		door_idle_anim(data);
+		if (data->opening_in_action == 1)
+			door_opening_anim(data);
 		delete_and_init_images(data);
 		draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 		prev_time = time;

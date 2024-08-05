@@ -13,8 +13,9 @@ void	init_map_flags(t_data *data)
 		{
 			data->map[y][x].is_door = 0;
 			data->map[y][x].is_open = 0;
-			//data->map[y][x].is_opening = 0;
-			// data->map[y][x].open_img_iter = 0;
+			data->map[y][x].is_opening = 0;
+			data->map[y][x].is_closing = 0;
+			data->map[y][x].open_img_iter = 0;
 		}
 	}
 }
@@ -37,9 +38,9 @@ void	assign_map(t_data *data)
 				data->map[y][x].type = '1';
 			else if (x == 2 && y == 2)
 				data->map[y][x].type = 'P';
-			else if ((x == 4 && y == 4) || (x == 7 && y == 4))
+			else if ((x == 4 && y == 4) || (x == 6 && y == 4) || (x == 8 && y == 4))
 				data->map[y][x].type = '1';
-			else if ((x == 5 && y == 4) || (x == 6 && y == 4))
+			else if ((x == 5 && y == 4) || (x == 7 && y == 4))
 			{
 				data->map[y][x].type = '1';
 				data->map[y][x].is_door = 1;

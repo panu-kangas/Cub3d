@@ -46,8 +46,9 @@ typedef struct s_map
 	char	type; // wall ('1'), empty space('0'), player ('P') etc
 	int		is_door; // 0 or no door, 1 for door
 	int		is_open; // 0 for closed, 1 for open
-//	int		is_opening;
-//	int		open_img_iter;
+	int		is_opening;
+	int		is_closing;
+	int		open_img_iter;
 }			t_map;
 
 typedef struct s_enemy
@@ -77,7 +78,9 @@ typedef struct s_data
 	mlx_image_t *door_canvas;
 
 	int			door_idle_iter;
-	int			door_open_iter;
+//	int			door_open_iter;
+
+	int			opening_in_action;
 
 	mlx_image_t *player_icon;
 	mlx_image_t *enemy_img;
@@ -109,6 +112,7 @@ typedef struct s_data
 	int			ray_iterator;
 	double		vert_intersection_coord[2];
 	double		horizon_intersection_coord[2];
+	double		checking_door_coord[2];
 	
 	int			map_height;
 	int			map_width;
@@ -191,7 +195,19 @@ void	door_animation(void *param);
 void	init_door_canvas(t_data *data);
 void	fix_door_img(mlx_image_t *door_img, mlx_image_t *wall_img);
 void	draw_open_door(t_data *data, double ray_angle, double window_width);
-void	door_opening_anim(t_data *data, long long x, long long y);
+void	door_opening_anim(t_data *data);
+int		find_open_door_iter(t_data *data);
+
+long long	get_up_right_door_y(long long *t_coord, double *start_coord, double ray_angle);
+long long	get_down_right_door_y(t_data *data, long long *t_coord, double *start_coord, double ray_angle);
+long long	get_down_left_door_y(t_data *data, long long *t_coord, double *start_coord, double ray_angle);
+long long	get_up_left_door_y(long long *t_coord, double *start_coord, double ray_angle);
+
+long long	get_up_right_door_x(t_data *data, long long *t_coord, double *start_coord, double ray_angle);
+long long	get_down_right_door_x(t_data *data, long long *t_coord, double *start_coord, double ray_angle);
+long long	get_down_left_door_x(long long *t_coord, double *start_coord, double ray_angle);
+long long	get_up_left_door_x(long long *t_coord, double *start_coord, double ray_angle);
+
 
 
 #endif
