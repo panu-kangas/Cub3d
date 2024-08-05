@@ -4,7 +4,7 @@ CFLAGS	= -Wextra -Wall -Werror -g
 LIBMLX	= ./lib/MLX42/build/libmlx42.a
 LIBFT	= ./lib/libft/libft.a
 MAND	= ./srcs/mandatory
-BONUS	= ./srcs/bonus
+B	= ./srcs/bonus/
 
 HEADERS	= -I ./lib/MLX42/include -I ./lib/libft -I ./incl
 LIBS	= $(LIBMLX) $(LIBFT) -ldl -pthread -lm -lglfw -L"/Users/$(USER)/.brew/opt/glfw/lib/"
@@ -17,20 +17,28 @@ SRCS	= $(MAND)/main.c $(MAND)/error_and_exit.c $(MAND)/get_map.c $(MAND)/utils.c
 		$(MAND)/key_actions.c $(MAND)/get_map_utils.c $(MAND)/map_validation_utils.c \
 		\
 		\
-		$(MAND)/debug.c 
+		$(MAND)/debug.c
 OBJS	= ${SRCS:.c=.o}
 
-BONSRCS	= $(BONUS)/main_bonus.c $(BONUS)/error_and_exit_bonus.c $(BONUS)/get_map_bonus.c $(BONUS)/utils_bonus.c \
-		$(BONUS)/draw_image_bonus.c $(BONUS)/find_wall_distance_bonus.c $(BONUS)/get_images_bonus.c $(BONUS)/keyhook_bonus.c \
-		$(BONUS)/get_intersection_x_bonus.c $(BONUS)/get_intersection_y_bonus.c $(BONUS)/key_actions_bonus.c \
-		$(BONUS)/compare_distance_bonus.c $(BONUS)/check_for_collision_bonus.c $(BONUS)/draw_functions_bonus.c \
-		$(BONUS)/draw_player_icon_bonus.c $(BONUS)/check_map_borders_bonus.c \
-		$(BONUS)/get_paths_and_colors_bonus.c $(BONUS)/map_validation_bonus.c \
-		$(BONUS)/get_map_utils_bonus.c $(BONUS)/map_validation_utils_bonus.c \
-		$(BONUS)/validate_doors_and_enemies.c \
+BONSRCS	= $Bmain_bonus.c $Berror_and_exit_bonus.c $Bget_map_bonus.c $Butils_bonus.c \
+		$Bdraw_image_bonus.c $Bfind_wall_distance_bonus.c $Bget_images_bonus.c $Bkeyhook_bonus.c \
+		$Bget_intersection_x_bonus.c $Bget_intersection_y_bonus.c $Bkey_actions_bonus.c \
+		$Bcompare_distance_bonus.c $Bcheck_for_collision_bonus.c \
+		$Bdraw_player_icon_bonus.c $Bcheck_map_borders_bonus.c  \
+		$Bget_paths_and_colors_bonus.c $Bmap_validation_bonus.c \
+		$Bget_map_utils_bonus.c $Bmap_validation_utils_bonus.c \
+		$Bvalidate_doors_and_enemies.c $Bdraw_minimap_and_wall_bonus.c \
+		$Bdraw_open_door.c \
+		$Benemy_draw_bonus.c \
+		$Benemy_handler_bonus.c \
+		$Benemy_init_bonus.c \
+		$Bget_intersection_door_x_bonus.c \
+		$Bget_intersection_door_y_bonus.c \
+		$Bdoor_animation.c \
 		\
 		\
-		$(BONUS)/debug_bonus.c
+		\
+		$Bdebug_bonus.c
 
 BONOBJS	= ${BONSRCS:.c=.o}
 

@@ -1,7 +1,7 @@
-NO ./tiles/wall_n.png
-SO ./tiles/wall_s.png
-WE ./tiles/wall_w.png
-EA ./tiles/wall_e.png
+NO ./tiles/wall/wall_n.png
+SO ./tiles/wall/wall_s.png
+WE ./tiles/wall/wall_w.png
+EA ./tiles/wall/wall_e.png
 
 H 220,100,0
 C 225,226,0

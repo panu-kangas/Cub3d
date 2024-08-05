@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/03 16:02:15 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/05 16:03:14 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define VALIDCHARS "01 NEWSDA"
 # define VALIDMAPCHARS "01XNEWSDA"
 # define AREACHARS "0NEWSDA"
+# define PLAYER "SNEW"
 
 typedef struct s_map
 {
@@ -98,12 +99,10 @@ typedef struct s_data
 	uint8_t		*pixels; // pixel data of a single wall
 	uint8_t		*pixels_door; // pixel data of a single wall
 
-	mlx_image_t	*player_icon;
 
 	t_map		**map;
 
 	t_enemy		*enemy;
-	int			enemy_count;
 
 	int			ceil_colour; // ceiling colour
 	int			fl_colour; // floor colour
@@ -124,7 +123,7 @@ typedef struct s_data
 	double		vert_intersection_coord[2];
 	double		horizon_intersection_coord[2];
 	double		checking_door_coord[2];
-	
+
 	int			map_height;
 	int			map_width;
 	long long	player_coord[2]; // x and y coord of the player in px

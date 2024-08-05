@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_paths_and_colors.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:23:47 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/02 16:17:12 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:42:48 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

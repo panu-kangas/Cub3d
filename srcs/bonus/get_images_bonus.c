@@ -165,8 +165,8 @@ void	get_images(t_data *data)
 	if (!data->door_canvas)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	init_door_canvas(data);
-	data->player_coord[0] = data->player_x_pos * IMG_SIZE - 1;
-	data->player_coord[1] = data->player_y_pos * IMG_SIZE - 1;
+	data->player_coord[0] = data->player_x_pos * IMG_SIZE + (IMG_SIZE / 2);
+	data->player_coord[1] = data->player_y_pos * IMG_SIZE + (IMG_SIZE / 2);
 	data->fl_colour = get_rgba(data->floor_color->r, data->floor_color->g, \
 	data->floor_color->b, 255);
 	data->ceil_colour = get_rgba(data->ceiling_color->r, \

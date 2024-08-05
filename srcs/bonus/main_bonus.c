@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:17:31 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/03 16:02:03 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/05 15:40:49 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,14 @@ void	init_data(t_data *data)
 	data->wall_img_w = NULL;
 	data->wall_img_s = NULL;
 	data->wall_img_w = NULL;
-
 	data->v_h_flag = 0;
 	data->door_found_vert = 0;
 	data->door_found_horiz = 0;
-
 	data->door_idle_iter = 0;
-
 	data->opening_in_action = 0;
-
 	data->handling_open_door = 0;
 	data->found_open_door_vert = 0;
 	data->found_open_door_horiz = 0;
-
 	data->map_height = 0;
 	data->map_name = NULL;
 	data->file = NULL;
@@ -74,18 +69,17 @@ int	main(int argc, char *argv[])
 		sys_error_exit(data, "Malloc failed", 0);
 	init_data(data);
 	get_map(data, argv[1]);
-
+  if (get_texture_paths(data) < 0 || check_texture_paths(data) == -1)
+		error_exit(data, "Invalid game settings given", 0);
 	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", false);
 	if (!data->mlx)
 		error_exit(data, mlx_strerror(mlx_errno), 0);
-  if (get_texture_paths(data) < 0 || check_texture_paths(data) == -1)
-		error_exit(data, "Invalid game settings given", 0);
 
 	get_images(data);
 	init_enemies(data);
 
 	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
-  
+
 
 //	mlx_loop_hook(data->mlx, &enemy_handler, data);
 	mlx_loop_hook(data->mlx, &door_animation, data);
