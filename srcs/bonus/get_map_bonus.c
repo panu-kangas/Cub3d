@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_map_bonus.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/07/29 18:36:51 by llitovuo          #+#    #+#             */
+/*   Updated: 2024/08/03 15:08:18 by llitovuo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cubed_bonus.h"
+
 
 void	init_map_flags(t_data *data)
 {
@@ -20,39 +33,6 @@ void	init_map_flags(t_data *data)
 	}
 }
 
-void	assign_map(t_data *data)
-{
-	int	x;
-	int	y;
-
-	x = 0;
-	while (x < data->map_width)
-		data->map[0][x++].type = '1';
-	y = 0;
-	while (++y < (data->map_height - 1))
-	{
-		x = -1;
-		while (++x < data->map_width)
-		{
-			if (x == 0 || x == data->map_width - 1)
-				data->map[y][x].type = '1';
-			else if (x == 2 && y == 2)
-				data->map[y][x].type = 'P';
-			else if ((x == 4 && y == 4) || (x == 6 && y == 4) || (x == 8 && y == 4))
-				data->map[y][x].type = '1';
-			else if ((x == 5 && y == 4) || (x == 7 && y == 4))
-			{
-				data->map[y][x].type = '1';
-				data->map[y][x].is_door = 1;
-			}
-			else
-				data->map[y][x].type = '0';
-		}
-	}
-	x = 0;
-	while (x < data->map_width)
-		data->map[y][x++].type = '1';
-}
 
 void	allocate_map(t_data *data)
 {
@@ -62,6 +42,7 @@ void	allocate_map(t_data *data)
 	if (data->map == NULL)
 		sys_error_exit(data, "Malloc failed", 0);
 	i = 0;
+	get_widest_width(data);
 	while (i < data->map_height)
 	{
 		data->map[i] = malloc((data->map_width) * sizeof(t_map));
@@ -71,37 +52,100 @@ void	allocate_map(t_data *data)
 	}
 }
 
-void	is_map_valid(char *map_name)
+int	assign_map_contents(t_data *data)
 {
-	if (map_name == NULL)
-		return ;
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (i < data->map_height)
+	{
+		j = 0;
+		while (j < data->map_width && data->map_lines[i][j] != '\0')
+		{
+			data->map[i][j].type = data->map_lines[i][j];
+			j++;
+		}
+		if (j == 0 && i != data->map_height)
+			return (-1);
+		while (j < data->map_width)
+		{
+			data->map[i][j].type = ' ';
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	create_map_lines(t_data *data)
+{
+	int	i;
+	int	k;
+
+	i = data->info_lines_count;
+	k = 0;
+	data->map_lines = malloc ((data->map_height + 1) * sizeof(char *));
+	if (data->map_lines == NULL)
+		return (-1);
+	while (i < data->file_height && k < data->map_height)
+	{
+		data->map_lines[k] = ft_strdup_nonl(data->file[i]);
+		if (!data->map_lines[k])
+			return (free_2d_array_len(data->map_lines, k), -1);
+		i++;
+		k++;
+	}
+	data->map_lines[k] = NULL;
+	return (1);
+}
+
+int	copy_file_contents(t_data *data, char *map_name)
+{
+	int		fd;
+	char	*line;
+	int		i;
+
+	data->file = malloc ((data->file_height + 1) * sizeof(char *));
+	if (data->file == NULL)
+		return (-1);
+	fd = open(map_name, O_RDONLY);
+	if (fd < 0)
+		return (-1);
+	i = 0;
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		data->file[i] = ft_strdup_nonl(line);
+		free (line);
+		i++;
+	}
+	data->file[i] = NULL;
+	close(fd);
+	return (0);
 }
 
 void	get_map(t_data *data, char *map_name)
 {
-	is_map_valid(map_name);
-	data->map_width = 12;
-	data->map_height = 12;
+	is_map_valid(data, map_name);
+	if (copy_file_contents(data, map_name) == -1)
+		error_exit(data, "Map file could not be opened", 0);
+	if (check_path_lines(data, 0, 0, 0) < 0)
+		error_exit(data, "Path lines are invalid", 0);
+	if (check_color_lines(data) < 0)
+		error_exit(data, "Color lines are invalid", 0);
+	if (create_map_lines(data) < 0)
+		sys_error_exit(data, "Malloc failed", 0);
 	allocate_map(data);
-	init_map_flags(data);
-	assign_map(data);
+	assign_map_contents(data);
+	change_spaces_to_x(data);
+	check_map_syntax(data);
+	if (data->player_flag == 0)
+		error_exit(data, "No player", 0);
+	if (check_map_borders(data) == -1)
+		error_exit(data, "Map is not surrounded by walls", 0);
+  init_map_flags(data);
 }
-
-/* TEST FOR PRINTING OUT MAP TYPE INFO:
-
-    int x;
-    int y;
-
-    y = 0;
-    while (y < data->map_height)
-    {
-        x = 0;
-        while (x < data->map_width)
-        {
-            printf("%c", data->map[y][x].type);
-            x++;
-        }
-        printf("\n");
-        y++;
-    }
-*/

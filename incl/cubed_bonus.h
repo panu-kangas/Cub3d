@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/07/22 11:18:35 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/03 16:02:15 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@
 
 # define ENEMY_WIDTH 64
 
+# define VALIDCHARS "01 NEWSDA"
+# define VALIDMAPCHARS "01XNEWSDA"
+# define AREACHARS "0NEWSDA"
 
 typedef struct s_map
 {
@@ -59,6 +62,13 @@ typedef struct s_enemy
 	int			is_dying;
 	int			is_dead;
 }			t_enemy;
+
+typedef struct s_color
+{
+	int		r;
+	int		g;
+	int		b;
+}			t_color;
 
 typedef struct s_data
 {
@@ -88,6 +98,8 @@ typedef struct s_data
 	uint8_t		*pixels; // pixel data of a single wall
 	uint8_t		*pixels_door; // pixel data of a single wall
 
+	mlx_image_t	*player_icon;
+
 	t_map		**map;
 
 	t_enemy		*enemy;
@@ -95,7 +107,6 @@ typedef struct s_data
 
 	int			ceil_colour; // ceiling colour
 	int			fl_colour; // floor colour
-
 	int			v_h_flag; // vertical intersection found wall = 0, horizontal intersection = 1 (used in find_wall_distance.c)
 	int			door_found_vert;
 	long long	door_coord_v[2];
@@ -116,26 +127,45 @@ typedef struct s_data
 	
 	int			map_height;
 	int			map_width;
-	
-	long long	player_coord[2]; // x and y coord of the player (will be in pixels)
-	double		player_angle; // 0 means player is facing north, 90 east, 180 south, 270 west. 360 is again 0.
+	long long	player_coord[2]; // x and y coord of the player in px
+	double		player_angle; // 0=N, 90=E, 180=S, 270=W. 360 is again 0.
+	char		*map_name;
+	int			player_x_pos;
+	int			player_y_pos;
+	int			player_flag;
+	char		*texture_path_n;
+	char		*texture_path_e;
+	char		*texture_path_s;
+	char		*texture_path_w;
+	char		**map_lines;
+	char		**file;
+	int			info_lines_count;
+	int			file_height;
+	t_color		*ceiling_color;
+	t_color		*floor_color;
+	int			map_start;
+	int			cc;
+	int			fc;
+	int			enemy_count;
 }			t_data;
-
 
 // ERROR HANDLING
 
-void	error_exit(t_data *data, const char *err_str, int init_flag);
-void	sys_error_exit(t_data *data, char *err_str, int mlx_flag);
-void	success_exit(t_data *data);
+void		error_exit(t_data *data, const char *err_str, int init_flag);
+void		sys_error_exit(t_data *data, char *err_str, int mlx_flag);
+void		success_exit(t_data *data);
 
 // FREE FUNCTIONS
 
-void	free_data(t_data *data);
-void	free_map(t_data *data);
+char		*ft_strdup_nonl(const char *s1);
+void		free_2d_array_len(char **strs, int len);
+void		free_data(t_data *data);
+void		free_map(t_data *data);
 
 // MAP HANDLING
 
-void	get_map(t_data *data, char *map_name);
+void		get_map(t_data *data, char *map_name);
+void		change_spaces_to_x(t_data *data);
 
 // IMAGE DRAWING
 
@@ -148,29 +178,32 @@ void	get_horizon_intersection(t_data *data, double ray_angle, \
 long long *w_coord, int cnt);
 double  compare_distance(t_data *data, double ray_angle, \
 long long *vert_coord, long long *horizon_coord);
-int		draw_wall(t_data *data, int i, double wall_height, int start_coord);
+int			draw_wall(t_data *data, int i, double wall_height, int start_coord);
 
 // INTERSECTION MATH HELPERS
 
-long long get_up_right_x(t_data *data, long long *t_coord, double ray_angle);
-long long get_down_right_x(t_data *data, long long *t_coord, double ray_angle);
-long long get_down_left_x(t_data *data, long long *t_coord, double ray_angle);
-long long get_up_left_x(t_data *data, long long *t_coord, double ray_angle);
-long long get_up_right_y(t_data *data, long long *t_coord, double ray_angle);
-long long get_down_right_y(t_data *data, long long *t_coord, double ray_angle);
-long long get_down_left_y(t_data *data, long long *t_coord, double ray_angle);
-long long get_up_left_y(t_data *data, long long *t_coord, double ray_angle);
+long long	get_up_right_x(t_data *data, long long *t_coord, double ray_angle);
+long long	get_down_right_x(t_data *data, \
+	long long *t_coord, double ray_angle);
+long long	get_down_left_x(t_data *data, long long *t_coord, double ray_angle);
+long long	get_up_left_x(t_data *data, long long *t_coord, double ray_angle);
+long long	get_up_right_y(t_data *data, long long *t_coord, double ray_angle);
+long long	get_down_right_y(t_data *data, \
+	long long *t_coord, double ray_angle);
+long long	get_down_left_y(t_data *data, long long *t_coord, double ray_angle);
+long long	get_up_left_y(t_data *data, long long *t_coord, double ray_angle);
 
 // HOOK FUNCTIONS
 
-void	keyhook(mlx_key_data_t keydata, void *param);
-void	key_action_w(t_data *data);
-void	key_action_a(t_data *data);
-void	key_action_s(t_data *data);
-void	key_action_d(t_data *data);
-int		check_for_collision(t_data *data, double direction);
+void		keyhook(mlx_key_data_t keydata, void *param);
+void		key_action_w(t_data *data);
+void		key_action_a(t_data *data);
+void		key_action_s(t_data *data);
+void		key_action_d(t_data *data);
+int			check_for_collision(t_data *data, double direction);
 
 // UTILS
+
 
 double  convert_to_radians(double angle_in_degrees);
 double	convert_to_degrees(double angle_in_rad);
@@ -209,5 +242,25 @@ long long	get_down_left_door_x(long long *t_coord, double *start_coord, double r
 long long	get_up_left_door_x(long long *t_coord, double *start_coord, double ray_angle);
 
 
+/* VALIDATION */
+
+int			get_texture_paths(t_data *data);
+int			is_map_valid(t_data *data, char *map_name);
+int			check_texture_paths(t_data *data);
+int			assign_map_contents(t_data *data);
+void		allocate_map(t_data *data);
+int			check_map_borders(t_data *data);
+void		get_widest_width(t_data *data);
+void		check_map_syntax(t_data *data);
+int			check_path_lines(t_data *data, int i, int no_flag, int so_flag);
+int			check_color_lines(t_data *data);
+void		validate_door_and_enemy_positions(t_data *data, int i, int j);
+
+// DEBUGGING REMOVE THESE
+
+void		print_map_lines(t_data *data);
+void		print_map(t_data *data);
+void		print_info(t_data *data);
+void		print_data(t_data *data);
 
 #endif

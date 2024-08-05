@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error_and_exit.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/02 11:11:40 by llitovuo          #+#    #+#             */
+/*   Updated: 2024/08/02 13:17:53 by llitovuo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cubed.h"
 
 void	free_map(t_data *data)
@@ -21,7 +33,24 @@ void	free_data(t_data *data)
 {
 	if (data != NULL)
 	{
-		free_map(data);
+		if (data->map != NULL)
+			free_map(data);
+		if (data->map_lines != NULL)
+			free_2d_array_len(data->map_lines, data->map_height);
+		if (data->file != NULL)
+			free_2d_array_len(data->file, data->file_height);
+		if (data->ceiling_color != NULL)
+			free(data->ceiling_color);
+		if (data->floor_color != NULL)
+			free(data->floor_color);
+		if (data->texture_path_e != NULL)
+			free(data->texture_path_e);
+		if (data->texture_path_n != NULL)
+			free(data->texture_path_n);
+		if (data->texture_path_s != NULL)
+			free(data->texture_path_s);
+		if (data->texture_path_w != NULL)
+			free(data->texture_path_w);
 		free(data);
 	}
 }
