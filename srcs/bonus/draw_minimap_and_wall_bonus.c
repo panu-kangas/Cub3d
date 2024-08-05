@@ -7,7 +7,10 @@ int	colour_the_pixel(t_data *data, int *start_coord, int pixel_counter, int i)
 
 	pixels = data->pixels;
 	colour = get_rgba(pixels[i], pixels[i + 1], pixels[i + 2], pixels[i + 3]);
-	mlx_put_pixel(data->game_img, data->ray_iterator, *start_coord, colour);
+	if (data->handling_open_door == 0)
+		mlx_put_pixel(data->game_img, data->ray_iterator, *start_coord, colour);
+	else if (data->handling_open_door == 1)
+		mlx_put_pixel(data->door_canvas, data->ray_iterator, *start_coord, colour);
 	*start_coord += 1;
 	return (pixel_counter + 1);
 }
@@ -49,9 +52,9 @@ int		get_colour_minimap(t_data *data, int x_counter)
 	start_pos = MINIMAP_TILE_COUNT / 2;
 	draw_coord[0] = (p_coord[0] / IMG_SIZE) - (start_pos - x_counter);
 	draw_coord[1] = (p_coord[1] / IMG_SIZE) - (start_pos - y_counter);
-	if (x_counter == 10)
+	if (x_counter == MINIMAP_TILE_COUNT - 1)
 		y_counter++;
-	if (y_counter == 11)
+	if (y_counter == MINIMAP_TILE_COUNT)
 		y_counter = 0;
 
 	if (draw_coord[0] < 0 || draw_coord[1] < 0 \
@@ -60,9 +63,11 @@ int		get_colour_minimap(t_data *data, int x_counter)
 
 //	if (x_counter == 5 && y_counter == 5)
 //		return (get_rgba(49, 120, 60, 255)); // Player (green)
-	if (data->map[draw_coord[1]][draw_coord[0]].type == '0' ||
-	data->map[draw_coord[1]][draw_coord[0]].type == 'P')
+	if (data->map[draw_coord[1]][draw_coord[0]].type == '0' \
+	|| data->map[draw_coord[1]][draw_coord[0]].type == 'P')
 		return (get_rgba(230, 224, 193, 255)); // Floor (brown)
+	else if (data->map[draw_coord[1]][draw_coord[0]].is_door == 1)
+		return (get_rgba(237, 186, 33, 255));
 	else if (data->map[draw_coord[1]][draw_coord[0]].type == '1')
 		return (get_rgba(10, 10, 10, 255)); // Wall (black)
 	else
@@ -92,7 +97,7 @@ void	draw_minimap(t_data *data)
 			y_counter = 0;
 			while (y_counter < MINIMAP_IMG_SIZE)
 			{
-				mlx_put_pixel(data->game_img, x, y++, colour);
+				mlx_put_pixel(data->door_canvas, x, y++, colour);
 				y_counter++;
 			}
 			x++;

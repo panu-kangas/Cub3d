@@ -19,22 +19,26 @@
 # include <stdlib.h> // malloc
 
 # include <math.h>
+# include <time.h> // just as test
 
 # include <MLX42/MLX42.h>
 # include "libft.h"
 
-# define WINDOW_WIDTH 800 // 1920
-# define WINDOW_HEIGHT 600 // 1080
-# define IMG_SIZE 64 // 64 x 64 pixels
-# define PI 3.14159265358979323846 // Not the dessert... sadly
-# define PP_DIST 255 // Projection Plane Distance, 255 is recommendation
-# define PLAYER_SPEED 14 // move X pixels per keypress
-# define PLAYER_TURN_SPEED 9 // X degrees change to angle per keypress
+# define WINDOW_WIDTH 800 // Panu's laptop: 800 // At school: 1600
+# define WINDOW_HEIGHT 700 // Panu's laptop: 600 // At school: 1200
 
-# define MINIMAP_WIDTH 176 // IMG_SIZE * TILE_COUNT (16 * 11)
-# define MINIMAP_HEIGHT	176
-# define MINIMAP_IMG_SIZE 16
+# define IMG_SIZE 128 // 64 x 64 pixels --> NOTE: We might need bigger images for school, because on bigger game window the images strech out a lot!
+# define PI 3.14159265358979323846 // Not the dessert... sadly
+# define PP_DIST 300 // Projection Plane Distance, 255 is recommendation
+# define PLAYER_SPEED 20 // move X pixels per keypress
+# define PLAYER_TURN_SPEED 10 // X degrees change to angle per keypress
+
+# define MINIMAP_WIDTH 176 // At school: 275 = MINIMAP_IMG_SIZE * TILE_COUNT (25 * 11) // Panu laptop: 176 = MINIMAP_IMG_SIZE * TILE_COUNT (16 * 11)
+# define MINIMAP_HEIGHT	176 // At school: 275 // Panu laptop: 176
+# define MINIMAP_IMG_SIZE 16 // At school: 25 // Panu laptop: 16
 # define MINIMAP_TILE_COUNT 11
+
+# define ENEMY_WIDTH 64
 
 # define VALIDCHARS "01 NEWSDA"
 # define VALIDMAPCHARS "01XNEWSDA"
@@ -43,8 +47,21 @@
 typedef struct s_map
 {
 	char	type; // wall ('1'), empty space('0'), player ('P') etc
-	int		is_door;
+	int		is_door; // 0 or no door, 1 for door
+	int		is_open; // 0 for closed, 1 for open
+	int		is_opening;
+	int		is_closing;
+	int		open_img_iter;
 }			t_map;
+
+typedef struct s_enemy
+{
+	long long	e_coord[2]; // the x and y coordinates
+	int			direction; // for now, 0 north, 1 east, 2 south, 3 west
+	int			step_count;
+	int			is_dying;
+	int			is_dead;
+}			t_enemy;
 
 typedef struct s_color
 {
@@ -57,22 +74,57 @@ typedef struct s_data
 {
 	mlx_t		*mlx;
 	mlx_image_t	*game_img;
+//	mlx_image_t	*img_to_draw;
+//	mlx_image_t	*secong_img;
 
 	mlx_image_t	*wall_img_n; // Northern wall image
 	mlx_image_t	*wall_img_e; // etc...
 	mlx_image_t	*wall_img_s;
 	mlx_image_t	*wall_img_w;
-	mlx_image_t	*player_icon;
+
+//	mlx_image_t	*door;
+	mlx_image_t	*door_closed_img[4];
+	mlx_image_t	*door_open_img[3];
+	mlx_image_t *door_canvas;
+
+	int			door_idle_iter;
+//	int			door_open_iter;
+
+	int			opening_in_action;
+
+	mlx_image_t *player_icon;
+	mlx_image_t *enemy_img;
 
 	uint8_t		*pixels; // pixel data of a single wall
+	uint8_t		*pixels_door; // pixel data of a single wall
+
+	mlx_image_t	*player_icon;
+
 	t_map		**map;
+
+	t_enemy		*enemy;
+	int			enemy_count;
 
 	int			ceil_colour; // ceiling colour
 	int			fl_colour; // floor colour
 	int			v_h_flag; // vertical intersection found wall = 0, horizontal intersection = 1 (used in find_wall_distance.c)
+	int			door_found_vert;
+	long long	door_coord_v[2];
+	int			door_found_horiz;
+	long long	door_coord_h[2];
+
+//	long long	open_door_coord_vert[2];
+//	long long	open_door_coord_horiz[2];
+	int			handling_open_door;
+	int			found_open_door_vert;
+	int			found_open_door_horiz;
+
+
 	int			ray_iterator;
 	double		vert_intersection_coord[2];
 	double		horizon_intersection_coord[2];
+	double		checking_door_coord[2];
+	
 	int			map_height;
 	int			map_width;
 	long long	player_coord[2]; // x and y coord of the player in px
@@ -117,10 +169,14 @@ void		change_spaces_to_x(t_data *data);
 
 // IMAGE DRAWING
 
-void		get_images(t_data *data);
-void		draw_image(t_data *data);
-double		find_wall_distance(t_data *data, double ray_angle, double addition);
-double		compare_distance(t_data *data, double ray_angle, \
+void    get_images(t_data *data);
+void	draw_image(t_data *data, double ray_angle, double window_width);
+double  find_wall_distance(t_data *data, double ray_angle, double addition);
+void	get_vert_intersection(t_data *data, double ray_angle, \
+long long *w_coord, int cnt);
+void	get_horizon_intersection(t_data *data, double ray_angle, \
+long long *w_coord, int cnt);
+double  compare_distance(t_data *data, double ray_angle, \
 long long *vert_coord, long long *horizon_coord);
 int			draw_wall(t_data *data, int i, double wall_height, int start_coord);
 
@@ -148,15 +204,43 @@ int			check_for_collision(t_data *data, double direction);
 
 // UTILS
 
-double		convert_to_radians(double angle_in_degrees);
-void		print_goodbye_message(void);
-int			get_rgba(int r, int g, int b, int a);
-void		delete_and_init_images(t_data *data);
+
+double  convert_to_radians(double angle_in_degrees);
+double	convert_to_degrees(double angle_in_rad);
+void	print_goodbye_message(void);
+int 	get_rgba(int r, int g, int b, int a);
+void	delete_and_init_images(t_data *data);
 
 // MINIMAP FUNCTIONS
 
-void		draw_minimap(t_data *data);
-void		draw_player_icon(t_data *data);
+void	draw_minimap(t_data *data);
+void	draw_player_icon(t_data *data);
+
+// ENEMY FUNCTIONS
+
+void	init_enemies(t_data *data);
+void	enemy_handler(void *param);
+void    draw_enemy(t_data *data);
+
+// DOOR FUNCTIONS
+
+void	door_animation(void *param);
+void	init_door_canvas(t_data *data);
+void	fix_door_img(mlx_image_t *door_img, mlx_image_t *wall_img);
+void	draw_open_door(t_data *data, double ray_angle, double window_width);
+void	door_opening_anim(t_data *data);
+int		find_open_door_iter(t_data *data);
+
+long long	get_up_right_door_y(long long *t_coord, double *start_coord, double ray_angle);
+long long	get_down_right_door_y(t_data *data, long long *t_coord, double *start_coord, double ray_angle);
+long long	get_down_left_door_y(t_data *data, long long *t_coord, double *start_coord, double ray_angle);
+long long	get_up_left_door_y(long long *t_coord, double *start_coord, double ray_angle);
+
+long long	get_up_right_door_x(t_data *data, long long *t_coord, double *start_coord, double ray_angle);
+long long	get_down_right_door_x(t_data *data, long long *t_coord, double *start_coord, double ray_angle);
+long long	get_down_left_door_x(long long *t_coord, double *start_coord, double ray_angle);
+long long	get_up_left_door_x(long long *t_coord, double *start_coord, double ray_angle);
+
 
 /* VALIDATION */
 

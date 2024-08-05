@@ -43,6 +43,7 @@ void	get_wall_ne_images(t_data *data)
 	if (!data->wall_img_n)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	mlx_delete_texture(wall_text);
+
 	wall_text = mlx_load_png(data->texture_path_e);
 	if (!wall_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
