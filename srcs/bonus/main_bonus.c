@@ -24,7 +24,9 @@ void	init_data(t_data *data)
 	data->door_found_vert = 0;
 	data->door_found_horiz = 0;
 
-	data->door_iter = 0;
+	data->door_idle_iter = 0;
+	data->door_open_iter = 0;
+
 	data->handling_open_door = 0;
 	data->found_open_door_vert = 0;
 	data->found_open_door_horiz = 0;

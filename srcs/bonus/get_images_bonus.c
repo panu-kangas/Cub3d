@@ -54,8 +54,8 @@ void	get_door_image_1(t_data *data)
 	door_text = mlx_load_png("./tiles/door/door_open.png");
 	if (!door_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-	data->door_open_img = mlx_texture_to_image(data->mlx, door_text);
-	if (!data->door_open_img)
+	data->door_open_img[2] = mlx_texture_to_image(data->mlx, door_text);
+	if (!data->door_open_img[2])
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	mlx_delete_texture(door_text);
 }
@@ -87,6 +87,26 @@ void	get_door_image_2(t_data *data)
 	mlx_delete_texture(door_text);
 }
 
+void	get_door_image_3(t_data *data)
+{
+	mlx_texture_t	*door_text;
+
+	door_text = mlx_load_png("./tiles/door/door_opening_0.png");
+	if (!door_text)
+		error_exit(data, mlx_strerror(mlx_errno), 1);
+	data->door_open_img[0] = mlx_texture_to_image(data->mlx, door_text);
+	if (!data->door_open_img[0])
+		error_exit(data, mlx_strerror(mlx_errno), 1);
+	mlx_delete_texture(door_text);
+	door_text = mlx_load_png("./tiles/door/door_opening_1.png");
+	if (!door_text)
+		error_exit(data, mlx_strerror(mlx_errno), 1);
+	data->door_open_img[1] = mlx_texture_to_image(data->mlx, door_text);
+	if (!data->door_open_img[1])
+		error_exit(data, mlx_strerror(mlx_errno), 1);
+	mlx_delete_texture(door_text);
+}
+
 void	init_door_canvas(t_data *data)
 {
 	int	x;
@@ -101,7 +121,7 @@ void	init_door_canvas(t_data *data)
 	}
 }
 
-void	fix_open_door_img(t_data *data, mlx_image_t *wall_img)
+void	fix_door_img(mlx_image_t *door_img, mlx_image_t *wall_img)
 {
 	uint8_t *wall_px;
 	uint8_t	*door_px;
@@ -111,7 +131,7 @@ void	fix_open_door_img(t_data *data, mlx_image_t *wall_img)
 	int		colour;
 
 	wall_px = wall_img->pixels;
-	door_px = data->door_open_img->pixels;
+	door_px = door_img->pixels;
 	i = 0;
 	y = 0;
 	while (y < IMG_SIZE)
@@ -119,10 +139,10 @@ void	fix_open_door_img(t_data *data, mlx_image_t *wall_img)
 		x = 0;
 		while (x < IMG_SIZE)
 		{
-			if (door_px[i + 3] == 0 && !(y > 20 && x > 23 && x < 105))
+			if (door_px[i + 3] < 100 && !(y > 20 && x > 23 && x < 105))
 			{
 				colour = get_rgba(wall_px[i], wall_px[i + 1], wall_px[i + 2], wall_px[i + 3]);
-				mlx_put_pixel(data->door_open_img, x, y, colour);
+				mlx_put_pixel(door_img, x, y, colour);
 			}
 			x++;
 			i += 4;
@@ -137,6 +157,7 @@ void	get_images(t_data *data)
 	get_wall_sw_images(data);
 	get_door_image_1(data);
 	get_door_image_2(data);
+	get_door_image_3(data);
 	data->game_img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!data->game_img)
 		error_exit(data, mlx_strerror(mlx_errno), 1);

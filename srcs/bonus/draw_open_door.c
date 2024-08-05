@@ -15,7 +15,7 @@ void	draw_open_door_pixels(t_data *data, double wall_height)
 {
 	int		column_to_draw;
 
-	data->pixels = data->door_open_img->pixels;
+	data->pixels = data->door_open_img[data->door_open_iter]->pixels;
 	if (data->v_h_flag == 0)
 	{
 		if (data->found_open_door_vert == 0)
@@ -24,7 +24,7 @@ void	draw_open_door_pixels(t_data *data, double wall_height)
 			return ;
 		}
 		column_to_draw = (int)data->vert_intersection_coord[1] % IMG_SIZE;
-		fix_open_door_img(data, data->wall_img_n); // TEST, change the wall img given based on intersection
+		fix_door_img(data->door_open_img[data->door_open_iter], data->wall_img_n); // evetually use get_door_pixels() in draw_image.c
 	}
 	else
 	{
@@ -34,7 +34,7 @@ void	draw_open_door_pixels(t_data *data, double wall_height)
 			return ;
 		}
 		column_to_draw = (int)data->horizon_intersection_coord[0] % IMG_SIZE;
-		fix_open_door_img(data, data->wall_img_n); // TEST, change the wall img given based on intersection
+		fix_door_img(data->door_open_img[data->door_open_iter], data->wall_img_n); // evetually use get_door_pixels() in draw_image.c
 	}
 	execute_open_door_drawing(data, column_to_draw, wall_height);
 }

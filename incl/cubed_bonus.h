@@ -44,9 +44,10 @@
 typedef struct s_map
 {
 	char	type; // wall ('1'), empty space('0'), player ('P') etc
-	int		is_blank; // maybe not needed...?
 	int		is_door; // 0 or no door, 1 for door
 	int		is_open; // 0 for closed, 1 for open
+//	int		is_opening;
+//	int		open_img_iter;
 }			t_map;
 
 typedef struct s_enemy
@@ -72,10 +73,11 @@ typedef struct s_data
 
 //	mlx_image_t	*door;
 	mlx_image_t	*door_closed_img[4];
-	mlx_image_t	*door_open_img;
+	mlx_image_t	*door_open_img[3];
 	mlx_image_t *door_canvas;
 
-	int			door_iter;
+	int			door_idle_iter;
+	int			door_open_iter;
 
 	mlx_image_t *player_icon;
 	mlx_image_t *enemy_img;
@@ -187,8 +189,9 @@ void    draw_enemy(t_data *data);
 
 void	door_animation(void *param);
 void	init_door_canvas(t_data *data);
-void	fix_open_door_img(t_data *data, mlx_image_t *wall_img);
+void	fix_door_img(mlx_image_t *door_img, mlx_image_t *wall_img);
 void	draw_open_door(t_data *data, double ray_angle, double window_width);
+void	door_opening_anim(t_data *data, long long x, long long y);
 
 
 #endif

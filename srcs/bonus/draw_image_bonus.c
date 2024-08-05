@@ -22,6 +22,37 @@ void	execute_drawing(t_data *data, int column, double wall_height)
 	data->found_open_door_horiz = 0;
 }
 
+void	get_door_pixels(t_data *data)
+{
+	char	direction;
+
+	// separate function
+	if (data->v_h_flag == 0 && data->player_coord[0] > data->vert_intersection_coord[0])
+		direction = 'W';
+	else if (data->v_h_flag == 0)
+		direction = 'E';
+	else if (data->v_h_flag == 1 && data->player_coord[1] > data->horizon_intersection_coord[1])
+		direction = 'N';
+	else
+		direction = 'S';
+
+	if (data->door_found_vert == 1)
+	{
+		if (direction == 'W')
+			fix_door_img(data->door_closed_img[data->door_idle_iter], data->wall_img_w);
+		else
+			fix_door_img(data->door_closed_img[data->door_idle_iter], data->wall_img_e);
+	}
+	else if (data->door_found_horiz == 1)
+	{
+		if (direction == 'N')
+			fix_door_img(data->door_closed_img[data->door_idle_iter], data->wall_img_n);
+		else
+			fix_door_img(data->door_closed_img[data->door_idle_iter], data->wall_img_s);
+	}
+	data->pixels = data->door_closed_img[data->door_idle_iter]->pixels;
+}
+
 void	draw_pixels(t_data *data, double wall_height)
 {
 	int		column_to_draw;
@@ -32,8 +63,8 @@ void	draw_pixels(t_data *data, double wall_height)
 			data->pixels = data->wall_img_w->pixels;
 		else
 			data->pixels = data->wall_img_e->pixels;
-		if (data->door_found_vert == 1) // own separate function
-			data->pixels = data->door_closed_img[data->door_iter]->pixels;
+		if (data->door_found_vert == 1)
+			get_door_pixels(data);
 		column_to_draw = (int)data->vert_intersection_coord[1] % IMG_SIZE;
 	}
 	else
@@ -42,8 +73,8 @@ void	draw_pixels(t_data *data, double wall_height)
 			data->pixels = data->wall_img_n->pixels;
 		else
 			data->pixels = data->wall_img_s->pixels;
-		if (data->door_found_horiz == 1) // own separate function
-			data->pixels = data->door_closed_img[data->door_iter]->pixels;
+		if (data->door_found_horiz == 1)
+			get_door_pixels(data);
 		column_to_draw = (int)data->horizon_intersection_coord[0] % IMG_SIZE;
 	}
 	execute_drawing(data, column_to_draw, wall_height);

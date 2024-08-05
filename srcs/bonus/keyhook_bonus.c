@@ -3,15 +3,9 @@
 int	change_door_stat(t_data *data, long long x, long long y)
 {
 	if (data->map[y][x].is_door == 1 && data->map[y][x].is_open == 0)
-	{
-		data->map[y][x].is_open = 1;
-		data->map[y][x].type = '0';
-	}
-	else if (data->map[y][x].is_door == 1 && data->map[y][x].is_open == 1)
-	{
-		data->map[y][x].is_open = 0;
-		data->map[y][x].type = '1';
-	}
+		door_opening_anim(data, x, y);
+	else if (data->map[y][x].is_door == 1 && data->map[y][x].is_open == 1) // we don't need this...?
+		door_opening_anim(data, x, y);
 	return (1);
 }
 
@@ -41,8 +35,8 @@ void	open_door(t_data *data)
 
 	if (check_for_door(data, x, y) == 1)
 	{
-		delete_and_init_images(data);
-		draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
+		// delete_and_init_images(data);
+		// draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 	}
 }
 
