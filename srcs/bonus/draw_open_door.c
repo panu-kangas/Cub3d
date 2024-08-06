@@ -77,6 +77,24 @@ int	check_for_open_door(t_data *data, long long *check_coord, char vh_flag)
 
 	x = check_coord[0];
 	y = check_coord[1];
+
+	if (x < 0 || y < 0)
+	{
+		if (vh_flag == 'V')
+			data->invalid_vert = 1;
+		else
+			data->invalid_horiz = 1;
+		return (1);
+	}
+	else if (data->map[y][x].type == 'X')
+	{
+		if (vh_flag == 'V')
+			data->invalid_vert = 1;
+		else
+			data->invalid_horiz = 1;
+		return (1);
+	}
+
 	if (data->map[y][x].type == '1')
 		return (1);
 	else if (data->map[y][x].is_open == 1)
@@ -115,6 +133,8 @@ void	draw_open_door(t_data *data, double ray_angle, double window_width)
 	double	dist_to_door;
 	double	drawn_door_height;
 	double	addition;
+
+//	printf("DRAW_OPEN_DOOR\n");
 
 	data->handling_open_door = 1;
 	if (ray_angle < 0)

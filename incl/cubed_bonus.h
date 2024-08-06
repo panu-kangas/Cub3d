@@ -30,7 +30,7 @@
 # define IMG_SIZE 128 // 64 x 64 pixels --> NOTE: We might need bigger images for school, because on bigger game window the images strech out a lot!
 # define PI 3.14159265358979323846 // Not the dessert... sadly
 # define PP_DIST 300 // Projection Plane Distance, 255 is recommendation
-# define PLAYER_SPEED 20 // move X pixels per keypress
+# define PLAYER_SPEED 14 // move X pixels per keypress
 # define PLAYER_TURN_SPEED 10 // X degrees change to angle per keypress
 
 # define MINIMAP_WIDTH 176 // At school: 275 = MINIMAP_IMG_SIZE * TILE_COUNT (25 * 11) // Panu laptop: 176 = MINIMAP_IMG_SIZE * TILE_COUNT (16 * 11)
@@ -107,6 +107,9 @@ typedef struct s_data
 	int			ceil_colour; // ceiling colour
 	int			fl_colour; // floor colour
 	int			v_h_flag; // vertical intersection found wall = 0, horizontal intersection = 1 (used in find_wall_distance.c)
+	int			invalid_vert;
+	int			invalid_horiz;
+
 	int			door_found_vert;
 	long long	door_coord_v[2];
 	int			door_found_horiz;
@@ -170,14 +173,15 @@ void		change_spaces_to_x(t_data *data);
 
 void    get_images(t_data *data);
 void	draw_image(t_data *data, double ray_angle, double window_width);
-double  find_wall_distance(t_data *data, double ray_angle, double addition);
+double	find_wall_distance(t_data *data, double ray_angle, double addition);
 void	get_vert_intersection(t_data *data, double ray_angle, \
 long long *w_coord, int cnt);
 void	get_horizon_intersection(t_data *data, double ray_angle, \
 long long *w_coord, int cnt);
 double  compare_distance(t_data *data, double ray_angle, \
 long long *vert_coord, long long *horizon_coord);
-int			draw_wall(t_data *data, int i, double wall_height, int start_coord);
+int		draw_wall(t_data *data, int i, double wall_height, long long start_coord);
+
 
 // INTERSECTION MATH HELPERS
 

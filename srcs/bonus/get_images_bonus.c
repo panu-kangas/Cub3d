@@ -130,6 +130,10 @@ void	fix_door_img(mlx_image_t *door_img, mlx_image_t *wall_img)
 	long	i;
 	int		colour;
 
+
+	//	printf("Fix door img\n");
+
+
 	wall_px = wall_img->pixels;
 	door_px = door_img->pixels;
 	i = 0;

@@ -108,4 +108,4 @@ void	door_animation(void *param)
 		draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 		prev_time = time;
 	}
-}
+} 
