@@ -57,14 +57,12 @@ void	door_opening_anim(t_data *data)
 
 	data->map[y][x].open_img_iter += iter_dir;
 
-	//printf("OPEN_IMG_ITER: %d\n", data->map[y][x].open_img_iter);
-
 	if (data->map[y][x].open_img_iter == 2)
 	{
 		data->opening_in_action = 0;
 		data->map[y][x].is_opening = 0;
 	}
-	else if (data->map[y][x].open_img_iter == 0)
+	else if (data->map[y][x].open_img_iter == -1)
 	{
 		data->map[y][x].type = '1';
 		data->map[y][x].is_open = 0;
