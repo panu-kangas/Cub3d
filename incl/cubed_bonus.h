@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/06 12:36:30 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/06 13:52:16 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@
 # define WS4 "./sprites/gun/shtg/ws4"
 # define WS5 "./sprites/gun/shtg/ws5"
 # define W_S_COUNT 6
+# define ANIM_DELAY 0.2
 
 typedef struct s_map
 {
@@ -81,7 +82,7 @@ typedef struct s_color
 
 typedef struct s_anim
 {
-	int			start;
+	int			has_shot;
 	int			frame_num;
 	int			frame_count;
 	double		timer;

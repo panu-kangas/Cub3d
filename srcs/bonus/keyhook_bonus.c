@@ -81,6 +81,8 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 		key_action_right(data);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_O))
 		open_door(data);
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+	else if (mlx_is_key_down(data->mlx, MLX_KEY_SPACE))
+		animate(data);
+	else if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		success_exit(data);
 }
