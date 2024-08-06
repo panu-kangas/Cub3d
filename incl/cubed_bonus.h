@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/05 16:03:14 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/06 10:09:33 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,14 @@
 # define AREACHARS "0NEWSDA"
 # define PLAYER "SNEW"
 
+# define WS0 "./sprites/gun/shtg/ws0"
+# define WS1 "./sprites/gun/shtg/ws1"
+# define WS2 "./sprites/gun/shtg/ws2"
+# define WS3 "./sprites/gun/shtg/ws3"
+# define WS4 "./sprites/gun/shtg/ws4"
+# define WS5 "./sprites/gun/shtg/ws5"
+# define W_S_COUNT 6
+
 typedef struct s_map
 {
 	char	type; // wall ('1'), empty space('0'), player ('P') etc
@@ -70,6 +78,17 @@ typedef struct s_color
 	int		g;
 	int		b;
 }			t_color;
+
+typedef struct s_anim
+{
+	int			start;
+	int			img_pos;
+	int			frame_count;
+	double		timer;
+	double		delay;
+	mlx_image_t	*img;
+	mlx_image_t	**sprites;
+}			t_anim;
 
 typedef struct s_data
 {
@@ -146,6 +165,7 @@ typedef struct s_data
 	int			cc;
 	int			fc;
 	int			enemy_count;
+	t_anim		anim;
 }			t_data;
 
 // ERROR HANDLING
