@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/06 13:52:16 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:05:00 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,6 +275,10 @@ void		check_map_syntax(t_data *data);
 int			check_path_lines(t_data *data, int i, int no_flag, int so_flag);
 int			check_color_lines(t_data *data);
 void		validate_door_and_enemy_positions(t_data *data, int i, int j);
+
+//ANIMATION
+void		init_gun_animation(t_anim *anim, t_data *data);
+void		animate(void *param);
 
 // DEBUGGING REMOVE THESE
 
