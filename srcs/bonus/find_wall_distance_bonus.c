@@ -64,6 +64,24 @@ int	check_for_wall(t_data *data, long long *check_coord, char vh_flag)
 
 	x = check_coord[0];
 	y = check_coord[1];
+
+	if (x < 0 || y < 0)
+	{
+		if (vh_flag == 'V')
+			data->invalid_vert = 1;
+		else
+			data->invalid_horiz = 1;
+		return (1);
+	}
+	else if (data->map[y][x].type == 'X')
+	{
+		if (vh_flag == 'V')
+			data->invalid_vert = 1;
+		else
+			data->invalid_horiz = 1;
+		return (1);
+	}
+
 	if (data->map[y][x].type == '1')
 	{
 		if (data->map[y][x].is_door == 1)
@@ -155,6 +173,11 @@ double	find_wall_distance(t_data *data, double ray_angle, double addition)
 	long long	vert_coords[2];
 	long long	horiz_coords[2];
 
+//	printf("FIND WALL DIST\n");
+
+
+	data->invalid_vert = 0;
+	data->invalid_horiz = 0;
 	if (ray_angle == 0.0000 || ray_angle - 90.0000 == 0 \
 	|| ray_angle - 180.0000 == 0 || ray_angle - 270.0000 == 0)
 		ray_angle += addition;
@@ -166,5 +189,9 @@ double	find_wall_distance(t_data *data, double ray_angle, double addition)
 	i = 1;
 	while (check_for_wall(data, horiz_coords, 'H') != 1)
 		get_horizon_intersection(data, ray_angle, horiz_coords, i++);
+
+
+//	printf("inv Hor: %d, inv vert %d\n", data->invalid_horiz, data->invalid_vert);
+
 	return (compare_distance(data, ray_angle, vert_coords, horiz_coords));
 }

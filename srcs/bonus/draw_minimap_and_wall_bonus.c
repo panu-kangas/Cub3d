@@ -1,6 +1,6 @@
 #include "cubed_bonus.h"
 
-int	colour_the_pixel(t_data *data, int *start_coord, int pixel_counter, int i)
+int	colour_the_pixel(t_data *data, long long *start_coord, int pixel_counter, int i)
 {
 	int		colour;
 	uint8_t	*pixels;
@@ -15,10 +15,12 @@ int	colour_the_pixel(t_data *data, int *start_coord, int pixel_counter, int i)
 	return (pixel_counter + 1);
 }
 
-int	draw_wall(t_data *data, int i, double wall_height, int start_coord)
+int	draw_wall(t_data *data, int i, double wall_height, long long start_coord)
 {
 	int		px_cnt;
 	double	pixel_iter;
+
+	printf("START COORD: %lld\n", start_coord);
 
 	px_cnt = 0;
 	pixel_iter = 0.0;
@@ -61,14 +63,13 @@ int		get_colour_minimap(t_data *data, int x_counter)
 	|| draw_coord[0] >= data->map_width || draw_coord[1] >= data->map_height)
 		return (get_rgba(10, 10, 10, 255));
 
-//	if (x_counter == 5 && y_counter == 5)
-//		return (get_rgba(49, 120, 60, 255)); // Player (green)
 	if (data->map[draw_coord[1]][draw_coord[0]].type == '0' \
 	|| data->map[draw_coord[1]][draw_coord[0]].type == 'P')
 		return (get_rgba(230, 224, 193, 255)); // Floor (brown)
 	else if (data->map[draw_coord[1]][draw_coord[0]].is_door == 1)
-		return (get_rgba(237, 186, 33, 255));
-	else if (data->map[draw_coord[1]][draw_coord[0]].type == '1')
+		return (get_rgba(237, 186, 33, 255)); // Door (sort of yellow...? :D)
+	else if (data->map[draw_coord[1]][draw_coord[0]].type == '1' \
+	|| data->map[draw_coord[1]][draw_coord[0]].type == 'X')
 		return (get_rgba(10, 10, 10, 255)); // Wall (black)
 	else
 		return (0); // check this

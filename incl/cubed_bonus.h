@@ -107,6 +107,9 @@ typedef struct s_data
 	int			ceil_colour; // ceiling colour
 	int			fl_colour; // floor colour
 	int			v_h_flag; // vertical intersection found wall = 0, horizontal intersection = 1 (used in find_wall_distance.c)
+	int			invalid_vert;
+	int			invalid_horiz;
+
 	int			door_found_vert;
 	long long	door_coord_v[2];
 	int			door_found_horiz;
@@ -170,14 +173,15 @@ void		change_spaces_to_x(t_data *data);
 
 void    get_images(t_data *data);
 void	draw_image(t_data *data, double ray_angle, double window_width);
-double  find_wall_distance(t_data *data, double ray_angle, double addition);
+double	find_wall_distance(t_data *data, double ray_angle, double addition);
 void	get_vert_intersection(t_data *data, double ray_angle, \
 long long *w_coord, int cnt);
 void	get_horizon_intersection(t_data *data, double ray_angle, \
 long long *w_coord, int cnt);
 double  compare_distance(t_data *data, double ray_angle, \
 long long *vert_coord, long long *horizon_coord);
-int			draw_wall(t_data *data, int i, double wall_height, int start_coord);
+int		draw_wall(t_data *data, int i, double wall_height, long long start_coord);
+
 
 // INTERSECTION MATH HELPERS
 

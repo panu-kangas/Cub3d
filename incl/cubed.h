@@ -61,6 +61,8 @@ typedef struct s_data
 	int			fl_colour;
 
 	int			v_h_flag;
+	int			invalid_vert;
+	int			invalid_horiz;
 	int			ray_iterator;
 	double		vert_intersection_coord[2];
 	double		horizon_intersection_coord[2];
@@ -134,6 +136,11 @@ long long	get_down_right_y(t_data *data, \
 			long long *t_coord, double ray_angle);
 long long	get_down_left_y(t_data *data, long long *t_coord, double ray_angle);
 long long	get_up_left_y(t_data *data, long long *t_coord, double ray_angle);
+
+void 		find_next_wall_from_max(t_data *data, long long *t_coord, char xy_flag);
+void		find_next_wall_from_zero(t_data *data, long long *t_coord, char xy_flag);
+void 		check_for_valid_coord(t_data *data, long long *t_coord, char xy_flag);
+
 
 /* HOOK FUNCTIONS */
 

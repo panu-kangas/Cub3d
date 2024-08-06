@@ -104,8 +104,8 @@ void	door_animation(void *param)
 		door_idle_anim(data);
 		if (data->opening_in_action == 1)
 			door_opening_anim(data);
-		delete_and_init_images(data);
-		draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
+//		delete_and_init_images(data);
+//		draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 		prev_time = time;
 	}
 }

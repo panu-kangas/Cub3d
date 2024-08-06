@@ -21,6 +21,7 @@ void	init_data(t_data *data)
 	data->wall_img_w = NULL;
 	data->wall_img_s = NULL;
 	data->wall_img_w = NULL;
+	data->enemy = NULL;
 	data->v_h_flag = 0;
 	data->door_found_vert = 0;
 	data->door_found_horiz = 0;
