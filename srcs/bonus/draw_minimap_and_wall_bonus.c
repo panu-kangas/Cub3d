@@ -5,6 +5,8 @@ int	colour_the_pixel(t_data *data, long long *start_coord, int pixel_counter, in
 	int		colour;
 	uint8_t	*pixels;
 
+//	printf("START_COORD: %lld\n", *start_coord);
+
 	pixels = data->pixels;
 	colour = get_rgba(pixels[i], pixels[i + 1], pixels[i + 2], pixels[i + 3]);
 	if (data->handling_open_door == 0)

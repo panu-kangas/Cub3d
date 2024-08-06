@@ -13,7 +13,10 @@ void	execute_open_door_drawing(t_data *data, int column, double wall_height)
 
 void	get_open_door_pixels(t_data *data)
 {
-	char	direction;
+	char		direction;
+	int			iterator;
+	long long	x;
+	long long	y;
 
 	// separate function
 	if (data->v_h_flag == 0 && data->player_coord[0] > data->vert_intersection_coord[0])
@@ -25,28 +28,34 @@ void	get_open_door_pixels(t_data *data)
 	else
 		direction = 'S';
 
+	iterator = 2;
 	if (data->found_open_door_vert == 1)
 	{
+		x = data->open_door_coord_vert[0];
+		y = data->open_door_coord_vert[1];
+		iterator = data->map[y][x].open_img_iter;
 		if (direction == 'W')
-			fix_door_img(data->door_open_img[find_open_door_iter(data)], data->wall_img_w);
+			data->pixels = data->door_open_img[iterator][3]->pixels;
 		else
-			fix_door_img(data->door_open_img[find_open_door_iter(data)], data->wall_img_e);
+			data->pixels = data->door_open_img[iterator][1]->pixels;
 	}
 	else if (data->found_open_door_horiz == 1)
 	{
+		x = data->open_door_coord_horiz[0];
+		y = data->open_door_coord_horiz[1];
+		iterator = data->map[y][x].open_img_iter;
 		if (direction == 'N')
-			fix_door_img(data->door_open_img[find_open_door_iter(data)], data->wall_img_n);
+			data->pixels = data->door_open_img[iterator][0]->pixels;
 		else
-			fix_door_img(data->door_open_img[find_open_door_iter(data)], data->wall_img_s);
+			data->pixels = data->door_open_img[iterator][2]->pixels;
 	}
-	data->pixels = data->door_open_img[find_open_door_iter(data)]->pixels;
 }
 
 void	draw_open_door_pixels(t_data *data, double wall_height)
 {
 	int		column_to_draw;
 	
-	data->pixels = data->door_open_img[2]->pixels;
+	data->pixels = data->door_open_img[2][0]->pixels;
 	if (data->v_h_flag == 0)
 	{
 		if (data->found_open_door_vert == 0)
@@ -70,7 +79,7 @@ void	draw_open_door_pixels(t_data *data, double wall_height)
 	execute_open_door_drawing(data, column_to_draw, wall_height);
 }
 
-int	check_for_open_door(t_data *data, long long *check_coord, char vh_flag)
+int	check_for_open_door(t_data *data, long long *check_coord, char vh_flag, double ray_angle)
 {
 	long long	x;
 	long long	y;
@@ -95,15 +104,30 @@ int	check_for_open_door(t_data *data, long long *check_coord, char vh_flag)
 		return (1);
 	}
 
+	/*
+Add here a check: if player is in a tile that has open door in it 
+--> you should check if ray hits door
+Sadly, this needs it's own separate checking function :(
+*/
+
 	if (data->map[y][x].type == '1')
 		return (1);
 	else if (data->map[y][x].is_open == 1)
 	{
-		if (vh_flag == 'V')
+		if (vh_flag == 'V' && check_if_ray_hits_door_vert(data, ray_angle) == 1)
+		{
 			data->found_open_door_vert = 1;
-		else
+			data->open_door_coord_vert[0] = x;
+			data->open_door_coord_vert[1] = y;
+			return (1);
+		}
+		else if (vh_flag == 'H' && check_if_ray_hits_door_horiz(data, ray_angle) == 1)
+		{
 			data->found_open_door_horiz = 1;
-		return (1);
+			data->open_door_coord_horiz[0] = x;
+			data->open_door_coord_horiz[1] = y;
+			return (1);
+		}
 	}
 	return (0);
 }
@@ -119,13 +143,13 @@ double	find_open_door_distance(t_data *data, double ray_angle, double addition)
 		ray_angle += addition;
 	get_vert_intersection(data, ray_angle, vert_coords, 0);
 	i = 1;
-	while (check_for_open_door(data, vert_coords, 'V') != 1)
+	while (check_for_open_door(data, vert_coords, 'V', ray_angle) != 1)
 		get_vert_intersection(data, ray_angle, vert_coords, i++);
 	get_horizon_intersection(data, ray_angle, horiz_coords, 0);
 	i = 1;
-	while (check_for_open_door(data, horiz_coords, 'H') != 1)
+	while (check_for_open_door(data, horiz_coords, 'H', ray_angle) != 1)
 		get_horizon_intersection(data, ray_angle, horiz_coords, i++);
-	return (compare_distance(data, ray_angle, horiz_coords));
+	return (compare_distance(data, ray_angle));
 }
 
 void	draw_open_door(t_data *data, double ray_angle, double window_width)
@@ -133,8 +157,6 @@ void	draw_open_door(t_data *data, double ray_angle, double window_width)
 	double	dist_to_door;
 	double	drawn_door_height;
 	double	addition;
-
-//	printf("DRAW_OPEN_DOOR\n");
 
 	data->handling_open_door = 1;
 	if (ray_angle < 0)
