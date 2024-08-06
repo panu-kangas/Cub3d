@@ -78,6 +78,7 @@ int	main(int argc, char *argv[])
 	get_images(data);
 	init_enemies(data);
 
+
 	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 
 
