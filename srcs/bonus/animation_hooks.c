@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 12:25:14 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/06 14:07:13 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:18:16 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 void	update_anim(t_anim *anim, mlx_t *mlx)
 {
-	mlx_image_t	*canvas;
+	mlx_image_t	*img;
 
 	if (anim->has_shot == 0)
 		return ;
-	canvas = anim->canvas;
 	anim->timer += mlx->delta_time;
+	printf("timer: %f", anim->timer);
+	printf("anim->delay: %f\n", anim->delay);
 	if (anim->timer < anim->delay)
 		return ;
 	else
@@ -32,9 +33,9 @@ void	update_anim(t_anim *anim, mlx_t *mlx)
 			anim->has_shot = 0;
 		}
 	}
-	canvas = anim->sprites[anim->frame_num];
-	ft_memcpy(canvas->pixels, anim->sprites[anim->frame_num]->pixels, \
-		canvas->width * canvas->height * sizeof(uint32_t));
+	img = anim->sprites[anim->frame_num];
+	ft_memcpy(anim->canvas->pixels, img->pixels, \
+		anim->canvas->width * anim->canvas->height * sizeof(uint32_t));
 }
 
 void	animate(void *param)

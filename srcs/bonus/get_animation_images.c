@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 10:06:51 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/06 14:56:12 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/06 15:07:05 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	get_gun_images(t_anim *anim, t_data *data)
 		error_exit(data, "calloc", 1);
 	anim->frame_count = W_S_COUNT;
 	anim->delay = ANIM_DELAY;
+	anim->timer = 0;
+	anim->has_shot = 0;
 	anim->sprites[0] = make_image(WS0, data);
 	anim->sprites[1] = make_image(WS1, data);
 	anim->sprites[2] = make_image(WS2, data);
@@ -44,8 +46,7 @@ void	get_gun_images(t_anim *anim, t_data *data)
 	anim->sprites[5] = make_image(WS5, data);
 	if (!anim->sprites[0] || !anim->sprites[1] || !anim->sprites[2]
 		||!anim->sprites[3] || !anim->sprites[4] || !anim->sprites[5])
-			error_exit(data, "make animation images failed", 1);
-	
+	error_exit(data, "make animation images failed", 1);
 }
 
 uint32_t	get_pixel(mlx_image_t *sprite, uint32_t x, uint32_t y)
