@@ -27,23 +27,17 @@ int	colour_the_pixel(t_data *data, long long *start_coord, int pixel_counter, in
 int	draw_wall(t_data *data, int i, double wall_height, long long start_coord)
 {
 	int		px_cnt;
-	int		helper;
 	double	pixel_iter;
-
-//	printf("STARTCOORD: %lld\n", start_coord);
 
 	px_cnt = 0;
 	pixel_iter = 0.0;
 	while (i < (IMG_SIZE * IMG_SIZE * 4) && px_cnt < WINDOW_HEIGHT)
 	{
-		if (start_coord < 0)
+		if (start_coord < 0) // TEST
 		{
-			pixel_iter = ((IMG_SIZE / wall_height) * (start_coord * -1));
-//			printf("PIX_ITER 1: %f\n", pixel_iter);
-			helper = pixel_iter;
-			i = (IMG_SIZE * 4) * helper;
-			pixel_iter -= helper;
-//			printf("PIX_ITER 2: %f\n", pixel_iter);
+			pixel_iter = (IMG_SIZE / wall_height) * llabs(start_coord - 1);
+			i = (IMG_SIZE * 4) * (int)pixel_iter;
+			pixel_iter = pixel_iter - (int)pixel_iter;
 			start_coord = 0;
 		}
 		else

@@ -20,14 +20,19 @@ int	draw_wall(t_data *data, int i, double wall_height, long long start_coord)
 	int		px_cnt;
 	double	pixel_iter;
 
-	printf("START COORD: %lld\n", start_coord);
+//	printf("START COORD: %lld\n", start_coord);
 
 	px_cnt = 0;
 	pixel_iter = 0.0;
 	while (i < (IMG_SIZE * IMG_SIZE * 4) && px_cnt < WINDOW_HEIGHT)
 	{
-		if (start_coord < 0)
-			start_coord++;
+		if (start_coord < 0) // TEST
+		{
+			pixel_iter = (IMG_SIZE / wall_height) * llabs(start_coord - 1);
+			i = (IMG_SIZE * 4) * (int)pixel_iter;
+			pixel_iter = pixel_iter - (int)pixel_iter;
+			start_coord = 0;
+		}
 		else
 			px_cnt = colour_the_pixel(data, &start_coord, px_cnt, i);
 		pixel_iter += (IMG_SIZE / wall_height);

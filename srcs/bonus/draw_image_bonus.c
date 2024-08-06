@@ -7,7 +7,9 @@ void	execute_drawing(t_data *data, int column, double wall_height)
 	int				ray_iter;
 	int				fl_colour;
 
-//		printf("Execute\n WALL HEIGHT: %f\n", wall_height);
+//		printf("Execute\n");
+
+//	printf("P COOED: x=%lld, y=%lld\n", data->player_coord[0], data->player_coord[1]);
 
 
 	i = 0;
@@ -102,7 +104,7 @@ void	draw_image(t_data *data, double ray_angle, double window_width)
 	double		drawn_wall_height;
 	double		addition;
 
-//	printf("DRAW_IMAGE %d\n", i);
+	printf("DRAW_IMAGE\n");
 
 
 	if (ray_angle < 0)
@@ -126,9 +128,9 @@ void	draw_image(t_data *data, double ray_angle, double window_width)
 		if (ray_angle > 360)
 			ray_angle = 0;
 	}
-//	printf("DRAW_IMAGE_END%d\n\n", i++);
+	printf("DRAW_IMAGE_END\n\n");
 
-//	draw_open_door(data, data->player_angle - 30.0, WINDOW_WIDTH);
+	draw_open_door(data, data->player_angle - 30.0, WINDOW_WIDTH);
 	draw_minimap(data);
 	put_images_to_window(data);
 	// draw_enemy(data);

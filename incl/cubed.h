@@ -30,6 +30,7 @@
 # define PP_DIST 255 // Projection Plane Distance, 255 is recommendation
 # define PLAYER_SPEED 14 // move X pixels per keypress
 # define PLAYER_TURN_SPEED 9 // X degrees change to angle per keypress
+# define WALL_LIMIT 12 // you can't get closer to aa wall than WALL_LIMIT -amount of pixels
 
 typedef struct s_map
 {
