@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/06 14:05:00 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:53:22 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include "libft.h"
 
 # define WINDOW_WIDTH 800 // Panu's laptop: 800 // At school: 1600
-# define WINDOW_HEIGHT 700 // Panu's laptop: 600 // At school: 1200
+# define WINDOW_HEIGHT 600 // Panu's laptop: 600 // At school: 1200
 
 # define IMG_SIZE 128 // 64 x 64 pixels --> NOTE: We might need bigger images for school, because on bigger game window the images strech out a lot!
 # define PI 3.14159265358979323846 // Not the dessert... sadly
@@ -45,14 +45,15 @@
 # define AREACHARS "0NEWSDA"
 # define PLAYER "SNEW"
 
-# define WS0 "./sprites/gun/shtg/ws0"
-# define WS1 "./sprites/gun/shtg/ws1"
-# define WS2 "./sprites/gun/shtg/ws2"
-# define WS3 "./sprites/gun/shtg/ws3"
-# define WS4 "./sprites/gun/shtg/ws4"
-# define WS5 "./sprites/gun/shtg/ws5"
+# define WS0 "./sprites/gun/shtg/ws0.png"
+# define WS1 "./sprites/gun/shtg/ws1.png"
+# define WS2 "./sprites/gun/shtg/ws2.png"
+# define WS3 "./sprites/gun/shtg/ws3.png"
+# define WS4 "./sprites/gun/shtg/ws4.png"
+# define WS5 "./sprites/gun/shtg/ws5.png"
 # define W_S_COUNT 6
 # define ANIM_DELAY 0.2
+// w: 238, h: 308 max
 
 typedef struct s_map
 {

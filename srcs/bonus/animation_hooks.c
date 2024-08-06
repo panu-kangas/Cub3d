@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 12:25:14 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/06 14:04:48 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/06 14:07:13 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	update_anim(t_anim *anim, mlx_t *mlx)
 		}
 	}
 	canvas = anim->sprites[anim->frame_num];
-	ft_memcpy(anim->canvas->pixels, anim->sprites[anim->frame_num]->pixels, \
-		anim->canvas->width * anim->canvas->height * sizeof(uint32_t));
+	ft_memcpy(canvas->pixels, anim->sprites[anim->frame_num]->pixels, \
+		canvas->width * canvas->height * sizeof(uint32_t));
 }
 
 void	animate(void *param)
