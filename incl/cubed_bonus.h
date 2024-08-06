@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/06 10:09:33 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/06 12:36:30 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ typedef struct s_color
 typedef struct s_anim
 {
 	int			start;
-	int			img_pos;
+	int			frame_num;
 	int			frame_count;
 	double		timer;
 	double		delay;
-	mlx_image_t	*img;
+	mlx_image_t	*canvas;
 	mlx_image_t	**sprites;
 }			t_anim;
 

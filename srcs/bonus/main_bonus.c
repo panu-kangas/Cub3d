@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:17:31 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/05 15:40:49 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/06 12:11:48 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	main(int argc, char *argv[])
 		error_exit(data, mlx_strerror(mlx_errno), 0);
 
 	get_images(data);
+	init_gun_animation(&data->anim, data);
 	init_enemies(data);
 
 	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);

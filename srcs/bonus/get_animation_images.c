@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_animation_images.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 10:06:51 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/06 10:11:30 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/06 12:10:19 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	make_image(mlx_image_t *sprite, char *sprite_path, t_data *data)
 	mlx_delete_texture(gun_text);
 }
 
-void	get_weapon_images(t_data *data)
+void	get_gun_images(t_anim *anim, t_data *data)
 {
 	int		i;
 	char	*sprite_paths[W_S_COUNT];
@@ -36,6 +36,15 @@ void	get_weapon_images(t_data *data)
 	sprite_paths[3] = WS3;
 	sprite_paths[4] = WS4;
 	i = 0;
-	while (i < W_S_COUNT)
-		make_image(&data->anim.sprites[i], sprite_paths[i], data);
+	anim->frame_count = W_S_COUNT;
+	while (i < anim->frame_count)
+		make_image(&anim->sprites[i], sprite_paths[i], data);
+}
+
+void init_gun_animation(t_anim *anim, t_data *data)
+{
+	anim->canvas = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
+	if (!anim->canvas)
+		error_exit(data, mlx_strerror(mlx_errno), 1);
+	get_gun_images(anim, data);
 }
