@@ -33,7 +33,7 @@ void	free_data(t_data *data)
 {
 	if (data != NULL)
 	{
-		if (data->map != NULL)
+		if (data->map != NULL) // these are probably not needed, because free(NULL) is a valid operation that just does nothing... we could save lines =)
 			free_map(data);
 		if (data->map_lines != NULL)
 			free_2d_array_len(data->map_lines, data->map_height);
@@ -51,6 +51,7 @@ void	free_data(t_data *data)
 			free(data->texture_path_s);
 		if (data->texture_path_w != NULL)
 			free(data->texture_path_w);
+		free(data->enemy);
 		free(data);
 	}
 }
