@@ -104,7 +104,7 @@ void	draw_image(t_data *data, double ray_angle, double window_width)
 	double		drawn_wall_height;
 	double		addition;
 
-	printf("DRAW_IMAGE\n");
+//	printf("DRAW_IMAGE\n");
 
 
 	if (ray_angle < 0)
@@ -128,10 +128,11 @@ void	draw_image(t_data *data, double ray_angle, double window_width)
 		if (ray_angle > 360)
 			ray_angle = 0;
 	}
-	printf("DRAW_IMAGE_END\n\n");
+//	printf("DRAW_IMAGE_END\n\n");
 
 	draw_open_door(data, data->player_angle - 30.0, WINDOW_WIDTH);
 	draw_minimap(data);
 	put_images_to_window(data);
+//	printf("DRAW_IMAGE_END\n\n");
 	// draw_enemy(data);
 }

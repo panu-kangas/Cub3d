@@ -100,7 +100,7 @@ int	check_for_wall(t_data *data, long long *check_coord, char vh_flag)
 				data->door_coord_h[1] = y;
 				return (1);
 			}
-			return (0);
+			// return (0);
 		}
 		return (1);
 	}

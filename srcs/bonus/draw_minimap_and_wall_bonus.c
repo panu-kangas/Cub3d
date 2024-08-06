@@ -15,6 +15,13 @@ int	colour_the_pixel(t_data *data, long long *start_coord, int pixel_counter, in
 	return (pixel_counter + 1);
 }
 
+/*{
+			pixel_iter = (IMG_SIZE / wall_height) * llabs(start_coord - 1);
+			i = (IMG_SIZE * 4) * (int)pixel_iter;
+			pixel_iter = pixel_iter - (int)pixel_iter;
+			start_coord = 0;
+		}*/
+
 int	draw_wall(t_data *data, int i, double wall_height, long long start_coord)
 {
 	int		px_cnt;
@@ -26,13 +33,8 @@ int	draw_wall(t_data *data, int i, double wall_height, long long start_coord)
 	pixel_iter = 0.0;
 	while (i < (IMG_SIZE * IMG_SIZE * 4) && px_cnt < WINDOW_HEIGHT)
 	{
-		if (start_coord < 0) // TEST
-		{
-			pixel_iter = (IMG_SIZE / wall_height) * llabs(start_coord - 1);
-			i = (IMG_SIZE * 4) * (int)pixel_iter;
-			pixel_iter = pixel_iter - (int)pixel_iter;
-			start_coord = 0;
-		}
+		if (start_coord < 0)
+			start_coord++;
 		else
 			px_cnt = colour_the_pixel(data, &start_coord, px_cnt, i);
 		pixel_iter += (IMG_SIZE / wall_height);

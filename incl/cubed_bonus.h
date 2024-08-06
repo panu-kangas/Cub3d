@@ -30,7 +30,7 @@
 # define IMG_SIZE 128 // 64 x 64 pixels --> NOTE: We might need bigger images for school, because on bigger game window the images strech out a lot!
 # define PI 3.14159265358979323846 // Not the dessert... sadly
 # define PP_DIST 300 // Projection Plane Distance, 255 is recommendation
-# define PLAYER_SPEED 20 // move X pixels per keypress
+# define PLAYER_SPEED 14 // move X pixels per keypress
 # define PLAYER_TURN_SPEED 10 // X degrees change to angle per keypress
 
 # define MINIMAP_WIDTH 176 // At school: 275 = MINIMAP_IMG_SIZE * TILE_COUNT (25 * 11) // Panu laptop: 176 = MINIMAP_IMG_SIZE * TILE_COUNT (16 * 11)
