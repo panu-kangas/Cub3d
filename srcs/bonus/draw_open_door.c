@@ -125,7 +125,7 @@ double	find_open_door_distance(t_data *data, double ray_angle, double addition)
 	i = 1;
 	while (check_for_open_door(data, horiz_coords, 'H') != 1)
 		get_horizon_intersection(data, ray_angle, horiz_coords, i++);
-	return (compare_distance(data, ray_angle, vert_coords, horiz_coords));
+	return (compare_distance(data, ray_angle, horiz_coords));
 }
 
 void	draw_open_door(t_data *data, double ray_angle, double window_width)

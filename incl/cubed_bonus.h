@@ -178,8 +178,7 @@ void	get_vert_intersection(t_data *data, double ray_angle, \
 long long *w_coord, int cnt);
 void	get_horizon_intersection(t_data *data, double ray_angle, \
 long long *w_coord, int cnt);
-double  compare_distance(t_data *data, double ray_angle, \
-long long *vert_coord, long long *horizon_coord);
+double	compare_distance(t_data *data, double ray_angle);
 int		draw_wall(t_data *data, int i, double wall_height, long long start_coord);
 
 
