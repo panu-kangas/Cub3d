@@ -62,7 +62,7 @@ void	key_action_right(t_data *data)
 	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 }
 
-void	keyhook(mlx_key_data_t keydata, void *param)
+void	keyhook(void *param)
 {
 	t_data		*data;
 
@@ -79,7 +79,14 @@ void	keyhook(mlx_key_data_t keydata, void *param)
 		key_action_left(data);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		key_action_right(data);
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_O))
+}
+
+void	special_keys(mlx_key_data_t keydata, void *param)
+{
+	t_data		*data;
+
+	data = param;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_O))
 		open_door(data);
 	else if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
 		data->anim.has_shot = 1;

@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:17:31 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/07 10:04:05 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/07 10:55:22 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,9 +86,10 @@ int	main(int argc, char *argv[])
 
 
 //	mlx_loop_hook(data->mlx, &enemy_handler, data);
+	mlx_loop_hook(data->mlx, keyhook, data);
 	mlx_loop_hook(data->mlx, &door_animation, data);
 	mlx_loop_hook(data->mlx, &animate, data);
-	mlx_key_hook(data->mlx, &keyhook, data);
+	mlx_key_hook(data->mlx, &special_keys, data);
 
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);

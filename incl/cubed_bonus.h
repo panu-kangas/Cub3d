@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/07 09:56:05 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/07 10:55:34 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,12 +222,13 @@ long long	get_up_left_y(t_data *data, long long *t_coord, double ray_angle);
 
 // HOOK FUNCTIONS
 
-void		keyhook(mlx_key_data_t keydata, void *param);
+void		keyhook(void *param);
 void		key_action_w(t_data *data);
 void		key_action_a(t_data *data);
 void		key_action_s(t_data *data);
 void		key_action_d(t_data *data);
 int			check_for_collision(t_data *data, double direction);
+void		special_keys(mlx_key_data_t keydata, void *param);
 
 // UTILS
 
