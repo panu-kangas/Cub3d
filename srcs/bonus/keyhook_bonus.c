@@ -15,6 +15,7 @@ int	change_door_stat(t_data *data, long long x, long long y)
 	return (1);
 }
 
+
 int	check_for_door(t_data *data, long long x, long long y)
 {
 	double	angle;

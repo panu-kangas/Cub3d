@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:17:31 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/07 12:50:22 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:33:49 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_data(t_data *data)
 	data->wall_img_w = NULL;
 	data->wall_img_s = NULL;
 	data->wall_img_w = NULL;
+	data->text = NULL;
 	data->enemy = NULL;
 	data->v_h_flag = 0;
 	data->door_found_vert = 0;
