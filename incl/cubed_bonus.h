@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/07 12:44:46 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/07 15:41:16 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ typedef struct s_data
 
 	mlx_image_t *player_icon;
 	mlx_image_t *enemy_img;
+	mlx_image_t *text;
 
 	uint8_t		*pixels; // pixel data of a single wall
 	uint8_t		*pixels_door; // pixel data of a single wall
@@ -201,6 +202,7 @@ void	get_horizon_intersection(t_data *data, double ray_angle, \
 long long *w_coord, int cnt);
 double	compare_distance(t_data *data, double ray_angle);
 int		draw_wall(t_data *data, int i, double wall_height, long long start_coord);
+void	print_to_screen(t_data *data);
 
 
 // INTERSECTION MATH HELPERS
@@ -255,6 +257,7 @@ void	fix_door_img(mlx_image_t *door_img, mlx_image_t *wall_img);
 void	draw_open_door(t_data *data, double ray_angle, double window_width);
 void	door_opening_anim(t_data *data);
 int		find_open_door_iter(t_data *data);
+int		check_for_door(t_data *data, long long x, long long y);
 
 long long	get_up_right_door_y(long long *t_coord, double *start_coord, double ray_angle);
 long long	get_down_right_door_y(t_data *data, long long *t_coord, double *start_coord, double ray_angle);

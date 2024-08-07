@@ -100,6 +100,7 @@ void	door_animation(void *param)
 	data = param;
 	time = mlx_get_time();
 
+	print_to_screen(data);
 	if (time > prev_time + 0.2) // add ending flag here
 	{
 		door_idle_anim(data);
@@ -109,4 +110,4 @@ void	door_animation(void *param)
 		draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 		prev_time = time;
 	}
-} 
+}
