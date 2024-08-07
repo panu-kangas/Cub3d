@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 12:25:14 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/06 15:18:16 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/07 09:55:16 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,7 @@ void	update_anim(t_anim *anim, mlx_t *mlx)
 	if (anim->has_shot == 0)
 		return ;
 	anim->timer += mlx->delta_time;
-	printf("timer: %f", anim->timer);
-	printf("anim->delay: %f\n", anim->delay);
-	if (anim->timer < anim->delay)
+	if (anim->frame_num > 2 && anim->timer < anim->delay)
 		return ;
 	else
 	{

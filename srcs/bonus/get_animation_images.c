@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 10:06:51 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/06 15:07:05 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/07 09:48:00 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ mlx_image_t	*make_image(char *sprite_path, t_data *data)
 	mlx_delete_texture(gun_text);
 	if (!sprite)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-	//does it need to be resized? mlx_resize_image()
 	return (sprite);
 }
 
@@ -46,17 +45,18 @@ void	get_gun_images(t_anim *anim, t_data *data)
 	anim->sprites[5] = make_image(WS5, data);
 	if (!anim->sprites[0] || !anim->sprites[1] || !anim->sprites[2]
 		||!anim->sprites[3] || !anim->sprites[4] || !anim->sprites[5])
-	error_exit(data, "make animation images failed", 1);
+		error_exit(data, "make animation images failed", 1);
 }
 
 uint32_t	get_pixel(mlx_image_t *sprite, uint32_t x, uint32_t y)
 {
 	uint8_t	*px_start;
 
-	if (x > sprite->width || y > sprite->height)
+	if (x > SP_WIDTH || y > SP_HEIGHT)
 		return (0xFF000000);
-	px_start = sprite->pixels + (y * sprite->width + x) * sizeof(uint32_t);
-	return (get_rgba(*(px_start), *(px_start + 1), *(px_start + 2), *(px_start + 3)));
+	px_start = sprite->pixels + (y * SP_WIDTH + x) * sizeof(uint32_t);
+	return (get_rgba(*(px_start), \
+		*(px_start + 1), *(px_start + 2), *(px_start + 3)));
 }
 
 void	init_animation_canvas(t_anim *anim, t_data *data)
@@ -67,20 +67,20 @@ void	init_animation_canvas(t_anim *anim, t_data *data)
 	int			j;
 	uint32_t	px;
 
-	anim->canvas = mlx_new_image(data->mlx, 158, 120);
+	anim->canvas = mlx_new_image(data->mlx, SP_WIDTH, SP_HEIGHT);
 	if (!anim->canvas)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-	x_pos = (data->mlx->width - anim->canvas->width) / 2;
-	y_pos = data->mlx->height - anim->canvas->height;
+	x_pos = (data->mlx->width - SP_WIDTH) / 2;
+	y_pos = data->mlx->height - SP_HEIGHT;
 	if (mlx_image_to_window(data->mlx, anim->canvas, x_pos, y_pos) < 0)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	mlx_set_instance_depth(anim->canvas->instances, 5);
 	//ft_memcpy(anim->canvas->pixels, anim->sprites[0]->pixels, anim->canvas->width * anim->canvas->height * sizeof(uint32_t));
 	i = -1;
-	while (++i < (int)anim->sprites[0]->height)
+	while (++i < SP_HEIGHT)
 	{
 		j = -1;
-		while (j++ < (int)anim->sprites[0]->width)
+		while (j++ < SP_WIDTH)
 		{
 			px = get_pixel(anim->sprites[0], j, i);
 			mlx_put_pixel(anim->canvas, j, i, px);

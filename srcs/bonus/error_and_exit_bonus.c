@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:11:40 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/03 12:10:59 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/07 10:03:28 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ void	free_data(t_data *data)
 			free(data->texture_path_s);
 		if (data->texture_path_w != NULL)
 			free(data->texture_path_w);
+		if (data->anim.sprites != NULL)
+			free(data->anim.sprites);
 		free(data);
 	}
 }

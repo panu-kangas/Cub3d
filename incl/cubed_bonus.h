@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/06 14:53:22 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/07 09:56:05 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,9 @@
 # define WS4 "./sprites/gun/shtg/ws4.png"
 # define WS5 "./sprites/gun/shtg/ws5.png"
 # define W_S_COUNT 6
-# define ANIM_DELAY 0.2
+# define ANIM_DELAY 0.1
+# define SP_WIDTH 238
+# define SP_HEIGHT 308
 // w: 238, h: 308 max
 
 typedef struct s_map

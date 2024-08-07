@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:17:31 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/06 15:00:52 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/07 10:04:05 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	init_data(t_data *data)
 	data->cc = 0;
 	data->fc = 0;
 	data->enemy_count = 0;
+	data->anim.sprites = NULL;
 }
 
 static int	check_ac(int ac)
