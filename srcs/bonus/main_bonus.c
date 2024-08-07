@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:17:31 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/05 15:40:49 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/07 10:04:05 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	init_data(t_data *data)
 	data->cc = 0;
 	data->fc = 0;
 	data->enemy_count = 0;
+	data->anim.sprites = NULL;
 }
 
 static int	check_ac(int ac)
@@ -77,6 +78,7 @@ int	main(int argc, char *argv[])
 		error_exit(data, mlx_strerror(mlx_errno), 0);
 
 	get_images(data);
+	init_gun_animation(&data->anim, data);
 	init_enemies(data);
 
 
@@ -85,6 +87,7 @@ int	main(int argc, char *argv[])
 
 //	mlx_loop_hook(data->mlx, &enemy_handler, data);
 	mlx_loop_hook(data->mlx, &door_animation, data);
+	mlx_loop_hook(data->mlx, &animate, data);
 	mlx_key_hook(data->mlx, &keyhook, data);
 
 	mlx_loop(data->mlx);
