@@ -30,8 +30,10 @@
 # define IMG_SIZE 128 // 64 x 64 pixels --> NOTE: We might need bigger images for school, because on bigger game window the images strech out a lot!
 # define PI 3.14159265358979323846 // Not the dessert... sadly
 # define PP_DIST 300 // Projection Plane Distance, 255 is recommendation
-# define PLAYER_SPEED 14 // move X pixels per keypress
-# define PLAYER_TURN_SPEED 10 // X degrees change to angle per keypress
+# define PLAYER_SPEED 23 // move X pixels per keypress
+# define PLAYER_TURN_SPEED 15 // X degrees change to angle per keypress
+# define WALL_LIMIT 50 // you can't get closer to aa wall than WALL_LIMIT -amount of pixels
+
 
 # define MINIMAP_WIDTH 176 // At school: 275 = MINIMAP_IMG_SIZE * TILE_COUNT (25 * 11) // Panu laptop: 176 = MINIMAP_IMG_SIZE * TILE_COUNT (16 * 11)
 # define MINIMAP_HEIGHT	176 // At school: 275 // Panu laptop: 176
@@ -98,22 +100,17 @@ typedef struct s_data
 {
 	mlx_t		*mlx;
 	mlx_image_t	*game_img;
-//	mlx_image_t	*img_to_draw;
-//	mlx_image_t	*secong_img;
 
 	mlx_image_t	*wall_img_n; // Northern wall image
 	mlx_image_t	*wall_img_e; // etc...
 	mlx_image_t	*wall_img_s;
 	mlx_image_t	*wall_img_w;
 
-//	mlx_image_t	*door;
-	mlx_image_t	*door_closed_img[4];
-	mlx_image_t	*door_open_img[3];
+	mlx_image_t	*door_closed_img[4][4];
+	mlx_image_t	*door_open_img[3][4];
 	mlx_image_t *door_canvas;
 
 	int			door_idle_iter;
-//	int			door_open_iter;
-
 	int			opening_in_action;
 
 	mlx_image_t *player_icon;
@@ -138,12 +135,11 @@ typedef struct s_data
 	int			door_found_horiz;
 	long long	door_coord_h[2];
 
-//	long long	open_door_coord_vert[2];
-//	long long	open_door_coord_horiz[2];
+	long long	open_door_coord_vert[2];
+	long long	open_door_coord_horiz[2];
 	int			handling_open_door;
 	int			found_open_door_vert;
 	int			found_open_door_horiz;
-
 
 	int			ray_iterator;
 	double		vert_intersection_coord[2];
@@ -202,8 +198,7 @@ void	get_vert_intersection(t_data *data, double ray_angle, \
 long long *w_coord, int cnt);
 void	get_horizon_intersection(t_data *data, double ray_angle, \
 long long *w_coord, int cnt);
-double  compare_distance(t_data *data, double ray_angle, \
-long long *vert_coord, long long *horizon_coord);
+double	compare_distance(t_data *data, double ray_angle);
 int		draw_wall(t_data *data, int i, double wall_height, long long start_coord);
 
 
@@ -268,6 +263,10 @@ long long	get_up_right_door_x(t_data *data, long long *t_coord, double *start_co
 long long	get_down_right_door_x(t_data *data, long long *t_coord, double *start_coord, double ray_angle);
 long long	get_down_left_door_x(long long *t_coord, double *start_coord, double ray_angle);
 long long	get_up_left_door_x(long long *t_coord, double *start_coord, double ray_angle);
+
+int		check_if_ray_hits_door_vert(t_data *data, double ray_angle);
+int		check_if_ray_hits_door_horiz(t_data *data, double ray_angle);
+
 
 
 /* VALIDATION */

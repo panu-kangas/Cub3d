@@ -1,5 +1,5 @@
 #include "cubed_bonus.h"
-
+/*
 int		find_open_door_iter(t_data *data)
 {
 	int	x;
@@ -19,6 +19,7 @@ int		find_open_door_iter(t_data *data)
 	}
 	return (2);
 }
+*/
 
 void	find_opening_door(t_data *data, long long *x, long long *y)
 {
