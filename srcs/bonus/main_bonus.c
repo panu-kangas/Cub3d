@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:17:31 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/07 10:55:22 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/07 12:50:22 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,14 @@ int	main(int argc, char *argv[])
 
 	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 
-
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 //	mlx_loop_hook(data->mlx, &enemy_handler, data);
 	mlx_loop_hook(data->mlx, keyhook, data);
 	mlx_loop_hook(data->mlx, &door_animation, data);
 	mlx_loop_hook(data->mlx, &animate, data);
+
 	mlx_key_hook(data->mlx, &special_keys, data);
+	mlx_cursor_hook(data->mlx, &rotation, data);
 
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);

@@ -37,6 +37,7 @@ BONSRCS	= $Bmain_bonus.c $Berror_and_exit_bonus.c $Bget_map_bonus.c $Butils_bonu
 		$Bdoor_animation.c \
 		$Banimation_hooks.c \
 		$Bget_animation_images.c \
+		$Brotation.c \
 		\
 		\
 		\
