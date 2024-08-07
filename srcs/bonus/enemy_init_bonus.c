@@ -2,16 +2,17 @@
 
 void	set_enemy_struct(t_data *data, int i, int x, int y)
 {
-	data->enemy[i].e_coord[0] = x * (IMG_SIZE / 2);
-	data->enemy[i].e_coord[1] = y * (IMG_SIZE / 2);
+	data->enemy[i].e_coord[0] = 3 * IMG_SIZE + (IMG_SIZE / 2); // TEST
+	data->enemy[i].e_coord[1] = 3 * IMG_SIZE + (IMG_SIZE / 2); // TEST
 	data->enemy[i].direction = -1;
 	data->enemy[i].step_count = -1;
 	data->enemy[i].is_dying = 0;
 	data->enemy[i].is_dead = 0;
 
-	data->enemy[i].e_coord[0] = 3 * IMG_SIZE; // TEST
-	data->enemy[i].e_coord[1] = 3 * IMG_SIZE; // TEST
-
+	if (x == 1)
+		return ;
+	else if (y == 2)
+		return ;
 	// TEST
 
 	mlx_texture_t	*enemy_text;
@@ -25,7 +26,33 @@ void	set_enemy_struct(t_data *data, int i, int x, int y)
 	mlx_delete_texture(enemy_text);
 
 }
+void	init_enemies(t_data *data)
+{
+	int		i;
+	int		x = 0;
+	int		y = 0;
 
+	data->enemy_count = 1; // Fix this later.
+	data->enemy = malloc(data->enemy_count * sizeof(t_enemy));
+	if (data->enemy == NULL)
+		sys_error_exit(data, "Malloc failed", 0);
+	i = 0;
+	while (i < data->enemy_count)
+	{
+		/*x = 0;
+		y = 0;
+		while (data->map[y][x].type == '1' || data->map[y][x].type == 'P'\
+		|| check_start_coords(data, i, x, y) == 1)
+		{
+			x = get_rand_coord(data, 'x');
+			y = get_rand_coord(data, 'y');
+		} */
+		set_enemy_struct(data, i, x, y);
+		i++;
+	}
+}
+
+/*
 int	check_start_coords(t_data *data, int i, int x, int y)
 {
 	long long	safe_zone;
@@ -50,7 +77,7 @@ int	check_start_coords(t_data *data, int i, int x, int y)
 		i--; // TEST
 		return (i);
 	}
-/*	else
+	else
 	{
 		while (--i > -1)
 		{
@@ -64,9 +91,9 @@ int	check_start_coords(t_data *data, int i, int x, int y)
 			return (1);
 		else
 			return (0);
-	} */
-}
-
+	} 
+}*/
+/*
 int	get_rand_coord(t_data *data, char xy)
 {
 	int			coord;
@@ -80,29 +107,4 @@ int	get_rand_coord(t_data *data, char xy)
 	coord = rand() % max;
 	return (coord);
 }
-
-void	init_enemies(t_data *data)
-{
-	int		i;
-	int		x;
-	int		y;
-
-	data->enemy_count = 1; // Fix this later. Maybe use a macro? Or get enemy_count based on map size?
-	data->enemy = malloc(data->enemy_count * sizeof(t_enemy));
-	if (data->enemy == NULL)
-		sys_error_exit(data, "Malloc failed", 0);
-	i = 0;
-	while (i < data->enemy_count)
-	{
-		x = 0;
-		y = 0;
-		while (data->map[y][x].type == '1' || data->map[y][x].type == 'P'\
-		|| check_start_coords(data, i, x, y) == 1)
-		{
-			x = get_rand_coord(data, 'x');
-			y = get_rand_coord(data, 'y');
-		}
-		set_enemy_struct(data, i, x, y);
-		i++;
-	}
-}
+*/

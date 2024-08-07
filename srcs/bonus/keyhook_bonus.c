@@ -5,6 +5,8 @@ int	change_door_stat(t_data *data, long long x, long long y)
 	if (data->map[y][x].is_door == 1 && data->opening_in_action != 1)
 	{
 		data->opening_in_action = 1;
+		data->opening_door_coord[0] = x;
+		data->opening_door_coord[1] = y;
 		if (data->map[y][x].is_open == 0)
 			data->map[y][x].is_opening = 1;
 		else if (data->map[y][x].is_open == 1)
@@ -69,15 +71,15 @@ void	keyhook(void *param)
 	data = param;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 		key_action_w(data);
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 		key_action_d(data);
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
 		key_action_s(data);
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
 		key_action_a(data);
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 		key_action_left(data);
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		key_action_right(data);
 }
 
@@ -86,7 +88,7 @@ void	special_keys(mlx_key_data_t keydata, void *param)
 	t_data		*data;
 
 	data = param;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_O))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_E))
 		open_door(data);
 	else if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
 		data->anim.has_shot = 1;

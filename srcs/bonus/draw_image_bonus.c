@@ -113,5 +113,5 @@ void	draw_image(t_data *data, double ray_angle, double window_width)
 	draw_open_door(data, data->player_angle - 30.0, WINDOW_WIDTH);
 	draw_minimap(data);
 	put_images_to_window(data);
-	// draw_enemy(data);
+	draw_enemy(data);
 }
