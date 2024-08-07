@@ -1,40 +1,4 @@
 #include "cubed_bonus.h"
-/*
-int		find_open_door_iter(t_data *data)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (y < (data->map_height - 1))
-	{
-		x = 0;
-		while (x < (data->map_width - 1))
-		{
-			if (data->map[y][x].is_opening == 1 || data->map[y][x].is_closing == 1)
-				return (data->map[y][x].open_img_iter);
-			x += 1;
-		}
-		y += 1;
-	}
-	return (2);
-}
-*/
-
-void	find_opening_door(t_data *data, long long *x, long long *y)
-{
-	while (*y < WINDOW_HEIGHT)
-	{
-		*x = 0;
-		while (*x < WINDOW_WIDTH)
-		{
-			if (data->map[*y][*x].is_opening == 1 || data->map[*y][*x].is_closing == 1)
-				return ;
-			*x += 1;
-		}
-		*y += 1;
-	}
-}
 
 void	door_opening_anim(t_data *data)
 {
@@ -45,7 +9,8 @@ void	door_opening_anim(t_data *data)
 	x = 0;
 	y = 0;
 	iter_dir = 0;
-	find_opening_door(data, &x, &y);
+	x = data->opening_door_coord[0];
+	y = data->opening_door_coord[1];
 
 	if (data->map[y][x].is_opening == 1)
 	{

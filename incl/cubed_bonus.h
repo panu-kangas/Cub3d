@@ -30,8 +30,8 @@
 # define IMG_SIZE 128 // 64 x 64 pixels --> NOTE: We might need bigger images for school, because on bigger game window the images strech out a lot!
 # define PI 3.14159265358979323846 // Not the dessert... sadly
 # define PP_DIST 300 // Projection Plane Distance, 255 is recommendation
-# define PLAYER_SPEED 23 // move X pixels per keypress
-# define PLAYER_TURN_SPEED 15 // X degrees change to angle per keypress
+# define PLAYER_SPEED 8 // VALUE SUGGESTION FOR SCHOOL: 6-8 // move X pixels per keypress
+# define PLAYER_TURN_SPEED 3 // VALUE SUGGESTION FOR SCHOOL: 3 // X degrees change to angle per keypress
 # define WALL_LIMIT 50 // you can't get closer to aa wall than WALL_LIMIT -amount of pixels
 
 
@@ -40,7 +40,8 @@
 # define MINIMAP_IMG_SIZE 16 // At school: 25 // Panu laptop: 16
 # define MINIMAP_TILE_COUNT 11
 
-# define ENEMY_WIDTH 64
+# define ENEMY_WIDTH 	64
+# define ENEMY_HEIGHT	64
 
 # define VALIDCHARS "01 NEWSDA"
 # define VALIDMAPCHARS "01XNEWSDA"
@@ -112,6 +113,7 @@ typedef struct s_data
 
 	int			door_idle_iter;
 	int			opening_in_action;
+	long long	opening_door_coord[2];
 
 	mlx_image_t *player_icon;
 	mlx_image_t *enemy_img;
