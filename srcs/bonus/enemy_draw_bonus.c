@@ -4,14 +4,10 @@ void  get_xy_diff(t_data *data, double *x_diff, double *y_diff)
 {
 	*x_diff = data->player_coord[0] - data->enemy[0].e_coord[0];
 	if (*x_diff < 0)
-		*x_diff *= -1;
-	else if (*x_diff == 0)
-		*x_diff += 10;
+		*x_diff = *x_diff * -1.0;
 	*y_diff = data->player_coord[1] - data->enemy[0].e_coord[1];
-	if (y_diff < 0)
-		*y_diff *= -1;
-	else if (*y_diff == 0)
-		*y_diff += 10;
+	if (*y_diff < 0)
+		*y_diff = *y_diff * -1.0;
 }
 
 
@@ -19,24 +15,83 @@ double	is_enemy_visible(t_data *data, int i, double *enemy_world_angle)
 {
 	double		x_diff;
 	double		y_diff;
+	double		y_x_ratio;
+	double		p_fov_start;
+	double		p_fov_end;
 
 	get_xy_diff(data, &x_diff, &y_diff);
 
-	if (data->enemy[i].e_coord[0] >= data->player_coord[0] && data->enemy[i].e_coord[1] < data->player_coord[1])
-		*enemy_world_angle = 90.0 - convert_to_degrees(atan(y_diff / x_diff));
-	else if (data->enemy[i].e_coord[0] >= data->player_coord[0] && data->enemy[i].e_coord[1] >= data->player_coord[1])
-		*enemy_world_angle = 90.0 + convert_to_degrees(atan(y_diff / x_diff));
-	else if  (data->enemy[i].e_coord[0] < data->player_coord[0] && data->enemy[i].e_coord[1] >= data->player_coord[1])
-		*enemy_world_angle = 270.0 - convert_to_degrees(atan(y_diff / x_diff));
-	else
-		*enemy_world_angle = 270.0 + convert_to_degrees(atan(y_diff / x_diff));
+	p_fov_start = data->player_angle - 30;
+	p_fov_end = data->player_angle + 30;
 
-	if (data->player_angle - 30 < *enemy_world_angle && data->player_angle + 30 > *enemy_world_angle)
+	if (x_diff == 0)
+	{
+		if (data->player_coord[1] > data->enemy[0].e_coord[1])
+		{
+			*enemy_world_angle = 0;
+			if (p_fov_start < *enemy_world_angle && p_fov_end > *enemy_world_angle)
+				return (data->player_coord[1] - data->enemy[0].e_coord[1]);
+			else
+				return (-1);
+		}
+		else
+		{
+			*enemy_world_angle = 180;
+			if (p_fov_start < *enemy_world_angle && p_fov_end > *enemy_world_angle)
+				return (data->enemy[0].e_coord[1] - data->player_coord[1]);
+			else
+				return (-1);
+		}
+	}
+	else if (y_diff == 0)
+	{
+		if (data->player_coord[0] > data->enemy[0].e_coord[0])
+		{
+			*enemy_world_angle = 270;
+			if (p_fov_start < *enemy_world_angle && p_fov_end > *enemy_world_angle)
+				return (data->player_coord[0] - data->enemy[0].e_coord[0]);
+			else
+				return (-1);
+		}
+		else
+		{
+			*enemy_world_angle = 90;
+			if (p_fov_start < *enemy_world_angle && p_fov_end > *enemy_world_angle)
+				return (data->enemy[0].e_coord[0] - data->player_coord[0]);
+			else
+				return (-1);
+		}
+	} 
+	else
+		y_x_ratio = y_diff / x_diff;
+
+	if (data->enemy[i].e_coord[0] >= data->player_coord[0] && data->enemy[i].e_coord[1] < data->player_coord[1])
+		*enemy_world_angle = 90.0 - convert_to_degrees(atan(y_x_ratio));
+	else if (data->enemy[i].e_coord[0] >= data->player_coord[0] && data->enemy[i].e_coord[1] >= data->player_coord[1])
+		*enemy_world_angle = 90.0 + convert_to_degrees(atan(y_x_ratio));
+	else if  (data->enemy[i].e_coord[0] < data->player_coord[0] && data->enemy[i].e_coord[1] >= data->player_coord[1])
+		*enemy_world_angle = 270.0 - convert_to_degrees(atan(y_x_ratio));
+	else
+		*enemy_world_angle = 270.0 + convert_to_degrees(atan(y_x_ratio));
+
+	if (data->player_angle < 30 && *enemy_world_angle > 270)
+	{
+		p_fov_start += 360;
+		p_fov_end += 360;
+	}
+	if (data->player_angle > 320 && *enemy_world_angle < 60)
+	{
+		p_fov_start -= 360;
+		p_fov_end -= 360;
+	}
+
+	if (p_fov_start < *enemy_world_angle && p_fov_end > *enemy_world_angle)
 		return (sqrt(pow(x_diff, 2) + pow(y_diff, 2)));
 	else
 		return (-1);
 
 }
+
 int	get_ray_iterator(double enemy_world_angle, double player_fov_start)
 {
 	double		addition;
@@ -75,6 +130,7 @@ double enemy_world_angle, double dist_to_enemy)
 	addition = 60.0 / WINDOW_WIDTH;
 	ray_angle = enemy_world_angle;
 	enemy_start_angle = enemy_world_angle - convert_to_degrees(atan((ENEMY_WIDTH / 2) / dist_to_enemy)); // FIX
+
 	data->ray_iterator = get_ray_iterator(enemy_world_angle, player_fov_start);
 	
 
@@ -89,8 +145,6 @@ double enemy_world_angle, double dist_to_enemy)
 		while (start_coord < (orig_start + drawn_enemy_height))
 			mlx_put_pixel(data->door_canvas, data->ray_iterator, start_coord++, get_rgba(255, 255, 255, 255));
 		ray_angle -= addition;
-		if (ray_angle < 0)
-			ray_angle += 360;
 		data->ray_iterator--;
 	}
 
@@ -111,8 +165,6 @@ double enemy_world_angle, double dist_to_enemy)
 		while (start_coord < (orig_start + drawn_enemy_height))
 			mlx_put_pixel(data->door_canvas, data->ray_iterator, start_coord++, get_rgba(255, 255, 255, 255));
 		ray_angle += addition;
-		if (ray_angle > 360)
-			ray_angle -= 360;
 		data->ray_iterator++;
 	}
 
@@ -136,23 +188,12 @@ void    draw_enemy(t_data *data)
 	double	dist_to_enemy;
 	double	drawn_enemy_height;
 	double	enemy_world_angle;
-//	double	addition;
-//	double	window_width;
-
-/*	ray_angle = data->player_angle - 30;
-	if (ray_angle < 0)
-		ray_angle = 360 - (ray_angle * -1);
-	data->ray_iterator = 0;
-	window_width = WINDOW_WIDTH;
-	addition = 60.0 / window_width; */
 
 	i = 0;
 	enemy_world_angle = 0;
 	while (i < data->enemy_count)
 	{
 		dist_to_enemy = is_enemy_visible(data, i, &enemy_world_angle);
-
-	//	printf("DIST=%f\n", dist_to_enemy);
 
 		if (dist_to_enemy != -1)
 		{

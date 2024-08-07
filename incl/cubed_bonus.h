@@ -41,8 +41,8 @@
 # define MINIMAP_IMG_SIZE 16 // At school: 25 // Panu laptop: 16
 # define MINIMAP_TILE_COUNT 11
 
-# define ENEMY_WIDTH 	64
-# define ENEMY_HEIGHT	64
+# define ENEMY_WIDTH 	80
+# define ENEMY_HEIGHT	80
 
 # define VALIDCHARS "01 NEWSDA"
 # define VALIDMAPCHARS "01XNEWSDA"

@@ -2,8 +2,8 @@
 
 void	set_enemy_struct(t_data *data, int i, int x, int y)
 {
-	data->enemy[i].e_coord[0] = 3 * IMG_SIZE + (IMG_SIZE / 2); // TEST
-	data->enemy[i].e_coord[1] = 3 * IMG_SIZE + (IMG_SIZE / 2); // TEST
+	data->enemy[i].e_coord[0] = 6 * IMG_SIZE + (IMG_SIZE / 2); // TEST
+	data->enemy[i].e_coord[1] = 6 * IMG_SIZE + (IMG_SIZE / 2); // TEST
 	data->enemy[i].direction = -1;
 	data->enemy[i].step_count = -1;
 	data->enemy[i].is_dying = 0;
@@ -17,7 +17,7 @@ void	set_enemy_struct(t_data *data, int i, int x, int y)
 
 	mlx_texture_t	*enemy_text;
 
-	enemy_text = mlx_load_png("./sprites/enemy/enemy_0.png");
+	enemy_text = mlx_load_png("./sprites/enemy/cacodeamon/enemy_front.png");
 	if (!enemy_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->enemy_img = mlx_texture_to_image(data->mlx, enemy_text);
