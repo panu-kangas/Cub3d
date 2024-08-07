@@ -2,10 +2,15 @@
 
 void	execute_drawing(t_data *data, int column, double wall_height)
 {
-	int		i;
-	int		start_coord;
-	int		ray_iter;
-	int		fl_colour;
+	int				i;
+	long long		start_coord;
+	int				ray_iter;
+	int				fl_colour;
+
+//		printf("Execute\n");
+
+//	printf("P COOED: x=%lld, y=%lld\n", data->player_coord[0], data->player_coord[1]);
+
 
 	i = 0;
 	ray_iter = data->ray_iterator;
@@ -57,6 +62,9 @@ void	draw_pixels(t_data *data, double wall_height)
 {
 	int		column_to_draw;
 
+//		printf("DRAW_PIXELS wall height: %f\n", wall_height);
+
+
 	if (data->v_h_flag == 0)
 	{
 		if (data->player_coord[0] > data->vert_intersection_coord[0])
@@ -92,9 +100,12 @@ void put_images_to_window(t_data *data)
 
 void	draw_image(t_data *data, double ray_angle, double window_width)
 {
-	double	dist_to_wall;
-	double	drawn_wall_height;
-	double	addition;
+	double		dist_to_wall;
+	double		drawn_wall_height;
+	double		addition;
+
+//	printf("DRAW_IMAGE\n");
+
 
 	if (ray_angle < 0)
 		ray_angle = 360 - (ray_angle * -1);
@@ -103,7 +114,13 @@ void	draw_image(t_data *data, double ray_angle, double window_width)
 	while (data->ray_iterator < WINDOW_WIDTH)
 	{
 		dist_to_wall = find_wall_distance(data, ray_angle, addition);
+
+//		printf("DIST TO WALL%f\n", dist_to_wall);
+
 		drawn_wall_height = (IMG_SIZE / dist_to_wall) * PP_DIST;
+
+//		printf("DRAWN WALL HEIGHT %f\n", drawn_wall_height);
+
 		drawn_wall_height += 30; // TEST
 		draw_pixels(data, drawn_wall_height);
 		data->ray_iterator++;
@@ -111,8 +128,11 @@ void	draw_image(t_data *data, double ray_angle, double window_width)
 		if (ray_angle > 360)
 			ray_angle = 0;
 	}
+//	printf("DRAW_IMAGE_END\n\n");
+
 	draw_open_door(data, data->player_angle - 30.0, WINDOW_WIDTH);
 	draw_minimap(data);
 	put_images_to_window(data);
+//	printf("DRAW_IMAGE_END\n\n");
 	// draw_enemy(data);
 }

@@ -21,6 +21,7 @@ void	init_data(t_data *data)
 	data->wall_img_w = NULL;
 	data->wall_img_s = NULL;
 	data->wall_img_w = NULL;
+	data->enemy = NULL;
 	data->v_h_flag = 0;
 	data->door_found_vert = 0;
 	data->door_found_horiz = 0;
@@ -79,6 +80,7 @@ int	main(int argc, char *argv[])
 	get_images(data);
 	init_gun_animation(&data->anim, data);
 	init_enemies(data);
+
 
 	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 

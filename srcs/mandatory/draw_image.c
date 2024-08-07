@@ -12,7 +12,7 @@
 
 #include "cubed.h"
 
-int	colour_the_pixel(t_data *data, int *start_coord, int pixel_counter, int i)
+int	colour_the_pixel(t_data *data, long long *start_coord, int pixel_counter, int i)
 {
 	int		colour;
 	uint8_t	*pixels;
@@ -24,7 +24,7 @@ int	colour_the_pixel(t_data *data, int *start_coord, int pixel_counter, int i)
 	return (pixel_counter + 1);
 }
 
-int	draw_wall(t_data *data, int i, double wall_height, int start_coord)
+int	draw_wall(t_data *data, int i, double wall_height, long long start_coord)
 {
 	int		px_cnt;
 	double	pixel_iter;
@@ -33,8 +33,13 @@ int	draw_wall(t_data *data, int i, double wall_height, int start_coord)
 	pixel_iter = 0.0;
 	while (i < (IMG_SIZE * IMG_SIZE * 4) && px_cnt < WINDOW_HEIGHT)
 	{
-		if (start_coord < 0)
-			start_coord++;
+		if (start_coord < 0) // TEST
+		{
+			pixel_iter = (IMG_SIZE / wall_height) * llabs(start_coord - 1);
+			i = (IMG_SIZE * 4) * (int)pixel_iter;
+			pixel_iter = pixel_iter - (int)pixel_iter;
+			start_coord = 0;
+		}
 		else
 			px_cnt = colour_the_pixel(data, &start_coord, px_cnt, i);
 		pixel_iter += (IMG_SIZE / wall_height);
@@ -52,10 +57,10 @@ int	draw_wall(t_data *data, int i, double wall_height, int start_coord)
 
 void	execute_drawing(t_data *data, int column, double wall_height)
 {
-	int		i;
-	int		start_coord;
-	int		ray_iter;
-	int		fl_colour;
+	int				i;
+	long long		start_coord;
+	int				ray_iter;
+	int				fl_colour;
 
 	i = 0;
 	ray_iter = data->ray_iterator;

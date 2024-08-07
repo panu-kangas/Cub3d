@@ -69,7 +69,7 @@ void	get_widest_width(t_data *data)
 		while (data->map_lines[i][j] != '\0')
 			j++;
 		if (j > width)
-			width = j - 1;
+			width = j; // TEST, removed -1
 		i++;
 	}
 	data->map_width = width;

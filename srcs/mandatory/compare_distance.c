@@ -77,10 +77,13 @@ long long *vert_coord, long long *horizon_coord)
 	double	horiz_dist;
 	double	p_angl;
 
+
 	p_angl = data->player_angle;
-	vert_dist = get_vert_distance(data, ray_angle, vert_coord);
-	horiz_dist = get_horiz_distance(data, ray_angle, horizon_coord);
-	if (vert_dist < horiz_dist)
+	if (data->invalid_vert == 0)
+		vert_dist = get_vert_distance(data, ray_angle, vert_coord);
+	if (data->invalid_horiz == 0)
+		horiz_dist = get_horiz_distance(data, ray_angle, horizon_coord);
+	if (data->invalid_horiz == 1 || (data->invalid_vert == 0 && vert_dist < horiz_dist))
 	{
 		data->v_h_flag = 0;
 		return (vert_dist * cos(convert_to_radians (p_angl - ray_angle)));
