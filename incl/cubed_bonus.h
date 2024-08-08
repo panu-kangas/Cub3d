@@ -81,6 +81,8 @@ typedef struct s_enemy
 	int			is_dying;
 	int			is_dead;
 	int			dead_anim_iter;
+	double		angle_to_player;
+	double		distance_to_player;
 }			t_enemy;
 
 typedef struct s_color
@@ -133,6 +135,7 @@ typedef struct s_data
 	t_enemy		*enemy;
 	int			enemy_anim_height_iter;
 	int			enemy_anim_img_iter;
+	int			shooting;
 //	int			enemy_start_visible;
 //	int			enemy_end_visible;
 

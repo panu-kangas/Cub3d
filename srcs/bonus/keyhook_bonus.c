@@ -94,7 +94,7 @@ void	special_keys(mlx_key_data_t keydata, void *param)
 	else if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
 	{
 		data->anim.has_shot = 1;
-		data->enemy[0].is_dying = 1; // TEST
+		data->shooting = 1;
 	}
 	else if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		success_exit(data);

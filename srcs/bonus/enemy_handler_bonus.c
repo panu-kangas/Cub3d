@@ -1,5 +1,33 @@
 #include "cubed_bonus.h"
 
+void	check_for_shot(t_data *data)
+{
+	int		i;
+	double	shot_limits[2];
+
+	if (data->shooting == 0)
+		return ;
+	shot_limits[0] = data->player_angle - 10.0; // check these
+	shot_limits[1] = data->player_angle + 10.0; // check these
+//	if (shot_limits[0] < 0)
+//		shot_limits[0] += 360;
+//	if (shot_limits[1] > 360)
+//		shot_limits[1] -= 360;
+
+	i = 0;
+	while (i < data->enemy_count)
+	{
+		printf("DIST: %f, ANGLE TO P: %f\n", data->enemy[i].distance_to_player, data->enemy[i].angle_to_player);
+		if (data->enemy[i].distance_to_player > 0.0 \
+		&& data->enemy[i].distance_to_player < 600.0 \
+		&& data->enemy[i].angle_to_player >= shot_limits[0] \
+		&& data->enemy[i].angle_to_player <= shot_limits[1])
+			data->enemy[i].is_dying = 1;
+		i++;
+	}
+	data->shooting = 0;
+}
+
 void	enemy_animation(t_data *data, int i, int *height_dir)
 {
 	long long	x;
@@ -30,6 +58,7 @@ void	enemy_handler(void *param)
 
 	data = param;
 	time = mlx_get_time();
+	check_for_shot(data);
 	i = -1;
 	while (++i < data->enemy_count)
 	{

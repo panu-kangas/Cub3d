@@ -86,12 +86,12 @@ double	is_enemy_visible(t_data *data, int i, double *enemy_player_angle)
 //	check_enemy_start_angle(); 
 //	check_enemy_end_angle(); --> with these we could draw enemy, even if just a bit of it is visible
 
-	if (data->player_angle < 30 && *enemy_player_angle > 270)
+	if (data->player_angle < 90 && *enemy_player_angle > 270)
 	{
 		p_fov_limits[0] += 360;
 		p_fov_limits[1] += 360;
 	}
-	if (data->player_angle > 320 && *enemy_player_angle < 60)
+	if (data->player_angle > 270 && *enemy_player_angle < 90)
 	{
 		p_fov_limits[0] -= 360;
 		p_fov_limits[1] -= 360;
@@ -178,6 +178,8 @@ void    draw_enemy(t_data *data)
 	while (i < data->enemy_count)
 	{
 		dist_to_enemy = is_enemy_visible(data, i, &enemy_player_angle);
+		data->enemy[i].angle_to_player = enemy_player_angle;
+		data->enemy[i].distance_to_player = dist_to_enemy;
 		if (dist_to_enemy != -1)
 		{
 			drawn_enemy_height = (IMG_SIZE / dist_to_enemy) * PP_DIST;
