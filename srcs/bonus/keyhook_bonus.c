@@ -92,7 +92,10 @@ void	special_keys(mlx_key_data_t keydata, void *param)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_E))
 		open_door(data);
 	else if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
+	{
 		data->anim.has_shot = 1;
+		data->enemy[0].is_dying = 1; // TEST
+	}
 	else if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		success_exit(data);
 }

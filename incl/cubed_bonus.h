@@ -80,6 +80,7 @@ typedef struct s_enemy
 	int			step_count;
 	int			is_dying;
 	int			is_dead;
+	int			dead_anim_iter;
 }			t_enemy;
 
 typedef struct s_color
@@ -120,6 +121,7 @@ typedef struct s_data
 
 	mlx_image_t *player_icon;
 	mlx_image_t *enemy_img[4];
+	mlx_image_t	*enemy_dead_img[5];
 	mlx_image_t *text;
 
 	uint8_t		*pixels; // pixel data of a single wall
@@ -259,6 +261,10 @@ void    draw_enemy(t_data *data);
 void	put_enemy_pixel(t_data *data, long long start_coord, double *enemy_limits, double ray_angle, double drawn_enemy_height);
 void	enemy_movement(t_data *data, int i);
 void	get_enemy_pixels(t_data *data, int i, double enemy_player_angle);
+void	enemy_to_screen(t_data *data, double drawn_enemy_height, \
+double enemy_player_angle, double dist_to_enemy);
+void  get_xy_diff(t_data *data, double *x_diff, double *y_diff);
+double	handle_xy_exception(t_data *data, double *xy_diff, double *enemy_player_angle, double *p_fov_limits);
 
 // DOOR FUNCTIONS
 

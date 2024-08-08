@@ -61,6 +61,9 @@ double	is_enemy_visible(t_data *data, int i, double *enemy_player_angle)
 	double		y_x_ratio;
 	double		p_fov_limits[2];
 
+	if (data->enemy[i].is_dead == 1)
+		return (-1);
+
 	get_xy_diff(data, &xy_diff[0], &xy_diff[1]);
 
 	p_fov_limits[0] = data->player_angle - 30;
@@ -129,7 +132,6 @@ double enemy_player_angle, double dist_to_enemy)
 	if (player_fov_limits[1] > 360)
 		player_fov_limits[1] -= 360;
 
-
 	addition = 60.0 / WINDOW_WIDTH;
 	enemy_limits[0] = enemy_player_angle - convert_to_degrees(atan((ENEMY_WIDTH / 2) / dist_to_enemy));
 	enemy_limits[1] = enemy_player_angle + convert_to_degrees(atan((ENEMY_WIDTH / 2) / dist_to_enemy));
@@ -176,7 +178,6 @@ void    draw_enemy(t_data *data)
 	while (i < data->enemy_count)
 	{
 		dist_to_enemy = is_enemy_visible(data, i, &enemy_player_angle);
-
 		if (dist_to_enemy != -1)
 		{
 			drawn_enemy_height = (IMG_SIZE / dist_to_enemy) * PP_DIST;
