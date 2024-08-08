@@ -32,8 +32,8 @@
 # define PP_DIST 300 // Projection Plane Distance, 255 is recommendation
 # define PLAYER_SPEED 8 // VALUE SUGGESTION FOR SCHOOL: 6-8 // move X pixels per keypress
 # define PLAYER_TURN_SPEED 3 // VALUE SUGGESTION FOR SCHOOL: 3 // X degrees change to angle per keypress
-# define MOUSE_SENS 0.1
-# define WALL_LIMIT 50 // you can't get closer to aa wall than WALL_LIMIT -amount of pixels
+# define MOUSE_SENS 0.03
+# define WALL_LIMIT 40 // you can't get closer to aa wall than WALL_LIMIT -amount of pixels
 
 
 # define MINIMAP_WIDTH 176 // At school: 275 = MINIMAP_IMG_SIZE * TILE_COUNT (25 * 11) // Panu laptop: 176 = MINIMAP_IMG_SIZE * TILE_COUNT (16 * 11)
@@ -69,11 +69,13 @@ typedef struct s_map
 	int		is_opening;
 	int		is_closing;
 	int		open_img_iter;
+	int		is_enemy;
 }			t_map;
 
 typedef struct s_enemy
 {
-	long long	e_coord[2]; // the x and y coordinates
+	long long	x; // the x and y coordinates
+	long long	y;
 	int			direction; // for now, 0 north, 1 east, 2 south, 3 west
 	int			step_count;
 	int			is_dying;
@@ -117,7 +119,7 @@ typedef struct s_data
 	long long	opening_door_coord[2];
 
 	mlx_image_t *player_icon;
-	mlx_image_t *enemy_img;
+	mlx_image_t *enemy_img[4];
 
 	uint8_t		*pixels; // pixel data of a single wall
 	uint8_t		*pixels_door; // pixel data of a single wall
@@ -126,6 +128,10 @@ typedef struct s_data
 	t_map		**map;
 
 	t_enemy		*enemy;
+	int			enemy_anim_height_iter;
+	int			enemy_anim_img_iter;
+//	int			enemy_start_visible;
+//	int			enemy_end_visible;
 
 	int			ceil_colour; // ceiling colour
 	int			fl_colour; // floor colour
@@ -148,6 +154,7 @@ typedef struct s_data
 	double		vert_intersection_coord[2];
 	double		horizon_intersection_coord[2];
 	double		checking_door_coord[2];
+	double		dist_to_wall_list[WINDOW_WIDTH];
 
 	int			map_height;
 	int			map_width;
@@ -231,7 +238,6 @@ void		rotation(double x_pos, double y_pos, void *param);
 
 // UTILS
 
-
 double  convert_to_radians(double angle_in_degrees);
 double	convert_to_degrees(double angle_in_rad);
 void	print_goodbye_message(void);
@@ -248,6 +254,9 @@ void	draw_player_icon(t_data *data);
 void	init_enemies(t_data *data);
 void	enemy_handler(void *param);
 void    draw_enemy(t_data *data);
+void	put_enemy_pixel(t_data *data, long long start_coord, double *enemy_limits, double ray_angle, double drawn_enemy_height);
+void	enemy_movement(t_data *data, int i);
+void	get_enemy_pixels(t_data *data, int i, double enemy_player_angle);
 
 // DOOR FUNCTIONS
 

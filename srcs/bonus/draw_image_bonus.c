@@ -102,8 +102,9 @@ void	draw_image(t_data *data, double ray_angle, double window_width)
 	while (data->ray_iterator < WINDOW_WIDTH)
 	{
 		dist_to_wall = find_wall_distance(data, ray_angle, addition);
+		data->dist_to_wall_list[data->ray_iterator] = dist_to_wall;
 		drawn_wall_height = (IMG_SIZE / dist_to_wall) * PP_DIST;
-		drawn_wall_height += 30; // TEST
+		drawn_wall_height += 30;
 		draw_pixels(data, drawn_wall_height);
 		data->ray_iterator++;
 		ray_angle = ray_angle + addition;

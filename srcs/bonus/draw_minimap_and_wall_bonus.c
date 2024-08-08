@@ -5,8 +5,6 @@ int	colour_the_pixel(t_data *data, long long *start_coord, int pixel_counter, in
 	int		colour;
 	uint8_t	*pixels;
 
-//	printf("START_COORD: %lld\n", *start_coord);
-
 	pixels = data->pixels;
 	colour = get_rgba(pixels[i], pixels[i + 1], pixels[i + 2], pixels[i + 3]);
 	if (data->handling_open_door == 0)
@@ -17,19 +15,10 @@ int	colour_the_pixel(t_data *data, long long *start_coord, int pixel_counter, in
 	return (pixel_counter + 1);
 }
 
-/*{
-			pixel_iter = (IMG_SIZE / wall_height) * llabs(start_coord - 1);
-			i = (IMG_SIZE * 4) * (int)pixel_iter;
-			pixel_iter = pixel_iter - (int)pixel_iter;
-			start_coord = 0;
-		}*/
-
 int	draw_wall(t_data *data, int i, double wall_height, long long start_coord)
 {
 	int		px_cnt;
 	double	pixel_iter;
-
-//	printf("START COORD: %lld\n", start_coord);
 
 	px_cnt = 0;
 	pixel_iter = 0.0;
@@ -72,7 +61,10 @@ int		get_colour_minimap(t_data *data, int x_counter)
 	|| draw_coord[0] >= data->map_width || draw_coord[1] >= data->map_height)
 		return (get_rgba(10, 10, 10, 255));
 
-	if (data->map[draw_coord[1]][draw_coord[0]].type == '0' \
+
+	if (data->map[draw_coord[1]][draw_coord[0]].is_enemy == 1)
+		return (get_rgba(227, 16, 16, 255));
+	else if (data->map[draw_coord[1]][draw_coord[0]].type == '0' \
 	|| data->map[draw_coord[1]][draw_coord[0]].type == 'P')
 		return (get_rgba(230, 224, 193, 255)); // Floor (brown)
 	else if (data->map[draw_coord[1]][draw_coord[0]].is_door == 1)
