@@ -2,26 +2,52 @@
 
 void	set_enemy_struct(t_data *data, int i, int x, int y)
 {
-	data->enemy[i].e_coord[0] = 3 * IMG_SIZE + (IMG_SIZE / 2); // TEST
-	data->enemy[i].e_coord[1] = 3 * IMG_SIZE + (IMG_SIZE / 2); // TEST
+	data->enemy[i].x = 3 * IMG_SIZE + (IMG_SIZE / 2); // TEST
+	data->enemy[i].y = 2 * IMG_SIZE + (IMG_SIZE / 2); // TEST
+
+	// TEST FOR MINIMAP
+
+	x = data->enemy[i].x / IMG_SIZE;
+	y = data->enemy[i].y / IMG_SIZE;
+
+	data->map[y][x].is_enemy = 1;
+
+	// TEST FOR MINIMAP
+
 	data->enemy[i].direction = -1;
 	data->enemy[i].step_count = -1;
 	data->enemy[i].is_dying = 0;
 	data->enemy[i].is_dead = 0;
 
-	if (x == 1)
-		return ;
-	else if (y == 2)
-		return ;
-	// TEST
 
 	mlx_texture_t	*enemy_text;
 
-	enemy_text = mlx_load_png("./sprites/enemy/enemy_0.png");
+	enemy_text = mlx_load_png("./sprites/enemy/cacodeamon/enemy_front.png");
 	if (!enemy_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-	data->enemy_img = mlx_texture_to_image(data->mlx, enemy_text);
-	if (!data->enemy_img)
+	data->enemy_img[0] = mlx_texture_to_image(data->mlx, enemy_text);
+	if (!data->enemy_img[0])
+		error_exit(data, mlx_strerror(mlx_errno), 1);
+	mlx_delete_texture(enemy_text);
+	enemy_text = mlx_load_png("./sprites/enemy/cacodeamon/enemy_left.png");
+	if (!enemy_text)
+		error_exit(data, mlx_strerror(mlx_errno), 1);
+	data->enemy_img[1] = mlx_texture_to_image(data->mlx, enemy_text);
+	if (!data->enemy_img[1])
+		error_exit(data, mlx_strerror(mlx_errno), 1);
+	mlx_delete_texture(enemy_text);
+	enemy_text = mlx_load_png("./sprites/enemy/cacodeamon/enemy_back.png");
+	if (!enemy_text)
+		error_exit(data, mlx_strerror(mlx_errno), 1);
+	data->enemy_img[2] = mlx_texture_to_image(data->mlx, enemy_text);
+	if (!data->enemy_img[2])
+		error_exit(data, mlx_strerror(mlx_errno), 1);
+	mlx_delete_texture(enemy_text);
+	enemy_text = mlx_load_png("./sprites/enemy/cacodeamon/enemy_right.png");
+	if (!enemy_text)
+		error_exit(data, mlx_strerror(mlx_errno), 1);
+	data->enemy_img[3] = mlx_texture_to_image(data->mlx, enemy_text);
+	if (!data->enemy_img[3])
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	mlx_delete_texture(enemy_text);
 

@@ -23,6 +23,7 @@ void	init_data(t_data *data)
 	data->wall_img_w = NULL;
 	data->text = NULL;
 	data->enemy = NULL;
+	data->enemy_anim_height_iter = -10;
 	data->v_h_flag = 0;
 	data->door_found_vert = 0;
 	data->door_found_horiz = 0;
@@ -86,7 +87,7 @@ int	main(int argc, char *argv[])
 	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
-//	mlx_loop_hook(data->mlx, &enemy_handler, data);
+	mlx_loop_hook(data->mlx, &enemy_handler, data);
 	mlx_loop_hook(data->mlx, keyhook, data);
 	mlx_loop_hook(data->mlx, &door_animation, data);
 	mlx_loop_hook(data->mlx, &animate, data);
