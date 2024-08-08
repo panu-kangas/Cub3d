@@ -8,7 +8,7 @@ void  get_xy_diff(t_data *data, double *x_diff, double *y_diff)
 	else if (*x_diff == 0)
 		*x_diff += 10;
 	*y_diff = data->player_coord[1] - data->enemy[0].e_coord[1];
-	if (y_diff < 0)
+	if (*y_diff < 0)
 		*y_diff *= -1;
 	else if (*y_diff == 0)
 		*y_diff += 10;
