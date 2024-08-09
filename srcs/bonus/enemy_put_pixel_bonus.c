@@ -80,6 +80,10 @@ int	colour_enemy_pixel(t_data *data, long long *start_coord, int pixel_counter, 
 	uint8_t	*pixels;
 
 	pixels = data->pixels;
+	if (*start_coord < 0)
+		*start_coord = 0;
+	else if (*start_coord > WINDOW_HEIGHT)
+		*start_coord = 0;
 	colour = get_rgba(pixels[i], pixels[i + 1], pixels[i + 2], pixels[i + 3]);
 	mlx_put_pixel(data->door_canvas, data->ray_iterator, *start_coord, colour);
 	*start_coord += 1;

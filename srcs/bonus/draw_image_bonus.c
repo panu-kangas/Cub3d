@@ -22,33 +22,45 @@ void	execute_drawing(t_data *data, int column, double wall_height)
 	data->found_open_door_horiz = 0;
 }
 
+char	get_closed_door_direction(t_data *data)
+{
+	char	direction;
+
+	if (data->v_h_flag == 0 \
+	&& data->player_coord[0] > data->vert_inters_crd[0])
+		direction = 'W';
+	else if (data->v_h_flag == 0)
+		direction = 'E';
+	else if (data->v_h_flag == 1 \
+	&& data->player_coord[1] > data->horiz_inters_crd[1])
+		direction = 'N';
+	else
+		direction = 'S';
+	return (direction);
+}
+
 void	get_closed_door_pixels(t_data *data)
 {
 	char	direction;
 
-	// separate function
-	if (data->v_h_flag == 0 && data->player_coord[0] > data->vert_intersection_coord[0])
-		direction = 'W';
-	else if (data->v_h_flag == 0)
-		direction = 'E';
-	else if (data->v_h_flag == 1 && data->player_coord[1] > data->horizon_intersection_coord[1])
-		direction = 'N';
-	else
-		direction = 'S';
-
+	direction = get_closed_door_direction(data);
 	if (data->door_found_vert == 1)
 	{
 		if (direction == 'W')
-			data->pixels = data->door_closed_img[data->door_idle_iter][3]->pixels;
+			data->pixels = \
+			data->door_closed_img[data->door_idle_iter][3]->pixels;
 		else
-			data->pixels = data->door_closed_img[data->door_idle_iter][1]->pixels;
+			data->pixels = \
+			data->door_closed_img[data->door_idle_iter][1]->pixels;
 	}
 	else if (data->door_found_horiz == 1)
 	{
 		if (direction == 'N')
-			data->pixels = data->door_closed_img[data->door_idle_iter][0]->pixels;
+			data->pixels = \
+			data->door_closed_img[data->door_idle_iter][0]->pixels;
 		else
-			data->pixels = data->door_closed_img[data->door_idle_iter][2]->pixels;
+			data->pixels = \
+			data->door_closed_img[data->door_idle_iter][2]->pixels;
 	}
 }
 
@@ -58,35 +70,25 @@ void	draw_pixels(t_data *data, double wall_height)
 
 	if (data->v_h_flag == 0)
 	{
-		if (data->player_coord[0] > data->vert_intersection_coord[0])
+		if (data->player_coord[0] > data->vert_inters_crd[0])
 			data->pixels = data->wall_img_w->pixels;
 		else
 			data->pixels = data->wall_img_e->pixels;
 		if (data->door_found_vert == 1)
 			get_closed_door_pixels(data);
-		column_to_draw = (int)data->vert_intersection_coord[1] % IMG_SIZE;
+		column_to_draw = (int)data->vert_inters_crd[1] % IMG_SIZE;
 	}
 	else
 	{
-		if (data->player_coord[1] > data->horizon_intersection_coord[1])
+		if (data->player_coord[1] > data->horiz_inters_crd[1])
 			data->pixels = data->wall_img_n->pixels;
 		else
 			data->pixels = data->wall_img_s->pixels;
 		if (data->door_found_horiz == 1)
 			get_closed_door_pixels(data);
-		column_to_draw = (int)data->horizon_intersection_coord[0] % IMG_SIZE;
+		column_to_draw = (int)data->horiz_inters_crd[0] % IMG_SIZE;
 	}
 	execute_drawing(data, column_to_draw, wall_height);
-}
-
-void put_images_to_window(t_data *data)
-{
-	if (mlx_image_to_window(data->mlx, data->game_img, 0, 0) < 0)
-		error_exit(data, mlx_strerror(mlx_errno), 1);
-	mlx_set_instance_depth(&data->game_img->instances[0], 1);
-	if (mlx_image_to_window(data->mlx, data->door_canvas, 0, 0) < 0)
-		error_exit(data, mlx_strerror(mlx_errno), 1);
-	mlx_set_instance_depth(&data->door_canvas->instances[0], 2);
 }
 
 void	draw_image(t_data *data, double ray_angle, double window_width)
@@ -104,7 +106,6 @@ void	draw_image(t_data *data, double ray_angle, double window_width)
 		dist_to_wall = find_wall_distance(data, ray_angle, addition);
 		data->dist_to_wall_list[data->ray_iterator] = dist_to_wall;
 		drawn_wall_height = (IMG_SIZE / dist_to_wall) * PP_DIST;
-		drawn_wall_height += 30;
 		draw_pixels(data, drawn_wall_height);
 		data->ray_iterator++;
 		ray_angle = ray_angle + addition;

@@ -25,6 +25,7 @@ void	init_data(t_data *data)
 	data->enemy = NULL;
 	data->enemy_anim_height_iter = -10;
 	data->shooting = 0;
+	data->is_dead = 0;
 	data->v_h_flag = 0;
 	data->door_found_vert = 0;
 	data->door_found_horiz = 0;

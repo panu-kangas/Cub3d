@@ -180,7 +180,7 @@ void    draw_enemy(t_data *data)
 		dist_to_enemy = is_enemy_visible(data, i, &enemy_player_angle);
 		data->enemy[i].angle_to_player = enemy_player_angle;
 		data->enemy[i].distance_to_player = dist_to_enemy;
-		if (dist_to_enemy != -1)
+		if (dist_to_enemy != -1 && dist_to_enemy > 100)
 		{
 			drawn_enemy_height = (IMG_SIZE / dist_to_enemy) * PP_DIST;
 			enemy_to_screen(data, drawn_enemy_height, enemy_player_angle, dist_to_enemy);

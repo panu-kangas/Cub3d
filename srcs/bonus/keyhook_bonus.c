@@ -70,6 +70,9 @@ void	keyhook(void *param)
 	t_data		*data;
 
 	data = param;
+	if (data->is_dead == 1)
+		return ;
+
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 		key_action_w(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
@@ -88,10 +91,10 @@ void	special_keys(mlx_key_data_t keydata, void *param)
 {
 	t_data		*data;
 
-	data = param;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_E))
+	data = (t_data *)param;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_E) && data->is_dead == 0)
 		open_door(data);
-	else if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
+	else if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS && data->is_dead == 0)
 	{
 		data->anim.has_shot = 1;
 		data->shooting = 1;

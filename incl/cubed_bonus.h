@@ -117,6 +117,9 @@ typedef struct s_data
 	mlx_image_t	*door_open_img[3][4];
 	mlx_image_t *door_canvas;
 
+	mlx_image_t	*death_img;
+	mlx_image_t	*death_text_img;
+
 	int			door_idle_iter;
 	int			opening_in_action;
 	long long	opening_door_coord[2];
@@ -136,6 +139,8 @@ typedef struct s_data
 	int			enemy_anim_height_iter;
 	int			enemy_anim_img_iter;
 	int			shooting;
+	int			is_dead;
+	double		time;
 //	int			enemy_start_visible;
 //	int			enemy_end_visible;
 
@@ -157,8 +162,8 @@ typedef struct s_data
 	int			found_open_door_horiz;
 
 	int			ray_iterator;
-	double		vert_intersection_coord[2];
-	double		horizon_intersection_coord[2];
+	double		vert_inters_crd[2];
+	double		horiz_inters_crd[2];
 	double		checking_door_coord[2];
 	double		dist_to_wall_list[WINDOW_WIDTH];
 
@@ -250,6 +255,8 @@ double	convert_to_degrees(double angle_in_rad);
 void	print_goodbye_message(void);
 int 	get_rgba(int r, int g, int b, int a);
 void	delete_and_init_images(t_data *data);
+void	death_exit(t_data *data);
+void	put_images_to_window(t_data *data);
 
 // MINIMAP FUNCTIONS
 
@@ -275,7 +282,6 @@ void	door_animation(void *param);
 void	init_door_canvas(t_data *data);
 void	fix_door_img(mlx_image_t *door_img, mlx_image_t *wall_img);
 void	draw_open_door(t_data *data, double ray_angle, double window_width);
-void	door_opening_anim(t_data *data);
 int		find_open_door_iter(t_data *data);
 int		check_for_door(t_data *data, long long x, long long y);
 

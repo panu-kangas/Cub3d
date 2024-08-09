@@ -18,6 +18,8 @@ void rotation(double x_pos, double y_pos, void *param)
 	double	rotation;
 
 	data = (t_data *)param;
+	if (data->is_dead == 1)
+		return ;
 	(void)y_pos;
 	rotation = (x_pos - WINDOW_WIDTH / 2); //how many pixels the mouse moved
 	data->player_angle += (rotation * MOUSE_SENS);

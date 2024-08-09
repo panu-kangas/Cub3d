@@ -5,7 +5,7 @@ int	check_if_ray_hits_door_horiz(t_data *data, double ray_angle)
 	double		*start_crd;
 	long long	temp_coord[2];
 
-	start_crd = data->horizon_intersection_coord;
+	start_crd = data->horiz_inters_crd;
 	if (ray_angle < 90 || ray_angle > 270)
 		temp_coord[1] = start_crd[1] - (IMG_SIZE / 2);
 	else
@@ -24,8 +24,8 @@ int	check_if_ray_hits_door_horiz(t_data *data, double ray_angle)
 
 	if (temp_coord[0] / IMG_SIZE == (long long)start_crd[0] / IMG_SIZE)
 	{
-		data->horizon_intersection_coord[0] = temp_coord[0];
-		data->horizon_intersection_coord[1] = temp_coord[1];
+		data->horiz_inters_crd[0] = temp_coord[0];
+		data->horiz_inters_crd[1] = temp_coord[1];
 		return (1);
 	}
 	else
@@ -37,7 +37,7 @@ int	check_if_ray_hits_door_vert(t_data *data, double ray_angle)
 	double		*start_crd;
 	long long	temp_coord[2];
 
-	start_crd = data->vert_intersection_coord;
+	start_crd = data->vert_inters_crd;
 	if (ray_angle < 180)
 		temp_coord[0] = start_crd[0] + (IMG_SIZE / 2);
 	else
@@ -55,8 +55,8 @@ int	check_if_ray_hits_door_vert(t_data *data, double ray_angle)
 
 	if (temp_coord[1] / IMG_SIZE == (long long)start_crd[1] / IMG_SIZE)
 	{
-		data->vert_intersection_coord[0] = temp_coord[0];
-		data->vert_intersection_coord[1] = temp_coord[1];
+		data->vert_inters_crd[0] = temp_coord[0];
+		data->vert_inters_crd[1] = temp_coord[1];
 		return (1);
 	}
 	else
@@ -143,8 +143,8 @@ long long *w_coord, int cnt)
 
 //	printf("W_COORD: x=%lld\n", w_coord[0]);
 
-	data->horizon_intersection_coord[0] = temp_coord[0];
-	data->horizon_intersection_coord[1] = temp_coord[1];
+	data->horiz_inters_crd[0] = temp_coord[0];
+	data->horiz_inters_crd[1] = temp_coord[1];
 }
 
 void	get_vert_intersection(t_data *data, double ray_angle, \
@@ -173,8 +173,8 @@ long long *w_coord, int cnt)
 		w_coord[1] = get_down_left_y(data, temp_coord, ray_angle);
 	else
 		w_coord[1] = get_up_left_y(data, temp_coord, ray_angle);
-	data->vert_intersection_coord[0] = temp_coord[0];
-	data->vert_intersection_coord[1] = temp_coord[1];
+	data->vert_inters_crd[0] = temp_coord[0];
+	data->vert_inters_crd[1] = temp_coord[1];
 }
 
 double	find_wall_distance(t_data *data, double ray_angle, double addition)
@@ -199,13 +199,5 @@ double	find_wall_distance(t_data *data, double ray_angle, double addition)
 	i = 1;
 	while (check_for_wall(data, horiz_coords, 'H', ray_angle) != 1)
 		get_horizon_intersection(data, ray_angle, horiz_coords, i++);
-
-//	if (ray_angle > 10 && ray_angle < 80)
-//	{
-//		printf("Horiz INTER COORD: x=%f, y=%f\n", data->horizon_intersection_coord[0], data->horizon_intersection_coord[1]);
-//		printf("VERT INTER COORD: x=%f, y=%f\n", data->vert_intersection_coord[0], data->vert_intersection_coord[1]);
-//	}
-//	printf("inv Hor: %d, inv vert %d\n", data->invalid_horiz, data->invalid_vert);
-
 	return (compare_distance(data, ray_angle));
 }

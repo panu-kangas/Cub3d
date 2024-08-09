@@ -19,11 +19,11 @@ void	get_open_door_pixels(t_data *data)
 	long long	y;
 
 	// separate function
-	if (data->v_h_flag == 0 && data->player_coord[0] > data->vert_intersection_coord[0])
+	if (data->v_h_flag == 0 && data->player_coord[0] > data->vert_inters_crd[0])
 		direction = 'W';
 	else if (data->v_h_flag == 0)
 		direction = 'E';
-	else if (data->v_h_flag == 1 && data->player_coord[1] > data->horizon_intersection_coord[1])
+	else if (data->v_h_flag == 1 && data->player_coord[1] > data->horiz_inters_crd[1])
 		direction = 'N';
 	else
 		direction = 'S';
@@ -63,7 +63,7 @@ void	draw_open_door_pixels(t_data *data, double wall_height)
 			data->found_open_door_horiz = 0;
 			return ;
 		}
-		column_to_draw = (int)data->vert_intersection_coord[1] % IMG_SIZE;
+		column_to_draw = (int)data->vert_inters_crd[1] % IMG_SIZE;
 		get_open_door_pixels(data);
 	}
 	else
@@ -73,7 +73,7 @@ void	draw_open_door_pixels(t_data *data, double wall_height)
 			data->found_open_door_vert = 0;
 			return ;
 		}
-		column_to_draw = (int)data->horizon_intersection_coord[0] % IMG_SIZE;
+		column_to_draw = (int)data->horiz_inters_crd[0] % IMG_SIZE;
 		get_open_door_pixels(data);
 	}
 	execute_open_door_drawing(data, column_to_draw, wall_height);
@@ -167,7 +167,7 @@ void	draw_open_door(t_data *data, double ray_angle, double window_width)
 	{
 		dist_to_door = find_open_door_distance(data, ray_angle, addition);
 		drawn_door_height = (IMG_SIZE / dist_to_door) * PP_DIST;
-		drawn_door_height += 30; // TEST
+//		drawn_door_height += 30; // TEST
 		draw_open_door_pixels(data, drawn_door_height);
 		data->ray_iterator++;
 		ray_angle = ray_angle + addition;
