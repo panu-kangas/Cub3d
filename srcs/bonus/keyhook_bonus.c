@@ -68,6 +68,8 @@ void	key_action_right(t_data *data)
 void	keyhook(void *param)
 {
 	t_data		*data;
+	int32_t		x_pos;
+	int32_t		y_pos;
 
 	data = param;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
@@ -82,6 +84,9 @@ void	keyhook(void *param)
 		key_action_left(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		key_action_right(data);
+	mlx_get_mouse_pos(data->mlx, &x_pos, &y_pos);
+	if (x_pos != WINDOW_WIDTH / 2)
+		rotation((double)x_pos, data);
 }
 
 void	special_keys(mlx_key_data_t keydata, void *param)
