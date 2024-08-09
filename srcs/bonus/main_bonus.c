@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:17:31 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/09 11:59:06 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/09 13:24:46 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,13 @@ int	main(int argc, char *argv[])
 	get_images(data);
 	init_gun_animation(&data->anim, data);
 	init_enemies(data);
-	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
+	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 	mlx_loop_hook(data->mlx, &enemy_handler, data);
 	mlx_loop_hook(data->mlx, keyhook, data);
 	mlx_loop_hook(data->mlx, &door_animation, data);
 	mlx_loop_hook(data->mlx, &animate, data);
 	mlx_key_hook(data->mlx, &special_keys, data);
-	mlx_cursor_hook(data->mlx, &rotation, data);
 
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
