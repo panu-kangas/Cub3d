@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_doors_and_enemies.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:18:08 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/07 14:44:14 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/09 14:42:31 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	validate_door_and_enemy_positions(t_data *data, int i, int j)
 	}
 	else if (data->map[i][j].type == 'A')
 	{
+		data->map[i][j].is_enemy = 1;
 		if (validate_enemy(&data->map_lines[i], j, data->map_width) == -1)
 			error_exit(data, "Invalid enemy position", 0);
 		data->enemy_count++;
