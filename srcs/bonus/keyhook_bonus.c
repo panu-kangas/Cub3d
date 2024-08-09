@@ -89,6 +89,11 @@ void	special_keys(mlx_key_data_t keydata, void *param)
 	t_data		*data;
 
 	data = param;
+	if (data->show_menu == 1 && keydata.action == MLX_PRESS)
+	{
+		data->menu_canvas->instances->enabled = false;
+		data->show_menu = 0;
+	}
 	if (mlx_is_key_down(data->mlx, MLX_KEY_E))
 		open_door(data);
 	else if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
