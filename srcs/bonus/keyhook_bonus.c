@@ -68,11 +68,12 @@ void	key_action_right(t_data *data)
 void	keyhook(void *param)
 {
 	t_data		*data;
+	int32_t		x_pos;
+	int32_t		y_pos;
 
 	data = param;
 	if (data->is_dead == 1)
 		return ;
-
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 		key_action_w(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
@@ -85,6 +86,9 @@ void	keyhook(void *param)
 		key_action_left(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		key_action_right(data);
+	mlx_get_mouse_pos(data->mlx, &x_pos, &y_pos);
+	if (x_pos != WINDOW_WIDTH / 2)
+		rotation((double)x_pos, data);
 }
 
 void	special_keys(mlx_key_data_t keydata, void *param)
@@ -92,13 +96,20 @@ void	special_keys(mlx_key_data_t keydata, void *param)
 	t_data		*data;
 
 	data = (t_data *)param;
-	if (mlx_is_key_down(data->mlx, MLX_KEY_E) && data->is_dead == 0)
+	if (data->show_menu == 1 && keydata.action == MLX_PRESS)
+	{
+		data->menu_canvas->instances->enabled = false;
+		data->show_menu = 0;
+	}
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+		success_exit(data);
+	if (data->is_dead == 1)
+		return ;
+	if (mlx_is_key_down(data->mlx, MLX_KEY_E))
 		open_door(data);
-	else if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS && data->is_dead == 0)
+	else if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
 	{
 		data->anim.has_shot = 1;
 		data->shooting = 1;
 	}
-	else if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		success_exit(data);
 }

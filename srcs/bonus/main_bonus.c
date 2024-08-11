@@ -93,9 +93,7 @@ int	main(int argc, char *argv[])
 	mlx_loop_hook(data->mlx, keyhook, data);
 	mlx_loop_hook(data->mlx, &door_animation, data);
 	mlx_loop_hook(data->mlx, &animate, data);
-
 	mlx_key_hook(data->mlx, &special_keys, data);
-	mlx_cursor_hook(data->mlx, &rotation, data);
 
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);

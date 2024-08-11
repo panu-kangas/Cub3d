@@ -190,6 +190,9 @@ typedef struct s_data
 	int			fc;
 	int			enemy_count;
 	t_anim		anim;
+	int			show_menu;
+	mlx_image_t	*menu_img;
+	mlx_image_t	*menu_canvas;
 }			t_data;
 
 // ERROR HANDLING
@@ -246,7 +249,7 @@ void		key_action_s(t_data *data);
 void		key_action_d(t_data *data);
 int			check_for_collision(t_data *data, double direction);
 void		special_keys(mlx_key_data_t keydata, void *param);
-void		rotation(double x_pos, double y_pos, void *param);
+void		rotation(double x_pos, t_data *data);
 
 // UTILS
 
