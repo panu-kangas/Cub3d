@@ -27,20 +27,21 @@ BONSRCS	= $Bmain_bonus.c $Berror_and_exit_bonus.c $Bget_map_bonus.c $Butils_bonu
 		$Bdraw_player_icon_bonus.c $Bcheck_map_borders_bonus.c  \
 		$Bget_paths_and_colors_bonus.c $Bmap_validation_bonus.c \
 		$Bget_map_utils_bonus.c $Bmap_validation_utils_bonus.c \
-		$Bvalidate_doors_and_enemies.c $Bdraw_minimap_and_wall_bonus.c \
-		$Bdraw_open_door.c \
+		$Bvalidate_doors_and_enemies_bonus.c $Bdraw_minimap_and_wall_bonus.c \
+		$Bdraw_open_door_bonus.c \
 		$Benemy_draw_bonus.c \
 		$Benemy_handler_bonus.c \
 		$Benemy_init_bonus.c \
 		$Bget_intersection_door_x_bonus.c \
 		$Bget_intersection_door_y_bonus.c \
-		$Bdoor_animation.c \
-		$Banimation_hooks.c \
-		$Bget_animation_images.c \
-		$Brotation.c \
+		$Bdoor_animation_bonus.c \
+		$Banimation_hooks_bonus.c \
+		$Bget_animation_images_bonus.c \
+		$Brotation_bonus.c \
 		$Benemy_put_pixel_bonus.c \
 		$Benemy_movement_bonus.c \
-		$Bprint_help.c \
+		$Bprint_help_bonus.c \
+		$Bdeath_exit_bonus.c $Butils_2_bonus.c \
 		$Bstart_menu.c \
 		\
 		\

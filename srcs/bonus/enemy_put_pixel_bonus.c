@@ -1,7 +1,33 @@
 #include "cubed_bonus.h"
 
+void	get_dead_enemy_pixels(t_data *data, int i)
+{
+	int			k;
+	long long	x;
+	long long	y;
+
+	x = data->enemy[i].x / IMG_SIZE;
+	y = data->enemy[i].y / IMG_SIZE;
+	k = data->enemy[i].dead_anim_iter;
+	if (k > 4)
+		k = 4;
+	data->pixels = data->enemy_dead_img[k]->pixels;
+	if (k == 4)
+	{
+		data->map[y][x].is_enemy = 0;
+		data->enemy[i].is_dead = 1;
+		data->enemy[i].x = -1;
+		data->enemy[i].y = -1;
+	}
+}
+
 void	get_enemy_pixels(t_data *data, int i, double enemy_player_angle)
 {
+	if (data->enemy[i].is_dying == 1)
+	{
+		get_dead_enemy_pixels(data, i);
+		return ;
+	}
 	if (enemy_player_angle > 315 || enemy_player_angle <= 45)
 	{
 		if (data->enemy[i].direction == 0)
@@ -54,6 +80,10 @@ int	colour_enemy_pixel(t_data *data, long long *start_coord, int pixel_counter, 
 	uint8_t	*pixels;
 
 	pixels = data->pixels;
+	if (*start_coord < 0)
+		*start_coord = 0;
+	else if (*start_coord > WINDOW_HEIGHT)
+		*start_coord = 0;
 	colour = get_rgba(pixels[i], pixels[i + 1], pixels[i + 2], pixels[i + 3]);
 	mlx_put_pixel(data->door_canvas, data->ray_iterator, *start_coord, colour);
 	*start_coord += 1;

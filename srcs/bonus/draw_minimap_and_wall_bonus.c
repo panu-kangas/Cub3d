@@ -22,6 +22,8 @@ int	draw_wall(t_data *data, int i, double wall_height, long long start_coord)
 
 	px_cnt = 0;
 	pixel_iter = 0.0;
+	if (start_coord < -1000)
+		start_coord = -300;
 	while (i < (IMG_SIZE * IMG_SIZE * 4) && px_cnt < WINDOW_HEIGHT)
 	{
 		if (start_coord < 0)

@@ -13,33 +13,6 @@ int	set_return_direction(int direction)
 	else
 		return (-1);
 }
-/*
-void	move_enemy_img(t_game *game, int enemy_x, int enemy_y, int i)
-{
-	int	start_x;
-	int	start_y;
-	int	max_w;
-	int	max_h;
-	int	draw_coord[2];
-
-	start_x = get_x_start(game);
-	start_y = get_y_start(game);
-	max_w = start_x + game->window_width / 70;
-	max_h = start_y + game->window_height / 70;
-	if (enemy_x >= start_x && enemy_x < max_w && \
-	enemy_y >= start_y && enemy_y < max_h)
-	{
-		game->enemies[i].instance = game->e_count;
-		draw_coord[0] = (enemy_x - start_x) * 70;
-		draw_coord[1] = (enemy_y - start_y) * 70;
-		if (mlx_image_to_window(game->mlx, game->enemy_img[game->enemy_img_i], \
-		draw_coord[0] + 18, draw_coord[1] + 18) < 0)
-			error_exit(game, game->mlx, mlx_strerror(mlx_errno));
-		mlx_set_instance_depth(\
-		&game->enemy_img[game->enemy_img_i]->instances[game->e_count++], 4);
-	}
-}
-*/
 
 int	check_other_enemies(t_data *data, int direction, int i)
 {
@@ -63,7 +36,8 @@ int	check_other_enemies(t_data *data, int direction, int i)
 		if (i != k && \
 		(data->enemy[k].x <= check_x + 1 && data->enemy[k].x >= check_x - 1) \
 		&& \
-		(data->enemy[k].y <= check_y + 1 && data->enemy[k].y >= check_y - 1))
+		(data->enemy[k].y <= check_y + 1 && data->enemy[k].y >= check_y - 1) \
+		&& data->enemy[k].is_dead == 0)
 			return (1);
 		k++;
 	}
@@ -133,6 +107,25 @@ int	get_enemy_direction(t_data *data, int return_direction, int i)
 	return (direction);
 }
 
+void	check_for_hit(t_data *data)
+{
+	int			i;
+
+	i = 0;
+	while (i < data->enemy_count)
+	{
+		if (data->enemy[i].x > data->player_coord[0] - IMG_SIZE \
+		&&  data->enemy[i].x < data->player_coord[0] + IMG_SIZE \
+		&& data->enemy[i].y > data->player_coord[1] - IMG_SIZE \
+		&& data->enemy[i].y < data->player_coord[1] + IMG_SIZE)
+		{
+			if (data->enemy[i].is_dying == 0)
+				death_exit(data);
+		}
+		i++;
+	}
+}
+
 void	enemy_movement(t_data *data, int i)
 {
 	int	direction;
@@ -146,14 +139,13 @@ void	enemy_movement(t_data *data, int i)
 	{
 		direction = get_enemy_direction(data, return_direction, i);
 		srand(time(NULL));
-		step_count = rand() % 10 + 1;
+		step_count = rand() % 20 + 1;
 		return_direction = set_return_direction(direction);
 		data->enemy[i].direction = direction;
 		data->enemy[i].step_count = step_count;
 	}
 	change_enemy_coord(data, direction, i);
-//	check_for_hit(game);
-//	move_enemy_img(game, game->enemies[i].x, game->enemies[i].y, i);
+	check_for_hit(data);
 	if (direction == -1 || check_enemy_wall(data, direction, i) == 1)
 		data->enemy[i].step_count = 0;
 }
