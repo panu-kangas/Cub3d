@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validate_doors_and_enemies_bonus.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:18:08 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/07 14:44:14 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/09 14:42:31 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 

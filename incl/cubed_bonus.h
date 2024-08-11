@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cubed_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/07 15:41:16 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/09 13:22:33 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define PP_DIST 300 // Projection Plane Distance, 255 is recommendation
 # define PLAYER_SPEED 8 // VALUE SUGGESTION FOR SCHOOL: 6-8 // move X pixels per keypress
 # define PLAYER_TURN_SPEED 3 // VALUE SUGGESTION FOR SCHOOL: 3 // X degrees change to angle per keypress
-# define MOUSE_SENS 0.03
+# define MOUSE_SENS 0.05
 # define WALL_LIMIT 40 // you can't get closer to aa wall than WALL_LIMIT -amount of pixels
 
 
@@ -320,6 +320,9 @@ void		validate_door_and_enemy_positions(t_data *data, int i, int j);
 //ANIMATION
 void		init_gun_animation(t_anim *anim, t_data *data);
 void		animate(void *param);
+void		menu_key_hook(mlx_key_data_t keydata, void *param);
+void		init_menu_img(t_data *data);
+uint32_t	get_pixel(mlx_image_t *sprite, uint32_t x, uint32_t y);
 
 // DEBUGGING REMOVE THESE
 

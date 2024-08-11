@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rotation.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/05 11:27:22 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/07 12:51:11 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/09 13:24:42 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,5 +26,3 @@ void	rotation(double x_pos, t_data *data)
 	delete_and_init_images(data);
 	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 }
-
-
