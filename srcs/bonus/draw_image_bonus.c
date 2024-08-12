@@ -117,5 +117,5 @@ void	draw_image(t_data *data, double ray_angle, double window_width)
 	put_images_to_window(data);
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_set_mouse_pos(data->mlx, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-	draw_enemy(data);
+	draw_enemy_loop(data);
 }

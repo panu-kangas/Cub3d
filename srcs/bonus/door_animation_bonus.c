@@ -54,7 +54,7 @@ void	door_animation(void *param)
 	static double	prev_time;
 
 	data = param;
-	if (data->is_dead == 1)
+	if (data->is_dead == 1 || data->show_menu == 1)
 		return ;
 	data->time = mlx_get_time();
 	print_to_screen(data);

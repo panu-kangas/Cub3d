@@ -23,6 +23,7 @@ void init_ptrs(t_data *data)
 	data->wall_img_w = NULL;
 	data->text = NULL;
 	data->enemy = NULL;
+	data->draw_order = NULL;
 	data->texture_path_n = NULL;
 	data->texture_path_e = NULL;
 	data->texture_path_s = NULL;
@@ -85,7 +86,6 @@ int	main(int argc, char *argv[])
 		error_exit(data, mlx_strerror(mlx_errno), 0);
 	get_images(data);
 	init_gun_animation(&data->anim, data);
-	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 	mlx_loop_hook(data->mlx, &enemy_handler, data);
 	mlx_loop_hook(data->mlx, keyhook, data);
 	mlx_loop_hook(data->mlx, &door_animation, data);

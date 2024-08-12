@@ -83,6 +83,7 @@ void	get_enemy_img_1(t_data *data)
 
 void	set_enemy_struct(t_data *data, int i, int x, int y)
 {
+
 	data->enemy[i].x = x * IMG_SIZE + (IMG_SIZE / 2);
 	data->enemy[i].y = y * IMG_SIZE + (IMG_SIZE / 2);
 	data->enemy[i].direction = -1;
@@ -90,6 +91,9 @@ void	set_enemy_struct(t_data *data, int i, int x, int y)
 	data->enemy[i].is_dying = 0;
 	data->enemy[i].is_dead = 0;
 	data->enemy[i].dead_anim_iter = 0;
+	data->enemy[i].prev_time = 0;
+	data->enemy[i].prev_dead_time = 0;
+	data->enemy[i].enemy_anim_height_iter = -10;
 }
 void	init_enemies(t_data *data)
 {

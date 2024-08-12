@@ -41,7 +41,7 @@ void	animate(void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-	if (data->is_dead == 1)
+	if (data->is_dead == 1 || data->show_menu == 1)
 		return ;
 	update_anim(&data->anim, data->mlx);
 }

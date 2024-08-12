@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   start_menu.c                                       :+:      :+:    :+:   */
+/*   start_menu_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -36,21 +36,23 @@ uint32_t	get_menu_pixel(mlx_image_t *sprite, uint32_t x, uint32_t y)
 void	init_menu_img(t_data *data)
 {
 	mlx_texture_t	*menu_text;
-	uint32_t		px;
-	int				i;
-	int				j;
+//	uint32_t		px;
+//	int				i;
+//	int				j;
 
 	menu_text = mlx_load_png("./sprites/menu/startscreen.png");
 	if (!menu_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->menu_img = mlx_texture_to_image(data->mlx, menu_text);
 	mlx_delete_texture(menu_text);
+	if (mlx_image_to_window(data->mlx, data->menu_img, 0, 0) < 0)
+		error_exit(data, mlx_strerror(mlx_errno), 1);
+/*
+
 	if (!data->menu_img)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->menu_canvas = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!data->menu_canvas)
-		error_exit(data, mlx_strerror(mlx_errno), 1);
-	if (mlx_image_to_window(data->mlx, data->menu_canvas, 0, 0) < 0)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	mlx_set_instance_depth(data->menu_canvas->instances, 10);
 	i = -1;
@@ -63,4 +65,5 @@ void	init_menu_img(t_data *data)
 			mlx_put_pixel(data->menu_canvas, j, i, px);
 		}
 	}
+	*/
 }

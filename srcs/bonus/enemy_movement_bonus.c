@@ -84,7 +84,7 @@ int	get_enemy_direction(t_data *data, int return_direction, int i)
 	int	counter;
 
 	srand(time(NULL));
-	direction = rand() % 4;
+	direction = (rand() + i) % 4;
 	counter = 0;
 	while (1)
 	{
@@ -139,7 +139,7 @@ void	enemy_movement(t_data *data, int i)
 	{
 		direction = get_enemy_direction(data, return_direction, i);
 		srand(time(NULL));
-		step_count = rand() % 20 + 1;
+		step_count = (rand() + 1) % 20 + 1;
 		return_direction = set_return_direction(direction);
 		data->enemy[i].direction = direction;
 		data->enemy[i].step_count = step_count;

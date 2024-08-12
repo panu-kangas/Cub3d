@@ -28,6 +28,9 @@ void	get_enemy_pixels(t_data *data, int i, double enemy_player_angle)
 		get_dead_enemy_pixels(data, i);
 		return ;
 	}
+
+//	printf("ENEMY DIR: %d\n", data->enemy[i].direction);
+
 	if (enemy_player_angle > 315 || enemy_player_angle <= 45)
 	{
 		if (data->enemy[i].direction == 0)
@@ -85,12 +88,14 @@ int	colour_enemy_pixel(t_data *data, long long *start_coord, int pixel_counter, 
 	else if (*start_coord > WINDOW_HEIGHT)
 		*start_coord = 0;
 	colour = get_rgba(pixels[i], pixels[i + 1], pixels[i + 2], pixels[i + 3]);
-	mlx_put_pixel(data->door_canvas, data->ray_iterator, *start_coord, colour);
+	if (pixels[i + 3] > 150)
+		mlx_put_pixel(data->door_canvas, data->ray_iterator, *start_coord, colour);
 	*start_coord += 1;
 	return (pixel_counter + 1);
 }
 
-int	enemy_draw_execute(t_data *data, int i, double drawn_enemy_height, long long start_coord)
+int	enemy_draw_execute(t_data *data, int i, \
+double drawn_enemy_height, long long start_coord)
 {
 	int		px_cnt;
 	double	pixel_iter;
@@ -116,13 +121,12 @@ int	enemy_draw_execute(t_data *data, int i, double drawn_enemy_height, long long
 	return (start_coord);
 }
 
-void	put_enemy_pixel(t_data *data, long long start_coord, double *enemy_limits, double ray_angle, double drawn_enemy_height)
+int	get_column(double *enemy_limits, double ray_angle)
 {	
 	int				column;
 	double			column_width;
 
 	column_width = (enemy_limits[1] - enemy_limits[0]) / ENEMY_WIDTH;
 	column = (ray_angle - enemy_limits[0]) / column_width;
-
-    enemy_draw_execute(data, (column * 4), drawn_enemy_height, start_coord);
+	return (column);
 }

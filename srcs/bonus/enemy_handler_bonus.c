@@ -50,12 +50,11 @@ void	enemy_animation(t_data *data, int i, int *height_dir)
 		height_max = 3;
 		height_min = -2;
 	}
-
-	if (data->enemy_anim_height_iter >= height_max)
+	if (data->enemy[i].enemy_anim_height_iter >= height_max)
 		*height_dir = -1;
-	else if (data->enemy_anim_height_iter <= height_min)
+	else if (data->enemy[i].enemy_anim_height_iter <= height_min)
 		*height_dir = 1;
-	data->enemy_anim_height_iter += (height_add * *height_dir);
+	data->enemy[i].enemy_anim_height_iter += (height_add * *height_dir);
 	x = data->enemy[i].x / IMG_SIZE;
 	y = data->enemy[i].y / IMG_SIZE;
 	data->map[y][x].is_enemy = 0;
@@ -68,30 +67,28 @@ void	enemy_animation(t_data *data, int i, int *height_dir)
 void	enemy_handler(void *param)
 {
 	t_data			*data;
-	static double	prev_time;
-	static double	prev_dead_time;
 	static int		height_dir;
 	int				i;
 
 	data = param;
-	if (data->is_dead == 1)
+	if (data->is_dead == 1 || data->show_menu == 1)
 		return ;
 	data->time = mlx_get_time();
 	check_for_shot(data);
 	i = -1;
 	while (++i < data->enemy_count)
 	{
-		if (data->time > prev_dead_time + 0.2)
+		if (data->time > data->enemy[i].prev_dead_time + 0.2)
 		{
 			if (data->enemy[i].is_dying == 1)
 				data->enemy[i].dead_anim_iter += 1;
-			prev_dead_time = data->time;
+			data->enemy[i].prev_dead_time = data->time;
 		}
-		if (data->time > prev_time + 0.15)
+		if (data->time > data->enemy[i].prev_time + 0.15)
 		{
 			if (data->enemy[i].is_dying == 0 && data->enemy[i].is_dead == 0)
 				enemy_animation(data, i, &height_dir);
-			prev_time = data->time;
+			data->enemy[i].prev_time = data->time;
 		}
 		if (data->enemy[i].dead_anim_iter > 4)
 		{
