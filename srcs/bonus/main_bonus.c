@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:17:31 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/12 12:05:11 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/12 12:57:42 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void init_ptrs(t_data *data)
 void	init_data(t_data *data)
 {
 	init_ptrs(data);
-	data->enemy_anim_height_iter = -10;
 	data->shooting = 0;
 	data->is_dead = 0;
 	data->v_h_flag = 0;
