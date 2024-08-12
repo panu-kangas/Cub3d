@@ -54,6 +54,7 @@ void	free_data(t_data *data)
 		if (data->anim.sprites != NULL)
 			free(data->anim.sprites);
 		free(data->enemy);
+		free(data->draw_order);
 		free(data);
 	}
 }

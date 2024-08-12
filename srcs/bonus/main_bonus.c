@@ -23,7 +23,7 @@ void	init_data(t_data *data)
 	data->wall_img_w = NULL;
 	data->text = NULL;
 	data->enemy = NULL;
-	data->enemy_anim_height_iter = -10;
+	data->draw_order = NULL;
 	data->shooting = 0;
 	data->is_dead = 0;
 	data->v_h_flag = 0;
@@ -84,6 +84,7 @@ int	main(int argc, char *argv[])
 	get_images(data);
 	init_gun_animation(&data->anim, data);
 	init_enemies(data);
+
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
 	mlx_loop_hook(data->mlx, &enemy_handler, data);
 	mlx_loop_hook(data->mlx, keyhook, data);

@@ -83,11 +83,19 @@ void	get_enemy_img_1(t_data *data)
 
 void	set_enemy_struct(t_data *data, int i, int x, int y)
 {
-	data->enemy[i].x = 3 * IMG_SIZE + (IMG_SIZE / 2); // TEST
-	data->enemy[i].y = 2 * IMG_SIZE + (IMG_SIZE / 2); // TEST
+	if (i == 0)
+	{
+		data->enemy[i].x = 3 * IMG_SIZE + (IMG_SIZE / 2); // TEST
+		data->enemy[i].y = 2 * IMG_SIZE + (IMG_SIZE / 2); // TEST
+	}
+	else
+	{
+		data->enemy[i].x = 4 * IMG_SIZE + (IMG_SIZE / 2); // TEST
+		data->enemy[i].y = 3 * IMG_SIZE + (IMG_SIZE / 2); // TEST
+	}
 
 	// TEST FOR MINIMAP
-
+	
 	x = data->enemy[i].x / IMG_SIZE;
 	y = data->enemy[i].y / IMG_SIZE;
 
@@ -100,14 +108,17 @@ void	set_enemy_struct(t_data *data, int i, int x, int y)
 	data->enemy[i].is_dying = 0;
 	data->enemy[i].is_dead = 0;
 	data->enemy[i].dead_anim_iter = 0;
+	data->enemy[i].prev_time = 0;
+	data->enemy[i].prev_dead_time = 0;
+	data->enemy[i].enemy_anim_height_iter = -10;
 }
 void	init_enemies(t_data *data)
 {
 	int		i;
-	int		x = 0;
-	int		y = 0;
+	int		x = 0; // TEST
+	int		y = 0; // TEST
 
-	data->enemy_count = 1; // Fix this later.
+	data->enemy_count = 2; // Fix this later.
 	data->enemy = malloc(data->enemy_count * sizeof(t_enemy));
 	if (data->enemy == NULL)
 		sys_error_exit(data, "Malloc failed", 0);

@@ -28,6 +28,9 @@ void	get_enemy_pixels(t_data *data, int i, double enemy_player_angle)
 		get_dead_enemy_pixels(data, i);
 		return ;
 	}
+
+//	printf("ENEMY DIR: %d\n", data->enemy[i].direction);
+
 	if (enemy_player_angle > 315 || enemy_player_angle <= 45)
 	{
 		if (data->enemy[i].direction == 0)
@@ -85,7 +88,8 @@ int	colour_enemy_pixel(t_data *data, long long *start_coord, int pixel_counter, 
 	else if (*start_coord > WINDOW_HEIGHT)
 		*start_coord = 0;
 	colour = get_rgba(pixels[i], pixels[i + 1], pixels[i + 2], pixels[i + 3]);
-	mlx_put_pixel(data->door_canvas, data->ray_iterator, *start_coord, colour);
+	if (pixels[i + 3] > 150)
+		mlx_put_pixel(data->door_canvas, data->ray_iterator, *start_coord, colour);
 	*start_coord += 1;
 	return (pixel_counter + 1);
 }
