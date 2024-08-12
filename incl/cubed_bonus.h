@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/12 13:53:52 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:55:42 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -255,6 +255,8 @@ void		key_action_d(t_data *data);
 int			check_for_collision(t_data *data, double direction);
 void		special_keys(mlx_key_data_t keydata, void *param);
 void		rotation(double x_pos, t_data *data);
+void		key_action_left(t_data *data);
+void		key_action_right(t_data *data);
 
 // UTILS
 
