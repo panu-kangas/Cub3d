@@ -234,4 +234,5 @@ void	get_images(t_data *data)
 	data->floor_color->b, 255);
 	data->ceil_colour = get_rgba(data->ceiling_color->r, \
 	data->ceiling_color->g, data->ceiling_color->b, 255);
+	init_enemies(data);
 }
