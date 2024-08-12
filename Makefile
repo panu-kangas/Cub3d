@@ -59,12 +59,12 @@ $(LIBFT):
 	make -C ./lib/libft/.
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME) -fsanitize=address,undefined
+	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME) 
 
 bonus: .bonus
 
 .bonus: $(LIBMLX) $(LIBFT) $(BONOBJS)
-	$(CC) $(BONOBJS) $(LIBS) $(HEADERS) -o $(NAME) -fsanitize=address,undefined
+	$(CC) $(BONOBJS) $(LIBS) $(HEADERS) -o $(NAME) 
 	touch .bonus
 
 %.o: %.c

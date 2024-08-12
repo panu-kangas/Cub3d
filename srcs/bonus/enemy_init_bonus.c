@@ -94,6 +94,7 @@ int	set_enemy_struct(t_data *data, int i, int x, int y)
 	data->enemy[i].prev_time = 0;
 	data->enemy[i].prev_dead_time = 0;
 	data->enemy[i].enemy_anim_height_iter = -10;
+	data->enemy[i].distance_to_player = 0;
 	data->map[y][x].is_enemy = 1;
 	i += 1;
 	return (i);
