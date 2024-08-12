@@ -43,6 +43,7 @@ BONSRCS	= $Bmain_bonus.c $Berror_and_exit_bonus.c $Bget_map_bonus.c $Butils_bonu
 		$Bprint_help_bonus.c \
 		$Bdeath_exit_bonus.c $Butils_2_bonus.c \
 		$Bstart_menu_bonus.c \
+		$Bmap_exit_bonus.c \
 		\
 		\
 		\
