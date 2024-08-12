@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:36:51 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/12 11:59:53 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:41:56 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed_bonus.h"
-
 
 void	change_door_status(t_data *data)
 {
@@ -28,6 +27,11 @@ void	change_door_status(t_data *data)
 			{
 				data->map[y][x].type = '1';
 				data->map[y][x].is_door = 1;
+			}
+			if (data->map[y][x].type == 'F')
+			{
+				data->map[y][x].type = '1';
+				data->map[y][x].is_exit = 1;
 			}
 		}
 	}
@@ -50,6 +54,7 @@ void	init_map_flags(t_data *data)
 			data->map[y][x].is_closing = 0;
 			data->map[y][x].open_img_iter = -1;
 			data->map[y][x].is_enemy = 0;
+			data->map[y][x].is_exit = 0;
 		}
 	}
 }
@@ -167,8 +172,8 @@ void	get_map(t_data *data, char *map_name)
 		error_exit(data, "No player", 0);
 	if (check_map_borders(data) == -1)
 		error_exit(data, "Map is not surrounded by walls", 0);
-  init_map_flags(data);
-  change_door_status(data);
-  if (get_texture_paths(data) < 0 || check_texture_paths(data) == -1)
+	init_map_flags(data);
+	if (get_texture_paths(data) < 0 || check_texture_paths(data) == -1)
 		error_exit(data, "Invalid game settings given", 0);
+	change_door_status(data);
 }

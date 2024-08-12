@@ -89,8 +89,6 @@ void	keyhook(void *param)
 	mlx_get_mouse_pos(data->mlx, &pos_x, &pos_y);
 	if (pos_x != WINDOW_WIDTH / 2)
 		rotation(pos_x, data);
-	mlx_set_mouse_pos(data->mlx, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
-
 }
 
 void	special_keys(mlx_key_data_t keydata, void *param)
