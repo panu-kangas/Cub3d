@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 10:06:51 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/07 09:48:00 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/12 16:50:41 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,6 @@ void	init_gun_animation(t_anim *anim, t_data *data)
 {
 	get_gun_images(anim, data);
 	init_animation_canvas(anim, data);
+	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
+	mlx_set_mouse_pos(data->mlx, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 }
