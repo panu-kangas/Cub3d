@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/12 16:55:42 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:34:37 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@
 # define ENEMY_WIDTH 	80
 # define ENEMY_HEIGHT	80
 
-# define VALIDCHARS "01 NEWSDA"
-# define VALIDMAPCHARS "01XNEWSDA"
-# define AREACHARS "0NEWSDA"
+# define VALIDCHARS "01 NEWSDAF"
+# define VALIDMAPCHARS "01XNEWSDAF"
+# define AREACHARS "0NEWSDAF"
 # define PLAYER "SNEW"
 
 # define WS0 "./sprites/gun/shtg/ws0.png"
@@ -59,7 +59,7 @@
 # define ANIM_DELAY 0.1
 # define SP_WIDTH 238
 # define SP_HEIGHT 308
-// w: 238, h: 308 max
+# define EXIT_PATH "./tiles/exit/exit_temp.png"
 
 typedef struct s_map
 {
@@ -70,6 +70,7 @@ typedef struct s_map
 	int		is_closing;
 	int		open_img_iter;
 	int		is_enemy;
+	int		is_exit;
 }			t_map;
 
 typedef struct s_enemy
@@ -115,6 +116,7 @@ typedef struct s_data
 	mlx_image_t	*wall_img_e; // etc...
 	mlx_image_t	*wall_img_s;
 	mlx_image_t	*wall_img_w;
+	mlx_image_t	*exit_img;
 
 	mlx_image_t	*door_closed_img[4][4];
 	mlx_image_t	*door_open_img[3][4];
@@ -342,6 +344,9 @@ void		check_map_syntax(t_data *data);
 int			check_path_lines(t_data *data, int i, int no_flag, int so_flag);
 int			check_color_lines(t_data *data);
 void		validate_door_and_enemy_positions(t_data *data, int i, int j);
+void		get_exit_image(t_data *data);
+int			validate_exit_x(t_map *map, int j, int map_width);
+int			validate_exit_y(char **exit_line, int x_pos);
 
 //ANIMATION
 void		init_gun_animation(t_anim *anim, t_data *data);

@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 13:23:47 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/03 12:11:18 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:26:17 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ static int	get_rgb(t_color **color, char *rgb, int *flag)
 
 	i = 0;
 	j = -1;
+	while (*rgb == ' ')
+		rgb++;
 	len = ft_strlen(rgb);
 	if (*flag == 1 || rgb[0] == '\0' || len < 5 || len > 11
 		|| ft_isdigit(rgb[0]) != 1 || check_rgb_syntax(rgb, len) != 0)
@@ -104,6 +106,20 @@ static int	get_rgb(t_color **color, char *rgb, int *flag)
 	return (0);
 }
 
+static char	*copy_texture_path(char *line)
+{
+	char	*temp;
+
+	while (*line == ' ')
+		line++;
+	if (*line == '\0')
+		return (NULL);
+	temp = ft_strdup(line);
+	if (temp == NULL)
+		return (NULL);
+	return (temp);
+}
+
 int	get_texture_paths(t_data *data)
 {
 	int	i;
@@ -114,13 +130,13 @@ int	get_texture_paths(t_data *data)
 	while (++i < data->info_lines_count)
 	{
 		if (ft_strncmp(data->file[i], "NO ", 3) == 0)
-			data->texture_path_n = ft_strdup(data->file[i] + 3);
+			data->texture_path_n = copy_texture_path(data->file[i] + 3);
 		else if (ft_strncmp(data->file[i], "SO ", 3) == 0)
-			data->texture_path_s = ft_strdup(data->file[i] + 3);
+			data->texture_path_s = copy_texture_path(data->file[i] + 3);
 		else if (ft_strncmp(data->file[i], "WE ", 3) == 0)
-			data->texture_path_w = ft_strdup(data->file[i] + 3);
+			data->texture_path_w = copy_texture_path(data->file[i] + 3);
 		else if (ft_strncmp(data->file[i], "EA ", 3) == 0)
-			data->texture_path_e = ft_strdup(data->file[i] + 3);
+			data->texture_path_e = copy_texture_path(data->file[i] + 3);
 		else if (ft_strncmp(data->file[i], "F ", 2) == 0)
 			ret = get_rgb(&data->floor_color, data->file[i] + 2, &data->fc);
 		else if (ft_strncmp(data->file[i], "C ", 2) == 0)
