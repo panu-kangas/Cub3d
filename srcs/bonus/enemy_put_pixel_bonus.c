@@ -90,7 +90,8 @@ int	colour_enemy_pixel(t_data *data, long long *start_coord, int pixel_counter, 
 	return (pixel_counter + 1);
 }
 
-int	enemy_draw_execute(t_data *data, int i, double drawn_enemy_height, long long start_coord)
+int	enemy_draw_execute(t_data *data, int i, \
+double drawn_enemy_height, long long start_coord)
 {
 	int		px_cnt;
 	double	pixel_iter;
@@ -116,13 +117,12 @@ int	enemy_draw_execute(t_data *data, int i, double drawn_enemy_height, long long
 	return (start_coord);
 }
 
-void	put_enemy_pixel(t_data *data, long long start_coord, double *enemy_limits, double ray_angle, double drawn_enemy_height)
+int	get_column(double *enemy_limits, double ray_angle)
 {	
 	int				column;
 	double			column_width;
 
 	column_width = (enemy_limits[1] - enemy_limits[0]) / ENEMY_WIDTH;
 	column = (ray_angle - enemy_limits[0]) / column_width;
-
-    enemy_draw_execute(data, (column * 4), drawn_enemy_height, start_coord);
+	return (column);
 }

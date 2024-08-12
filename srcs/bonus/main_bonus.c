@@ -81,12 +81,10 @@ int	main(int argc, char *argv[])
 	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", false);
 	if (!data->mlx)
 		error_exit(data, mlx_strerror(mlx_errno), 0);
-
 	get_images(data);
 	init_gun_animation(&data->anim, data);
 	init_enemies(data);
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);
-	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 	mlx_loop_hook(data->mlx, &enemy_handler, data);
 	mlx_loop_hook(data->mlx, keyhook, data);
 	mlx_loop_hook(data->mlx, &door_animation, data);

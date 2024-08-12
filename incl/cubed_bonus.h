@@ -270,14 +270,32 @@ void	draw_player_icon(t_data *data);
 
 void	init_enemies(t_data *data);
 void	enemy_handler(void *param);
-void    draw_enemy(t_data *data);
-void	put_enemy_pixel(t_data *data, long long start_coord, double *enemy_limits, double ray_angle, double drawn_enemy_height);
+void    draw_enemy_loop(t_data *data);
+int		get_column(double *enemy_limits, double ray_angle);
 void	enemy_movement(t_data *data, int i);
 void	get_enemy_pixels(t_data *data, int i, double enemy_player_angle);
 void	enemy_to_screen(t_data *data, double drawn_enemy_height, \
 double enemy_player_angle, double dist_to_enemy);
-void  get_xy_diff(t_data *data, double *x_diff, double *y_diff);
-double	handle_xy_exception(t_data *data, double *xy_diff, double *enemy_player_angle, double *p_fov_limits);
+void	get_xy_diff(t_data *data, double *x_diff, double *y_diff);
+double	handle_exception(t_data *data, double *xy_diff, double *enemy_player_angle, double *p_fov_limits);
+int		enemy_draw_execute(t_data *data, int i, \
+double drawn_enemy_height, long long start_coord);
+
+// ENEMY DRAW UTILS
+
+int		get_ray_iterator(double enemy_start_angle, double player_fov_start);
+void	set_player_fov(t_data *data, double *player_fov_limits);
+void	set_enemy_limits(double *enemy_limits, double enemy_player_angle, \
+double dist_to_enemy);
+void	skip_extra_rays(t_data *data, double *ray_angle, double addition);
+void  	get_xy_diff(t_data *data, double *x_diff, double *y_diff);
+void	fix_fov_limits(t_data *data, double *enemy_player_angle, \
+double *p_fov_limits);
+double	handle_y_is_zero(t_data *data, double *enemy_player_angle, \
+double *p_fov_limits);
+double	handle_xy_exception(t_data *data, double *xy_diff, \
+double *enemy_player_angle, double *p_fov_limits);
+
 
 // DOOR FUNCTIONS
 

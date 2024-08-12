@@ -74,7 +74,7 @@ void	enemy_handler(void *param)
 	int				i;
 
 	data = param;
-	if (data->is_dead == 1)
+	if (data->is_dead == 1 || data->show_menu == 1)
 		return ;
 	data->time = mlx_get_time();
 	check_for_shot(data);

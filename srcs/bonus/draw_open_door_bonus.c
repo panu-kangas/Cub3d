@@ -6,7 +6,6 @@ void	execute_open_door_drawing(t_data *data, int column, double wall_height)
 
 	start_coord = (WINDOW_HEIGHT / 2) - (wall_height / 2);
 	start_coord = draw_wall(data, (column * 4), wall_height, start_coord);
-
 	data->found_open_door_vert = 0;
 	data->found_open_door_horiz = 0;
 }
@@ -167,7 +166,6 @@ void	draw_open_door(t_data *data, double ray_angle, double window_width)
 	{
 		dist_to_door = find_open_door_distance(data, ray_angle, addition);
 		drawn_door_height = (IMG_SIZE / dist_to_door) * PP_DIST;
-//		drawn_door_height += 30; // TEST
 		draw_open_door_pixels(data, drawn_door_height);
 		data->ray_iterator++;
 		ray_angle = ray_angle + addition;
@@ -175,5 +173,4 @@ void	draw_open_door(t_data *data, double ray_angle, double window_width)
 			ray_angle = 0;
 	}
 	data->handling_open_door = 0;
-
 }

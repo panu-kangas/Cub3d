@@ -21,11 +21,11 @@ void	set_player_icon_img(t_data *data, int direction)
 	else
 		player_text = mlx_load_png("./sprites/minimap/minimap_player_7.png");
 	if (!player_text)
-		error_exit(data,mlx_strerror(mlx_errno), 1);
+		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->player_icon = mlx_texture_to_image(data->mlx, player_text);
+	mlx_delete_texture(player_text);
 	if (!data->player_icon)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-	mlx_delete_texture(player_text);
 }
 
 int	get_player_direction(double angle)
@@ -58,6 +58,7 @@ void	draw_player_icon(t_data *data)
 	height = WINDOW_HEIGHT - (MINIMAP_HEIGHT / 2);
 	direction = get_player_direction(data->player_angle);
 	set_player_icon_img(data, direction);
-	mlx_image_to_window(data->mlx, data->player_icon, (MINIMAP_WIDTH / 2) - 8, height - 8);
+	mlx_image_to_window(data->mlx, data->player_icon, \
+	(MINIMAP_WIDTH / 2) - 8, height - 8);
 	mlx_set_instance_depth(&data->player_icon->instances[0], 3);
 }
