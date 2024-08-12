@@ -81,7 +81,7 @@ void	get_enemy_img_1(t_data *data)
 	mlx_delete_texture(enemy_text);
 }
 
-void	set_enemy_struct(t_data *data, int i, int x, int y)
+int	set_enemy_struct(t_data *data, int i, int x, int y)
 {
 
 	data->enemy[i].x = x * IMG_SIZE + (IMG_SIZE / 2);
@@ -94,6 +94,9 @@ void	set_enemy_struct(t_data *data, int i, int x, int y)
 	data->enemy[i].prev_time = 0;
 	data->enemy[i].prev_dead_time = 0;
 	data->enemy[i].enemy_anim_height_iter = -10;
+	data->map[y][x].is_enemy = 1;
+	i += 1;
+	return (i);
 }
 void	init_enemies(t_data *data)
 {
@@ -109,13 +112,14 @@ void	init_enemies(t_data *data)
 	get_enemy_img_3(data);
 	i = -1;
 	y = -1;
-	while (++y < data->map_height && ++i < data->enemy_count)
+	i = 0;
+	while (++y < data->map_height && i < data->enemy_count)
 	{
 		x = -1;
 		while (++x < data->map_width)
 		{
-			if (data->map[y][x].is_enemy == 1)
-				set_enemy_struct(data, i, x, y);
+			if (data->map[y][x].type == 'A')
+				i = set_enemy_struct(data, i, x, y);
 		}
 	}
 }

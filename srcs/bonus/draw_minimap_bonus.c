@@ -8,7 +8,8 @@ int	find_minimap_colour(t_data *data, long long *draw_coord)
 	if (data->map[draw_coord[1]][draw_coord[0]].is_enemy == 1)
 		return (get_rgba(227, 16, 16, 255));
 	else if (data->map[draw_coord[1]][draw_coord[0]].type == '0' \
-	|| data->map[draw_coord[1]][draw_coord[0]].type == 'P')
+	|| data->map[draw_coord[1]][draw_coord[0]].type == 'P'
+	|| data->map[draw_coord[1]][draw_coord[0]].type == 'A')
 		return (get_rgba(230, 224, 193, 255));
 	else if (data->map[draw_coord[1]][draw_coord[0]].is_door == 1)
 		return (get_rgba(237, 186, 33, 255));
