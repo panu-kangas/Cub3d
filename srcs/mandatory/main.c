@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:17:31 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/05 15:42:08 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:10:20 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int	main(int argc, char *argv[])
 	draw_image(data);
 	if (mlx_image_to_window(data->mlx, data->game_img, 0, 0) < 0)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-	mlx_key_hook(data->mlx, &keyhook, (void *)data);
+	mlx_loop_hook(data->mlx, keyhook, data);
+	mlx_key_hook(data->mlx, &special_keys, data);
 	mlx_loop(data->mlx);
 	mlx_terminate(data->mlx);
 	print_goodbye_message();

@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:12:11 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/02 11:12:13 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:13:53 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,31 @@ void	key_action_right(t_data *data)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 }
 
-void	keyhook(mlx_key_data_t keydata, void *param)
+void	keyhook(void *param)
 {
 	t_data		*data;
 
 	data = param;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
 		key_action_w(data);
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
 		key_action_d(data);
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
 		key_action_s(data);
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
 		key_action_a(data);
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 		key_action_left(data);
-	else if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		key_action_right(data);
+}
+
+void	special_keys(mlx_key_data_t keydata, void *param)
+{
+	t_data		*data;
+
+	data = (t_data *)param;
+
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		success_exit(data);
 }
