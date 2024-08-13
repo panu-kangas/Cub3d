@@ -8,23 +8,23 @@ void	get_enemy_img_3(t_data *data)
 	if (!enemy_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->enemy_dead_img[2] = mlx_texture_to_image(data->mlx, enemy_text);
+	mlx_delete_texture(enemy_text);
 	if (!data->enemy_dead_img[2])
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-	mlx_delete_texture(enemy_text);
 	enemy_text = mlx_load_png("./sprites/enemy/cacodeamon/dead3.png");
 	if (!enemy_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->enemy_dead_img[3] = mlx_texture_to_image(data->mlx, enemy_text);
+	mlx_delete_texture(enemy_text);
 	if (!data->enemy_dead_img[3])
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-	mlx_delete_texture(enemy_text);
 	enemy_text = mlx_load_png("./sprites/enemy/cacodeamon/dead4.png");
 	if (!enemy_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->enemy_dead_img[4] = mlx_texture_to_image(data->mlx, enemy_text);
+	mlx_delete_texture(enemy_text);
 	if (!data->enemy_dead_img[4])
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-	mlx_delete_texture(enemy_text);
 }
 
 void	get_enemy_img_2(t_data *data)
@@ -35,23 +35,23 @@ void	get_enemy_img_2(t_data *data)
 	if (!enemy_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->enemy_img[3] = mlx_texture_to_image(data->mlx, enemy_text);
+	mlx_delete_texture(enemy_text);
 	if (!data->enemy_img[3])
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-	mlx_delete_texture(enemy_text);
 	enemy_text = mlx_load_png("./sprites/enemy/cacodeamon/dead0.png");
 	if (!enemy_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->enemy_dead_img[0] = mlx_texture_to_image(data->mlx, enemy_text);
+	mlx_delete_texture(enemy_text);
 	if (!data->enemy_dead_img[0])
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-	mlx_delete_texture(enemy_text);
 	enemy_text = mlx_load_png("./sprites/enemy/cacodeamon/dead1.png");
 	if (!enemy_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->enemy_dead_img[1] = mlx_texture_to_image(data->mlx, enemy_text);
+	mlx_delete_texture(enemy_text);
 	if (!data->enemy_dead_img[1])
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-	mlx_delete_texture(enemy_text);
 }
 
 void	get_enemy_img_1(t_data *data)
@@ -62,23 +62,23 @@ void	get_enemy_img_1(t_data *data)
 	if (!enemy_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->enemy_img[0] = mlx_texture_to_image(data->mlx, enemy_text);
+	mlx_delete_texture(enemy_text);
 	if (!data->enemy_img[0])
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-	mlx_delete_texture(enemy_text);
 	enemy_text = mlx_load_png("./sprites/enemy/cacodeamon/enemy_left.png");
 	if (!enemy_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->enemy_img[1] = mlx_texture_to_image(data->mlx, enemy_text);
+	mlx_delete_texture(enemy_text);
 	if (!data->enemy_img[1])
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-	mlx_delete_texture(enemy_text);
 	enemy_text = mlx_load_png("./sprites/enemy/cacodeamon/enemy_back.png");
 	if (!enemy_text)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->enemy_img[2] = mlx_texture_to_image(data->mlx, enemy_text);
+	mlx_delete_texture(enemy_text);
 	if (!data->enemy_img[2])
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-	mlx_delete_texture(enemy_text);
 }
 
 int	set_enemy_struct(t_data *data, int i, int x, int y)

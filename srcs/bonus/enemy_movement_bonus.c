@@ -34,9 +34,9 @@ int	check_other_enemies(t_data *data, int direction, int i)
 	while (k < data->enemy_count)
 	{
 		if (i != k && \
-		(data->enemy[k].x <= check_x + 1 && data->enemy[k].x >= check_x - 1) \
+		(data->enemy[k].x <= check_x + 2 && data->enemy[k].x >= check_x - 2) \
 		&& \
-		(data->enemy[k].y <= check_y + 1 && data->enemy[k].y >= check_y - 1) \
+		(data->enemy[k].y <= check_y + 2 && data->enemy[k].y >= check_y - 2) \
 		&& data->enemy[k].is_dead == 0)
 			return (1);
 		k++;
@@ -46,19 +46,38 @@ int	check_other_enemies(t_data *data, int direction, int i)
 
 int	check_enemy_wall(t_data *data, int direction, int i)
 {
-	int			enemy_x;
-	int			enemy_y;
+	int	x_edge[2];
+	int	y_edge[2];
 
-	enemy_x = data->enemy[i].x;
-	enemy_y = data->enemy[i].y;
-	if (direction == 0 && data->map[(enemy_y - 20 - ENEMY_WIDTH / 2) / IMG_SIZE][enemy_x / IMG_SIZE].type == '1')
+	x_edge[0] = (data->enemy[i].x - WALL_LIMIT) / IMG_SIZE;
+	x_edge[1] = (data->enemy[i].x + WALL_LIMIT) / IMG_SIZE;
+	y_edge[0] = (data->enemy[i].y - WALL_LIMIT) / IMG_SIZE;
+	y_edge[1] = (data->enemy[i].y + WALL_LIMIT) / IMG_SIZE;
+
+	if (direction == 0)
+		y_edge[0] = (data->enemy[i].y - WALL_LIMIT - 20) / IMG_SIZE;
+	else if (direction == 1)
+		x_edge[1] = (data->enemy[i].x + WALL_LIMIT + 20) / IMG_SIZE;
+	else if (direction == 2)
+		y_edge[1] = (data->enemy[i].y + WALL_LIMIT + 20) / IMG_SIZE;
+	else if (direction == 3)
+		x_edge[0] = (data->enemy[i].x - WALL_LIMIT - 20) / IMG_SIZE;
+
+//	printf("xedge0: %d, x1: %d, y0: %d, y1: %d\n", x_edge[0], x_edge[1], y_edge[0], y_edge[1]);
+
+	if (data->map[y_edge[0]][x_edge[0]].type == '1' \
+	|| data->map[y_edge[0]][x_edge[0]].is_closing == 1)
 		return (1);
-	else if (direction == 2 && data->map[(enemy_y + 20 + ENEMY_WIDTH / 2) / IMG_SIZE][enemy_x / IMG_SIZE].type == '1')
+	if (data->map[y_edge[1]][x_edge[0]].type == '1' \
+	|| data->map[y_edge[1]][x_edge[0]].is_closing == 1)
 		return (1);
-	else if (direction == 3 && data->map[enemy_y / IMG_SIZE][(enemy_x - 20 - ENEMY_WIDTH / 2) / IMG_SIZE].type == '1')
+	if (data->map[y_edge[0]][x_edge[1]].type == '1' \
+	|| data->map[y_edge[0]][x_edge[1]].is_closing == 1)
 		return (1);
-	else if (direction == 1 && data->map[enemy_y / IMG_SIZE][(enemy_x + 20 + ENEMY_WIDTH / 2) / IMG_SIZE].type == '1')
+	if (data->map[y_edge[1]][x_edge[1]].type == '1' \
+	|| data->map[y_edge[1]][x_edge[1]].is_closing == 1)
 		return (1);
+	
 	if (check_other_enemies(data, direction, i) == 1)
 		return (1);
 	else

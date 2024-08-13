@@ -34,7 +34,7 @@ BONSRCS	= $Bmain_bonus.c $Berror_and_exit_bonus.c $Bget_map_bonus.c $Butils_bonu
 		$Benemy_init_bonus.c \
 		$Bget_intersection_door_x_bonus.c \
 		$Bget_intersection_door_y_bonus.c \
-		$Bdoor_animation_bonus.c \
+		$Bdoor_animation_bonus.c $Bcount_open_doors_bonus.c \
 		$Banimation_hooks_bonus.c \
 		$Bget_animation_images_bonus.c \
 		$Brotation_bonus.c \

@@ -33,8 +33,7 @@
 # define PLAYER_SPEED 8 // VALUE SUGGESTION FOR SCHOOL: 6-8 // move X pixels per keypress
 # define PLAYER_TURN_SPEED 3 // VALUE SUGGESTION FOR SCHOOL: 3 // X degrees change to angle per keypress
 # define MOUSE_SENS 0.05
-# define WALL_LIMIT 40 // you can't get closer to aa wall than WALL_LIMIT -amount of pixels
-
+# define WALL_LIMIT 30 // you can't get closer to aa wall than WALL_LIMIT -amount of pixels
 
 # define MINIMAP_WIDTH 176 // At school: 275 = MINIMAP_IMG_SIZE * TILE_COUNT (25 * 11) // Panu laptop: 176 = MINIMAP_IMG_SIZE * TILE_COUNT (16 * 11)
 # define MINIMAP_HEIGHT	176 // At school: 275 // Panu laptop: 176
@@ -134,20 +133,16 @@ typedef struct s_data
 
 	uint8_t		*pixels; // pixel data of a single wall
 	uint8_t		*pixels_door; // pixel data of a single wall
-
-
+	
 	t_map		**map;
 
 	t_enemy		*enemy;
 	int			*draw_order;
 	int			enemy_iter;
-//	int			enemy_anim_height_iter;
 	int			enemy_anim_img_iter;
 	int			shooting;
 	int			is_dead;
 	double		time;
-//	int			enemy_start_visible;
-//	int			enemy_end_visible;
 
 	int			ceil_colour; // ceiling colour
 	int			fl_colour; // floor colour
@@ -165,6 +160,7 @@ typedef struct s_data
 	int			handling_open_door;
 	int			found_open_door_vert;
 	int			found_open_door_horiz;
+	int			open_door_count;
 
 	int			ray_iterator;
 	double		vert_inters_crd[2];
@@ -281,7 +277,8 @@ void	enemy_movement(t_data *data, int i);
 void	get_enemy_pixels(t_data *data, int i, double enemy_player_angle);
 void	enemy_to_screen(t_data *data, double drawn_enemy_height, \
 double enemy_player_angle, double dist_to_enemy);
-double	handle_exception(t_data *data, double *xy_diff, double *enemy_player_angle, double *p_fov_limits);
+double	handle_exception(t_data *data, double *xy_diff, \
+double *enemy_player_angle, double *p_fov_limits);
 int		enemy_draw_execute(t_data *data, int i, \
 double drawn_enemy_height, long long start_coord);
 void	get_draw_order(t_data *data);
@@ -311,6 +308,9 @@ void	fix_door_img(mlx_image_t *door_img, mlx_image_t *wall_img);
 void	draw_open_door(t_data *data, double ray_angle, double window_width);
 int		find_open_door_iter(t_data *data);
 int		check_for_door(t_data *data, long long x, long long y);
+void	count_open_doors(t_data *data, double ray_angle, double addition);
+int		is_player_too_close(t_data *data);
+int		check_invalid_coords(t_data *data, long long *check_coord, char vh_flag);
 
 long long	get_up_right_door_y(long long *t_coord, double *start_coord, double ray_angle);
 long long	get_down_right_door_y(t_data *data, long long *t_coord, double *start_coord, double ray_angle);
@@ -324,7 +324,6 @@ long long	get_up_left_door_x(long long *t_coord, double *start_coord, double ray
 
 int		check_if_ray_hits_door_vert(t_data *data, double ray_angle);
 int		check_if_ray_hits_door_horiz(t_data *data, double ray_angle);
-
 
 
 /* VALIDATION */

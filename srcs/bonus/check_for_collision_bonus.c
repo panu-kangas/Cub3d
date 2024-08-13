@@ -38,62 +38,28 @@ void	change_player_coord(t_data *data, double direction, int speed)
 		change_player_coord_left(data, direction, speed);
 }
 
-int	is_collision_2(t_data *data, double direction, long long *p_crd)
+int	is_collision(t_data *data, long long *p_coord)
 {
-	if (direction > 157.5 && direction <= 202.5)
-	{
-		if (data->map[(p_crd[1] + WALL_LIMIT) / IMG_SIZE] \
-		[p_crd[0] / IMG_SIZE].type == '1')
-			return (1);
-	}
-	else if (direction > 202.5 && direction <= 247.5)
-	{
-		if (data->map[(p_crd[1] + WALL_LIMIT) / IMG_SIZE] \
-		[(p_crd[0] - WALL_LIMIT) / IMG_SIZE].type == '1')
-			return (1);
-	}
-	else if (direction > 247.5 && direction <= 292.5)
-	{
-		if (data->map[p_crd[1] / IMG_SIZE] \
-		[(p_crd[0] - WALL_LIMIT) / IMG_SIZE].type == '1')
-			return (1);
-	}
-	else if (direction > 292.5 && direction <= 337.5)
-	{
-		if (data->map[(p_crd[1] - WALL_LIMIT) / IMG_SIZE] \
-		[(p_crd[0] - WALL_LIMIT) / IMG_SIZE].type == '1')
-			return (1);
-	}
-	return (0);
-}
+	int	x_edge[2];
+	int	y_edge[2];
 
-int	is_collision(t_data *data, double direction, long long *p_crd)
-{
-	if (direction > 337.5 || direction <= 22.5)
-	{
-		if (data->map[(p_crd[1] - WALL_LIMIT) / IMG_SIZE] \
-		[p_crd[0] / IMG_SIZE].type == '1')
-			return (1);
-	}
-	else if (direction > 22.5 && direction <= 67.5)
-	{
-		if (data->map[(p_crd[1] - WALL_LIMIT) / IMG_SIZE] \
-		[(p_crd[0] + WALL_LIMIT) / IMG_SIZE].type == '1')
-			return (1);
-	}
-	else if (direction > 67.5 && direction <= 112.5)
-	{
-		if (data->map[p_crd[1] / IMG_SIZE] \
-		[(p_crd[0] + WALL_LIMIT) / IMG_SIZE].type == '1')
-			return (1);
-	}
-	else if (direction > 112.5 && direction <= 157.5)
-	{
-		if (data->map[(p_crd[1] + WALL_LIMIT) / IMG_SIZE] \
-		[(p_crd[0] + WALL_LIMIT) / IMG_SIZE].type == '1')
-			return (1);
-	}
-	return (is_collision_2(data, direction, p_crd));
+	x_edge[0] = (p_coord[0] - WALL_LIMIT) / IMG_SIZE;
+	x_edge[1] = (p_coord[0] + WALL_LIMIT) / IMG_SIZE;
+	y_edge[0] = (p_coord[1] - WALL_LIMIT) / IMG_SIZE;
+	y_edge[1] = (p_coord[1] + WALL_LIMIT) / IMG_SIZE;
+	if (data->map[y_edge[0]][x_edge[0]].type == '1' \
+	|| data->map[y_edge[0]][x_edge[0]].is_closing == 1)
+		return (1);
+	if (data->map[y_edge[1]][x_edge[0]].type == '1' \
+	|| data->map[y_edge[1]][x_edge[0]].is_closing == 1)
+		return (1);
+	if (data->map[y_edge[0]][x_edge[1]].type == '1' \
+	|| data->map[y_edge[0]][x_edge[1]].is_closing == 1)
+		return (1);
+	if (data->map[y_edge[1]][x_edge[1]].type == '1' \
+	|| data->map[y_edge[1]][x_edge[1]].is_closing == 1)
+		return (1);
+	return (0);
 }
 
 int	check_for_collision(t_data *data, double direction)
@@ -109,7 +75,7 @@ int	check_for_collision(t_data *data, double direction)
 	while (i > 0)
 	{
 		change_player_coord(data, direction, 1);
-		if (is_collision(data, direction, p_coord) == 1)
+		if (is_collision(data, p_coord) == 1)
 		{
 			p_coord[0] = orig_coord[0];
 			p_coord[1] = orig_coord[1];

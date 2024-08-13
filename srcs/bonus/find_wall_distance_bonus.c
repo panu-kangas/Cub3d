@@ -19,8 +19,6 @@ int	check_if_ray_hits_door_horiz(t_data *data, double ray_angle)
 	else
 		temp_coord[0] = get_up_left_door_x(temp_coord, start_crd, ray_angle);
 
-	//printf("HORIZ: temp=%lld, start=%f\n", temp_coord[0] / IMG_SIZE, start_crd[0] / IMG_SIZE);
-
 
 	if (temp_coord[0] / IMG_SIZE == (long long)start_crd[0] / IMG_SIZE)
 	{
@@ -50,8 +48,6 @@ int	check_if_ray_hits_door_vert(t_data *data, double ray_angle)
 		temp_coord[1] = get_down_left_door_y(data, temp_coord, start_crd, ray_angle);
 	else
 		temp_coord[1] = get_up_left_door_y(temp_coord, start_crd, ray_angle);
-
-	//printf("VERT: temp=%lld, start=%f\n", temp_coord[1] / IMG_SIZE, start_crd[1] / IMG_SIZE);
 
 	if (temp_coord[1] / IMG_SIZE == (long long)start_crd[1] / IMG_SIZE)
 	{
@@ -91,6 +87,7 @@ int	check_for_wall(t_data *data, long long *check_coord, char vh_flag, double ra
 
 	if (data->map[y][x].type == '1')
 	{
+		// is_exit --> exit_found = 1
 		if (data->map[y][x].is_door == 1)
 		{
 			if (vh_flag == 'V' && check_if_ray_hits_door_vert(data, ray_angle) == 1) // && check_if_ray_hits_door_vert(data, ray_angle) == 1
@@ -141,8 +138,6 @@ long long *w_coord, int cnt)
 	else
 		w_coord[0] = get_up_left_x(data, temp_coord, ray_angle);
 
-//	printf("W_COORD: x=%lld\n", w_coord[0]);
-
 	data->horiz_inters_crd[0] = temp_coord[0];
 	data->horiz_inters_crd[1] = temp_coord[1];
 }
@@ -182,9 +177,6 @@ double	find_wall_distance(t_data *data, double ray_angle, double addition)
 	int			i;
 	long long	vert_coords[2];
 	long long	horiz_coords[2];
-
-//	printf("FIND WALL DIST\n");
-
 
 	data->invalid_vert = 0;
 	data->invalid_horiz = 0;

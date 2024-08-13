@@ -77,7 +77,6 @@ long long *vert_coord, long long *horizon_coord)
 	double	horiz_dist;
 	double	p_angl;
 
-
 	p_angl = data->player_angle;
 	if (data->invalid_vert == 0)
 		vert_dist = get_vert_distance(data, ray_angle, vert_coord);

@@ -1,8 +1,36 @@
 #include "cubed_bonus.h"
 
+int	is_player_too_close(t_data *data)
+{
+	int			x_edge[2];
+	int			y_edge[2];
+	long long	*p_coord;
+
+	p_coord = data->player_coord;
+	x_edge[0] = (p_coord[0] - WALL_LIMIT) / IMG_SIZE;
+	x_edge[1] = (p_coord[0] + WALL_LIMIT) / IMG_SIZE;
+	y_edge[0] = (p_coord[1] - WALL_LIMIT) / IMG_SIZE;
+	y_edge[1] = (p_coord[1] + WALL_LIMIT) / IMG_SIZE;
+
+	if (data->map[y_edge[0]][x_edge[0]].type == '1' \
+	|| data->map[y_edge[0]][x_edge[0]].is_door == 1)
+		return (1);
+	if (data->map[y_edge[1]][x_edge[0]].type == '1' \
+	|| data->map[y_edge[1]][x_edge[0]].is_door == 1)
+		return (1);
+	if (data->map[y_edge[0]][x_edge[1]].type == '1' \
+	|| data->map[y_edge[0]][x_edge[1]].is_door == 1)
+		return (1);
+	if (data->map[y_edge[1]][x_edge[1]].type == '1' \
+	|| data->map[y_edge[1]][x_edge[1]].is_door == 1)
+		return (1);
+	return (0);
+}
+
 int	change_door_stat(t_data *data, long long x, long long y)
 {
-	if (data->map[y][x].is_door == 1 && data->opening_in_action != 1)
+	if (data->map[y][x].is_door == 1 && data->opening_in_action != 1 \
+	&& is_player_too_close(data) == 0)
 	{
 		data->opening_in_action = 1;
 		data->opening_door_coord[0] = x;

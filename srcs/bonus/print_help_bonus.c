@@ -14,7 +14,8 @@
 
 static int	is_it_a_door(t_data *data, long long x, long long y)
 {
-	if (data->map[y][x].is_door == 1 && data->opening_in_action != 1)
+	if (data->map[y][x].is_door == 1 && data->opening_in_action != 1 \
+	&& is_player_too_close(data) == 0)
 		return (1);
 	return (0);
 }

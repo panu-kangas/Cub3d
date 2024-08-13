@@ -8,9 +8,9 @@ void	get_end_txt_img(t_data *data)
 	if (!end_texture)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->death_text_img = mlx_texture_to_image(data->mlx, end_texture);
+	mlx_delete_texture(end_texture);
 	if (!data->death_text_img)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-	mlx_delete_texture(end_texture);
 }
 
 void	draw_death_img(t_data *data)
@@ -23,14 +23,19 @@ void	draw_death_img(t_data *data)
 
 	i = 0;
 	y = 0;
-	pixels = data->game_img->pixels;
 	while (y < WINDOW_HEIGHT)
 	{
 		x = 0;
 		while (x < WINDOW_WIDTH)
 		{
+			pixels = data->game_img->pixels;
 			colour = get_rgba(255, pixels[i + 1], pixels[i + 2], pixels[i + 3]);
-			mlx_put_pixel(data->death_img, x++, y, colour);
+			mlx_put_pixel(data->death_img, x, y, colour);
+			pixels = data->door_canvas->pixels;
+			colour = get_rgba(255, pixels[i + 1], pixels[i + 2], pixels[i + 3]);
+			if (pixels[i + 3] > 150)
+				mlx_put_pixel(data->death_img, x, y, colour);
+			x++;
 			i += 4;
 		}
 		y++;
