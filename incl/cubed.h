@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/13 16:10:54 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/13 17:23:22 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,17 @@
 
 # define WINDOW_WIDTH 800 // 1920
 # define WINDOW_HEIGHT 600 // 1080
-# define IMG_SIZE 64 // 64 x 64 pixels
+# define IMG_SIZE 128 // 64 x 64 pixels
 # define PI 3.14159265358979323846 // Not the dessert... sadly
 # define PP_DIST 255 // Projection Plane Distance, 255 is recommendation
 # define PLAYER_SPEED 8 // VALUE SUGGESTION FOR SCHOOL: 6-8 // move X pixels per keypress
 # define PLAYER_TURN_SPEED 3 // VALUE SUGGESTION FOR SCHOOL: 3 // X degrees change to angle per keypress
 # define WALL_LIMIT 50 // you can't get closer to aa wall than WALL_LIMIT -amount of pixels
+
+# define VALIDCHARS "01 NEWS"
+# define VALIDMAPCHARS "01XNEWS"
+# define AREACHARS "0NEWS"
+# define PLAYER "SNEW"
 
 typedef struct s_map
 {
