@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/12 19:09:32 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/13 16:10:54 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,12 +145,13 @@ void 		check_for_valid_coord(t_data *data, long long *t_coord, char xy_flag);
 
 /* HOOK FUNCTIONS */
 
-void		keyhook(mlx_key_data_t keydata, void *param);
+void		keyhook(void *param);
 void		key_action_w(t_data *data);
 void		key_action_a(t_data *data);
 void		key_action_s(t_data *data);
 void		key_action_d(t_data *data);
 int			check_for_collision(t_data *data, double direction);
+void		special_keys(mlx_key_data_t keydata, void *param);
 
 /* VALIDATION */
 
