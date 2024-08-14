@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/12 19:34:37 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:27:56 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,15 @@
 # define ANIM_DELAY 0.1
 # define SP_WIDTH 238
 # define SP_HEIGHT 308
-# define EXIT_PATH "./tiles/exit/exit_temp.png"
+# define EXIT_PATH "./tiles/exit/exit_door.png"
+
+typedef enum e_direction
+{
+	NORTH = 0,
+	EAST = 1,
+	SOUTH = 2,
+	WEST = 3
+}	t_direction;
 
 typedef struct s_map
 {
@@ -117,7 +125,7 @@ typedef struct s_data
 	mlx_image_t	*wall_img_e; // etc...
 	mlx_image_t	*wall_img_s;
 	mlx_image_t	*wall_img_w;
-	mlx_image_t	*exit_img;
+	mlx_image_t	*exit_img[4];
 
 	mlx_image_t	*d_closed_img[4][4];
 	mlx_image_t	*d_open_img[3][4];
@@ -137,7 +145,7 @@ typedef struct s_data
 
 	uint8_t		*pixels; // pixel data of a single wall
 	uint8_t		*pixels_door; // pixel data of a single wall
-	
+
 	t_map		**map;
 
 	t_enemy		*enemy;
@@ -198,6 +206,7 @@ typedef struct s_data
 	int			show_menu;
 	mlx_image_t	*menu_img;
 	mlx_image_t	*menu_canvas;
+	int			is_exit;
 }			t_data;
 
 // ERROR HANDLING
@@ -238,6 +247,8 @@ void	get_wall_ne_images(t_data *data);
 void	get_closed_door_image_1(t_data *data);
 void	get_closed_door_image_2(t_data *data);
 void	get_open_door_image_2(t_data *data);
+char	get_closed_door_direction(t_data *data);
+void	get_exit_pixels(t_data *data);
 
 // INTERSECTION MATH HELPERS
 

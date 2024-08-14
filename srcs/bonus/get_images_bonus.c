@@ -101,7 +101,9 @@ void	get_images(t_data *data)
 {
 	get_wall_ne_images(data);
 	get_wall_sw_images(data);
+	printf("getting images1\n");
 	get_exit_image(data);
+	printf("getting images2\n");
 	get_closed_door_image_1(data);
 	get_closed_door_image_2(data);
 	get_open_door_image_1(data);
