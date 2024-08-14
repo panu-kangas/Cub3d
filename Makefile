@@ -44,6 +44,7 @@ BONSRCS	= $Bmain_bonus.c $Berror_and_exit_bonus.c $Bget_map_bonus.c $Butils_bonu
 		$Bprint_help_bonus.c \
 		$Bdeath_exit_bonus.c $Butils_2_bonus.c \
 		$Bstart_menu_bonus.c $Bget_images_utils_bonus.c \
+		$Bmap_exit_bonus.c \
 		\
 		\
 		\
@@ -60,12 +61,12 @@ $(LIBFT):
 	make -C ./lib/libft/.
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME) 
+	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
 bonus: .bonus
 
 .bonus: $(LIBMLX) $(LIBFT) $(BONOBJS)
-	$(CC) $(BONOBJS) $(LIBS) $(HEADERS) -o $(NAME) 
+	$(CC) $(BONOBJS) $(LIBS) $(HEADERS) -o $(NAME)
 	touch .bonus
 
 %.o: %.c

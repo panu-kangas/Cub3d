@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_map_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:36:51 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/12 11:59:53 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:41:56 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	get_map(t_data *data, char *map_name)
 	if (check_map_borders(data) == -1)
 		error_exit(data, "Map is not surrounded by walls", 0);
 	init_map_flags(data);
-	change_door_status(data);
 	if (get_texture_paths(data) < 0 || check_texture_paths(data) == -1)
 		error_exit(data, "Invalid game settings given", 0);
+	change_door_status(data);
 }

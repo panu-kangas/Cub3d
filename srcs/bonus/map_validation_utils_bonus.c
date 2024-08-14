@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation_utils_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: llitovuo <llitovuo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 16:06:46 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/05 16:05:57 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/12 21:06:19 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	check_map_syntax(t_data *data)
 					error_exit(data, "Too many players", 0);
 				data->map[i][j].type = 'P';
 			}
-			if (data->map[i][j].type == 'D' || data->map[i][j].type == 'A')
+			if (data->map[i][j].type == 'D' || data->map[i][j].type == 'A' || data->map[i][j].type == 'F')
 				validate_door_and_enemy_positions(data, i, j);
 		}
 	}

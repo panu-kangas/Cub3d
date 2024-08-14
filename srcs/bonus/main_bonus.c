@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:17:31 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/12 13:52:05 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/12 19:13:44 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	init_ptrs(t_data *data)
 	data->map_name = NULL;
 	data->file = NULL;
 	data->anim.sprites = NULL;
+	data->exit_img = NULL;
 }
 
 void	init_data(t_data *data)
