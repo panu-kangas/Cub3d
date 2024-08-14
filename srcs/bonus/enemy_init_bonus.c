@@ -83,7 +83,6 @@ void	get_enemy_img_1(t_data *data)
 
 int	set_enemy_struct(t_data *data, int i, int x, int y)
 {
-
 	data->enemy[i].x = x * IMG_SIZE + (IMG_SIZE / 2);
 	data->enemy[i].y = y * IMG_SIZE + (IMG_SIZE / 2);
 	data->enemy[i].direction = -1;
@@ -99,6 +98,7 @@ int	set_enemy_struct(t_data *data, int i, int x, int y)
 	i += 1;
 	return (i);
 }
+
 void	init_enemies(t_data *data)
 {
 	int		i;
@@ -124,4 +124,3 @@ void	init_enemies(t_data *data)
 		}
 	}
 }
-

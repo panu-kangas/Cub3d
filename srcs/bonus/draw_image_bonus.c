@@ -48,19 +48,19 @@ void	get_closed_door_pixels(t_data *data)
 	{
 		if (direction == 'W')
 			data->pixels = \
-			data->door_closed_img[data->door_idle_iter][3]->pixels;
+			data->d_closed_img[data->door_idle_iter][3]->pixels;
 		else
 			data->pixels = \
-			data->door_closed_img[data->door_idle_iter][1]->pixels;
+			data->d_closed_img[data->door_idle_iter][1]->pixels;
 	}
 	else if (data->door_found_horiz == 1)
 	{
 		if (direction == 'N')
 			data->pixels = \
-			data->door_closed_img[data->door_idle_iter][0]->pixels;
+			data->d_closed_img[data->door_idle_iter][0]->pixels;
 		else
 			data->pixels = \
-			data->door_closed_img[data->door_idle_iter][2]->pixels;
+			data->d_closed_img[data->door_idle_iter][2]->pixels;
 	}
 }
 
@@ -112,7 +112,7 @@ void	draw_image(t_data *data, double ray_angle, double window_width)
 		if (ray_angle > 360)
 			ray_angle -= 360;
 	}
-	draw_open_door(data, data->player_angle - 30.0, WINDOW_WIDTH);
+	draw_open_door(data, data->player_angle - 30.0, WINDOW_WIDTH, 0);
 	draw_enemy_loop(data);
 	draw_minimap(data);
 	mlx_set_cursor_mode(data->mlx, MLX_MOUSE_HIDDEN);

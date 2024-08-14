@@ -43,9 +43,9 @@ void	print_to_screen(t_data *data)
 
 	x = data->player_coord[0] / IMG_SIZE;
 	y = data->player_coord[1] / IMG_SIZE;
-
 	if (check_closeby_door(data, x, y) == 1 && !data->text)
-		data->text = mlx_put_string(data->mlx, "Press 'E' to open/close.", 2, 2);
+		data->text = \
+		mlx_put_string(data->mlx, "Press 'E' to open/close.", 2, 2);
 	else if (check_closeby_door(data, x, y) == 1 && data->text)
 		data->text->enabled = true;
 	else if (check_closeby_door(data, x, y) != 1 && data->text)

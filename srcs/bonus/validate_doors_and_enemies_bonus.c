@@ -21,7 +21,7 @@ static int	check_door_is_walled(t_map *map, int j, int map_width)
 	return (0);
 }
 
-static int check_door_walled_y(char **door_line, int x_pos)
+static int	check_door_walled_y(char **door_line, int x_pos)
 {
 	if (door_line[-1][x_pos] != '1' || door_line[1][x_pos] != '1')
 		return (-1);
@@ -57,7 +57,6 @@ static int	validate_enemy(char **enemy_line, int x_pos, int map_width)
 		return (-1);
 	if (check_enemies_surroundings(enemy_line, x_pos) == -1)
 		return (-1);
-
 	return (0);
 }
 

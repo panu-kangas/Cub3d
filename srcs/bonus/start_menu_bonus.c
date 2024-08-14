@@ -17,7 +17,6 @@ void	menu_key_hook(mlx_key_data_t keydata, void *param)
 	t_data	*data;
 
 	data = (t_data *)param;
-
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		success_exit(data);
 }
@@ -36,9 +35,6 @@ uint32_t	get_menu_pixel(mlx_image_t *sprite, uint32_t x, uint32_t y)
 void	init_menu_img(t_data *data)
 {
 	mlx_texture_t	*menu_text;
-//	uint32_t		px;
-//	int				i;
-//	int				j;
 
 	menu_text = mlx_load_png("./sprites/menu/startscreen.png");
 	if (!menu_text)
@@ -47,23 +43,4 @@ void	init_menu_img(t_data *data)
 	mlx_delete_texture(menu_text);
 	if (mlx_image_to_window(data->mlx, data->menu_img, 0, 0) < 0)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
-/*
-
-	if (!data->menu_img)
-		error_exit(data, mlx_strerror(mlx_errno), 1);
-	data->menu_canvas = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
-	if (!data->menu_canvas)
-		error_exit(data, mlx_strerror(mlx_errno), 1);
-	mlx_set_instance_depth(data->menu_canvas->instances, 10);
-	i = -1;
-	while (++i < WINDOW_HEIGHT)
-	{
-		j = -1;
-		while (j++ < WINDOW_WIDTH)
-		{
-			px = get_menu_pixel(data->menu_img, j, i);
-			mlx_put_pixel(data->menu_canvas, j, i, px);
-		}
-	}
-	*/
 }

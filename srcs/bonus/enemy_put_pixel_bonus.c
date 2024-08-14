@@ -28,74 +28,34 @@ void	get_enemy_pixels(t_data *data, int i, double enemy_player_angle)
 		get_dead_enemy_pixels(data, i);
 		return ;
 	}
-
-//	printf("ENEMY DIR: %d\n", data->enemy[i].direction);
-
 	if (enemy_player_angle > 315 || enemy_player_angle <= 45)
-	{
-		if (data->enemy[i].direction == 0)
-			data->pixels = data->enemy_img[2]->pixels;
-		else if (data->enemy[i].direction == 1)
-			data->pixels = data->enemy_img[3]->pixels;
-		else if (data->enemy[i].direction == 2)
-			data->pixels = data->enemy_img[0]->pixels;
-		else if (data->enemy[i].direction == 3)
-			data->pixels = data->enemy_img[1]->pixels;
-	}
+		get_enemy_px_up(data, i);
 	else if (enemy_player_angle > 45 && enemy_player_angle <= 135)
-	{
-		if (data->enemy[i].direction == 0)
-			data->pixels = data->enemy_img[1]->pixels;
-		else if (data->enemy[i].direction == 1)
-			data->pixels = data->enemy_img[2]->pixels;
-		else if (data->enemy[i].direction == 2)
-			data->pixels = data->enemy_img[3]->pixels;
-		else if (data->enemy[i].direction == 3)
-			data->pixels = data->enemy_img[0]->pixels;
-	}
+		get_enemy_px_right(data, i);
 	else if (enemy_player_angle > 135 && enemy_player_angle <= 225)
-	{
-		if (data->enemy[i].direction == 0)
-			data->pixels = data->enemy_img[0]->pixels;
-		else if (data->enemy[i].direction == 1)
-			data->pixels = data->enemy_img[1]->pixels;
-		else if (data->enemy[i].direction == 2)
-			data->pixels = data->enemy_img[2]->pixels;
-		else if (data->enemy[i].direction == 3)
-			data->pixels = data->enemy_img[3]->pixels;
-	}
+		get_enemy_px_down(data, i);
 	else
-	{
-		if (data->enemy[i].direction == 0)
-			data->pixels = data->enemy_img[3]->pixels;
-		else if (data->enemy[i].direction == 1)
-			data->pixels = data->enemy_img[0]->pixels;
-		else if (data->enemy[i].direction == 2)
-			data->pixels = data->enemy_img[1]->pixels;
-		else if (data->enemy[i].direction == 3)
-			data->pixels = data->enemy_img[2]->pixels;
-	}
+		get_enemy_px_left(data, i);
 }
 
-int	colour_enemy_pixel(t_data *data, long long *start_coord, int pixel_counter, int i)
+int	colour_enemy_pixel(t_data *data, long long *s_coord, int px_counter, int i)
 {
 	int		colour;
 	uint8_t	*pixels;
 
 	pixels = data->pixels;
-	if (*start_coord < 0)
-		*start_coord = 0;
-	else if (*start_coord > WINDOW_HEIGHT)
-		*start_coord = 0;
+	if (*s_coord < 0)
+		*s_coord = 0;
+	else if (*s_coord > WINDOW_HEIGHT)
+		*s_coord = 0;
 	colour = get_rgba(pixels[i], pixels[i + 1], pixels[i + 2], pixels[i + 3]);
 	if (pixels[i + 3] > 150)
-		mlx_put_pixel(data->door_canvas, data->ray_iterator, *start_coord, colour);
-	*start_coord += 1;
-	return (pixel_counter + 1);
+		mlx_put_pixel(data->door_canvas, data->ray_iterator, *s_coord, colour);
+	*s_coord += 1;
+	return (px_counter + 1);
 }
 
-int	enemy_draw_execute(t_data *data, int i, \
-double drawn_enemy_height, long long start_coord)
+int	enemy_draw_execute(t_data *data, int i, double e_height, long long s_coord)
 {
 	int		px_cnt;
 	double	pixel_iter;
@@ -104,11 +64,11 @@ double drawn_enemy_height, long long start_coord)
 	pixel_iter = 0.0;
 	while (i < (ENEMY_WIDTH * ENEMY_HEIGHT * 4) && px_cnt < WINDOW_HEIGHT)
 	{
-		if (start_coord < 0)
-			start_coord++;
+		if (s_coord < 0)
+			s_coord++;
 		else
-			px_cnt = colour_enemy_pixel(data, &start_coord, px_cnt, i);
-		pixel_iter += (ENEMY_HEIGHT / drawn_enemy_height);
+			px_cnt = colour_enemy_pixel(data, &s_coord, px_cnt, i);
+		pixel_iter += (ENEMY_HEIGHT / e_height);
 		if (pixel_iter > 1)
 		{
 			while (pixel_iter > 1)
@@ -118,7 +78,7 @@ double drawn_enemy_height, long long start_coord)
 			}
 		}
 	}
-	return (start_coord);
+	return (s_coord);
 }
 
 int	get_column(double *enemy_limits, double ray_angle)

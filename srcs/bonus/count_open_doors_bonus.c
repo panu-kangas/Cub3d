@@ -41,10 +41,10 @@ char vh_flag, double ray_angle)
 	else if (data->map[y][x].is_open == 1)
 	{
 		if (vh_flag == 'V' \
-		&& check_if_ray_hits_door_vert(data, ray_angle) == 1)
+		&& check_ray_door_vert(data, ray_angle) == 1)
 			data->open_door_count++;
 		else if (vh_flag == 'H' \
-		&& check_if_ray_hits_door_horiz(data, ray_angle) == 1)
+		&& check_ray_door_horiz(data, ray_angle) == 1)
 			data->open_door_count++;
 	}
 	return (0);

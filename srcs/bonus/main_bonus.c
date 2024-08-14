@@ -12,7 +12,7 @@
 
 #include "cubed_bonus.h"
 
-void init_ptrs(t_data *data)
+void	init_ptrs(t_data *data)
 {
 	data->mlx = NULL;
 	data->map = NULL;

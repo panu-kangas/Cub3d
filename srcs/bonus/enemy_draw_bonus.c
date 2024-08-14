@@ -5,15 +5,15 @@ double y_x_ratio, int i)
 {
 	if (data->enemy[i].x >= data->player_coord[0] \
 	&& data->enemy[i].y < data->player_coord[1])
-		*enemy_player_angle = 90.0 - convert_to_degrees(atan(y_x_ratio));
+		*enemy_player_angle = 90.0 - conv_to_deg(atan(y_x_ratio));
 	else if (data->enemy[i].x >= data->player_coord[0] \
 	&& data->enemy[i].y >= data->player_coord[1])
-		*enemy_player_angle = 90.0 + convert_to_degrees(atan(y_x_ratio));
+		*enemy_player_angle = 90.0 + conv_to_deg(atan(y_x_ratio));
 	else if (data->enemy[i].x < data->player_coord[0] \
 	&& data->enemy[i].y >= data->player_coord[1])
-		*enemy_player_angle = 270.0 - convert_to_degrees(atan(y_x_ratio));
+		*enemy_player_angle = 270.0 - conv_to_deg(atan(y_x_ratio));
 	else
-		*enemy_player_angle = 270.0 + convert_to_degrees(atan(y_x_ratio));
+		*enemy_player_angle = 270.0 + conv_to_deg(atan(y_x_ratio));
 }
 
 void	draw_enemy(t_data *data, double draw_height, \
@@ -69,14 +69,12 @@ double	is_enemy_visible(t_data *data, int i, double *enemy_p_angle)
 		return (-1);
 }
 
-void	draw_enemy_loop(t_data *data)
+void	check_enemy_visibility(t_data *data)
 {
 	int		i;
 	double	dist_to_enemy;
-	double	draw_height;
 	double	enemy_player_angle;
 
-	enemy_player_angle = 0;
 	data->enemy_iter = -1;
 	while (++data->enemy_iter < data->enemy_count)
 	{
@@ -85,6 +83,17 @@ void	draw_enemy_loop(t_data *data)
 		data->enemy[i].angle_to_player = enemy_player_angle;
 		data->enemy[i].distance_to_player = dist_to_enemy;
 	}
+}
+
+void	draw_enemy_loop(t_data *data)
+{
+	int		i;
+	double	dist_to_enemy;
+	double	draw_height;
+	double	enemy_player_angle;
+
+	enemy_player_angle = 0;
+	check_enemy_visibility(data);
 	get_draw_order(data);
 	data->enemy_iter = -1;
 	i = -1;

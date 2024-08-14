@@ -1,111 +1,37 @@
 #include "cubed_bonus.h"
 
-int	check_if_ray_hits_door_horiz(t_data *data, double ray_angle)
+int	handle_found_door(t_data *data, char vh_flag, double r_ang, long long *xy)
 {
-	double		*start_crd;
-	long long	temp_coord[2];
-
-	start_crd = data->horiz_inters_crd;
-	if (ray_angle < 90 || ray_angle > 270)
-		temp_coord[1] = start_crd[1] - (IMG_SIZE / 2);
-	else
-		temp_coord[1] = start_crd[1] + (IMG_SIZE / 2);
-	if (ray_angle < 90)
-		temp_coord[0] = get_up_right_door_x(data, temp_coord, start_crd, ray_angle);
-	else if (ray_angle > 90 && ray_angle < 180)
-		temp_coord[0] = get_down_right_door_x(data, temp_coord, start_crd, ray_angle);
-	else if (ray_angle > 180 && ray_angle < 270)
-		temp_coord[0] = get_down_left_door_x(temp_coord, start_crd, ray_angle);
-	else
-		temp_coord[0] = get_up_left_door_x(temp_coord, start_crd, ray_angle);
-
-
-	if (temp_coord[0] / IMG_SIZE == (long long)start_crd[0] / IMG_SIZE)
+	if (vh_flag == 'V' && check_ray_door_vert(data, r_ang) == 1)
 	{
-		data->horiz_inters_crd[0] = temp_coord[0];
-		data->horiz_inters_crd[1] = temp_coord[1];
+		data->door_found_vert = 1;
+		data->door_coord_v[0] = xy[0];
+		data->door_coord_v[1] = xy[1];
 		return (1);
 	}
-	else
-		return (0);
+	else if (vh_flag == 'H' && check_ray_door_horiz(data, r_ang) == 1)
+	{
+		data->door_found_horiz = 1;
+		data->door_coord_h[0] = xy[0];
+		data->door_coord_h[1] = xy[1];
+		return (1);
+	}
+	return (0);
 }
 
-int	check_if_ray_hits_door_vert(t_data *data, double ray_angle)
+int	check_for_wall(t_data *data, long long *check_coord, \
+char vh_flag, double r_ang)
 {
-	double		*start_crd;
-	long long	temp_coord[2];
+	long long	xy[2];
 
-	start_crd = data->vert_inters_crd;
-	if (ray_angle < 180)
-		temp_coord[0] = start_crd[0] + (IMG_SIZE / 2);
-	else
-		temp_coord[0] = start_crd[0] - (IMG_SIZE / 2);
-	if (ray_angle < 90)
-		temp_coord[1] = get_up_right_door_y(temp_coord, start_crd, ray_angle);
-	else if (ray_angle > 90 && ray_angle < 180)
-		temp_coord[1] = get_down_right_door_y(data, temp_coord, start_crd, ray_angle);
-	else if (ray_angle > 180 && ray_angle < 270)
-		temp_coord[1] = get_down_left_door_y(data, temp_coord, start_crd, ray_angle);
-	else
-		temp_coord[1] = get_up_left_door_y(temp_coord, start_crd, ray_angle);
-
-	if (temp_coord[1] / IMG_SIZE == (long long)start_crd[1] / IMG_SIZE)
-	{
-		data->vert_inters_crd[0] = temp_coord[0];
-		data->vert_inters_crd[1] = temp_coord[1];
+	xy[0] = check_coord[0];
+	xy[1] = check_coord[1];
+	if (check_invalid_coords(data, check_coord, vh_flag) == 1)
 		return (1);
-	}
-	else
-		return (0);
-}
-
-int	check_for_wall(t_data *data, long long *check_coord, char vh_flag, double ray_angle)
-{
-	long long	x;
-	long long	y;
-
-	x = check_coord[0];
-	y = check_coord[1];
-
-	if (x < 0 || y < 0)
+	if (data->map[xy[1]][xy[0]].type == '1')
 	{
-		if (vh_flag == 'V')
-			data->invalid_vert = 1;
-		else
-			data->invalid_horiz = 1;
-		return (1);
-	}
-	else if (data->map[y][x].type == 'X')
-	{
-		if (vh_flag == 'V')
-			data->invalid_vert = 1;
-		else
-			data->invalid_horiz = 1;
-		return (1);
-	}
-
-
-	if (data->map[y][x].type == '1')
-	{
-		// is_exit --> exit_found = 1
-		if (data->map[y][x].is_door == 1)
-		{
-			if (vh_flag == 'V' && check_if_ray_hits_door_vert(data, ray_angle) == 1) // && check_if_ray_hits_door_vert(data, ray_angle) == 1
-			{
-				data->door_found_vert = 1;
-				data->door_coord_v[0] = x;
-				data->door_coord_v[1] = y;
-				return (1);
-			}
-			else if (vh_flag == 'H' && check_if_ray_hits_door_horiz(data, ray_angle) == 1) // && check_if_ray_hits_door_horiz(data, ray_angle) == 1
-			{
-				data->door_found_horiz = 1;
-				data->door_coord_h[0] = x;
-				data->door_coord_h[1] = y;
-				return (1);
-			}
-			return (0);
-		}
+		if (data->map[xy[1]][xy[0]].is_door == 1)
+			return (handle_found_door(data, vh_flag, r_ang, xy));
 		return (1);
 	}
 	return (0);
@@ -137,7 +63,6 @@ long long *w_coord, int cnt)
 		w_coord[0] = get_down_left_x(data, temp_coord, ray_angle);
 	else
 		w_coord[0] = get_up_left_x(data, temp_coord, ray_angle);
-
 	data->horiz_inters_crd[0] = temp_coord[0];
 	data->horiz_inters_crd[1] = temp_coord[1];
 }
