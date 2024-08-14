@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 19:08:13 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/14 16:58:33 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:20:59 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	get_exit_pixels(t_data *data)
 	direction = get_closed_door_direction(data);
 	if (direction == 'N')
 		data->pixels = data->exit_img[NORTH]->pixels;
-	if (direction == 'E')
+	else if (direction == 'E')
 		data->pixels = data->exit_img[EAST]->pixels;
-	if (direction == 'S')
+	else if (direction == 'S')
 		data->pixels = data->exit_img[SOUTH]->pixels;
-	if (direction == 'W')
+	else if (direction == 'W')
 		data->pixels = data->exit_img[WEST]->pixels;
 }
 
