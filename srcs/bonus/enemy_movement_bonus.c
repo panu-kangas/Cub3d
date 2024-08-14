@@ -1,19 +1,5 @@
 #include "cubed_bonus.h"
 
-int	set_return_direction(int direction)
-{
-	if (direction == 0)
-		return (2);
-	else if (direction == 1)
-		return (3);
-	else if (direction == 2)
-		return (0);
-	else if (direction == 3)
-		return (1);
-	else
-		return (-1);
-}
-
 int	check_other_enemies(t_data *data, int direction, int i)
 {
 	int	k;
@@ -30,8 +16,8 @@ int	check_other_enemies(t_data *data, int direction, int i)
 		check_y++;
 	else if (direction == 3)
 		check_x--;
-	k = 0;
-	while (k < data->enemy_count)
+	k = -1;
+	while (++k < data->enemy_count)
 	{
 		if (i != k && \
 		(data->enemy[k].x <= check_x + 1 && data->enemy[k].x >= check_x - 1) \
@@ -39,43 +25,33 @@ int	check_other_enemies(t_data *data, int direction, int i)
 		(data->enemy[k].y <= check_y + 1 && data->enemy[k].y >= check_y - 1) \
 		&& data->enemy[k].is_dead == 0)
 			return (1);
-		k++;
 	}
 	return (0);
 }
 
 int	check_enemy_wall(t_data *data, int direction, int i)
 {
-	int			enemy_x;
-	int			enemy_y;
+	int	x_edge[2];
+	int	y_edge[2];
 
-	enemy_x = data->enemy[i].x;
-	enemy_y = data->enemy[i].y;
-	if (direction == 0 && data->map[(enemy_y - 20 - ENEMY_WIDTH / 2) / IMG_SIZE][enemy_x / IMG_SIZE].type == '1')
+	set_enemy_x_edges(data, x_edge, direction, i);
+	set_enemy_y_edges(data, y_edge, direction, i);
+	if (data->map[y_edge[0]][x_edge[0]].type == '1' \
+	|| data->map[y_edge[0]][x_edge[0]].is_closing == 1)
 		return (1);
-	else if (direction == 2 && data->map[(enemy_y + 20 + ENEMY_WIDTH / 2) / IMG_SIZE][enemy_x / IMG_SIZE].type == '1')
+	if (data->map[y_edge[1]][x_edge[0]].type == '1' \
+	|| data->map[y_edge[1]][x_edge[0]].is_closing == 1)
 		return (1);
-	else if (direction == 3 && data->map[enemy_y / IMG_SIZE][(enemy_x - 20 - ENEMY_WIDTH / 2) / IMG_SIZE].type == '1')
+	if (data->map[y_edge[0]][x_edge[1]].type == '1' \
+	|| data->map[y_edge[0]][x_edge[1]].is_closing == 1)
 		return (1);
-	else if (direction == 1 && data->map[enemy_y / IMG_SIZE][(enemy_x + 20 + ENEMY_WIDTH / 2) / IMG_SIZE].type == '1')
+	if (data->map[y_edge[1]][x_edge[1]].type == '1' \
+	|| data->map[y_edge[1]][x_edge[1]].is_closing == 1)
 		return (1);
 	if (check_other_enemies(data, direction, i) == 1)
 		return (1);
 	else
 		return (0);
-}
-
-void	change_enemy_coord(t_data *data, int direction, int i)
-{
-	if (direction == 0)
-		data->enemy[i].y -= 20;
-	else if (direction == 2)
-		data->enemy[i].y += 20;
-	else if (direction == 3)
-		data->enemy[i].x -= 20;
-	else if (direction == 1)
-		data->enemy[i].x += 20;
-	data->enemy[i].step_count--;
 }
 
 int	get_enemy_direction(t_data *data, int return_direction, int i)
@@ -115,7 +91,7 @@ void	check_for_hit(t_data *data)
 	while (i < data->enemy_count)
 	{
 		if (data->enemy[i].x > data->player_coord[0] - IMG_SIZE \
-		&&  data->enemy[i].x < data->player_coord[0] + IMG_SIZE \
+		&& data->enemy[i].x < data->player_coord[0] + IMG_SIZE \
 		&& data->enemy[i].y > data->player_coord[1] - IMG_SIZE \
 		&& data->enemy[i].y < data->player_coord[1] + IMG_SIZE)
 		{

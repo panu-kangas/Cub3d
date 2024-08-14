@@ -26,9 +26,9 @@ void	set_enemy_limits(double *enemy_limits, double enemy_player_angle, \
 double dist_to_enemy)
 {
 	enemy_limits[0] = enemy_player_angle \
-	- convert_to_degrees(atan((ENEMY_WIDTH / 2) / dist_to_enemy));
+	- conv_to_deg(atan((ENEMY_WIDTH / 2) / dist_to_enemy));
 	enemy_limits[1] = enemy_player_angle \
-	+ convert_to_degrees(atan((ENEMY_WIDTH / 2) / dist_to_enemy));
+	+ conv_to_deg(atan((ENEMY_WIDTH / 2) / dist_to_enemy));
 	if (enemy_limits[0] < 0)
 		enemy_limits[0] += 360;
 	if (enemy_limits[1] > 360)

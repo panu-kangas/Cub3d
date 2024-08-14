@@ -1,11 +1,11 @@
 #include "cubed_bonus.h"
 
-double	convert_to_radians(double angle_in_degrees)
+double	conv_to_rad(double angle_in_degrees)
 {
 	return (angle_in_degrees * (PI / 180.0));
 }
 
-double	convert_to_degrees(double angle_in_rad)
+double	conv_to_deg(double angle_in_rad)
 {
 	return (angle_in_rad / (PI / 180.0));
 }
@@ -31,7 +31,6 @@ void	delete_and_init_images(t_data *data)
 	mlx_delete_image(data->mlx, data->game_img);
 	mlx_delete_image(data->mlx, data->door_canvas);
 	mlx_delete_image(data->mlx, data->player_icon);
-
 	data->game_img = mlx_new_image(data->mlx, WINDOW_WIDTH, WINDOW_HEIGHT);
 	if (!data->game_img)
 		error_exit(data, mlx_strerror(mlx_errno), 1);

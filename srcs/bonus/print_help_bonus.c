@@ -14,7 +14,8 @@
 
 static int	is_it_a_door(t_data *data, long long x, long long y)
 {
-	if (data->map[y][x].is_door == 1 && data->opening_in_action != 1)
+	if (data->map[y][x].is_door == 1 && data->opening_in_action != 1 \
+	&& is_player_too_close(data) == 0)
 		return (1);
 	return (0);
 }
@@ -42,9 +43,9 @@ void	print_to_screen(t_data *data)
 
 	x = data->player_coord[0] / IMG_SIZE;
 	y = data->player_coord[1] / IMG_SIZE;
-
 	if (check_closeby_door(data, x, y) == 1 && !data->text)
-		data->text = mlx_put_string(data->mlx, "Press 'E' to open/close.", 2, 2);
+		data->text = \
+		mlx_put_string(data->mlx, "Press 'E' to open/close.", 2, 2);
 	else if (check_closeby_door(data, x, y) == 1 && data->text)
 		data->text->enabled = true;
 	else if (check_closeby_door(data, x, y) != 1 && data->text)

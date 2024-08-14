@@ -75,7 +75,6 @@ void	init_animation_canvas(t_anim *anim, t_data *data)
 	if (mlx_image_to_window(data->mlx, anim->canvas, x_pos, y_pos) < 0)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	mlx_set_instance_depth(anim->canvas->instances, 5);
-	//ft_memcpy(anim->canvas->pixels, anim->sprites[0]->pixels, anim->canvas->width * anim->canvas->height * sizeof(uint32_t));
 	i = -1;
 	while (++i < SP_HEIGHT)
 	{

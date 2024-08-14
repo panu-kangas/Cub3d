@@ -11,7 +11,7 @@ int	colour_the_pixel(t_data *data, long long *start_coord, int px_count, int i)
 	colour = get_rgba(pixels[i], pixels[i + 1], pixels[i + 2], pixels[i + 3]);
 	if (data->handling_open_door == 0)
 		mlx_put_pixel(data->game_img, ray_iter, *start_coord, colour);
-	else if (data->handling_open_door == 1)
+	else if (data->handling_open_door == 1 && pixels[i + 3] > 150)
 		mlx_put_pixel(data->door_canvas, ray_iter, *start_coord, colour);
 	*start_coord += 1;
 	return (px_count + 1);
