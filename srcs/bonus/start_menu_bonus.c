@@ -41,6 +41,10 @@ void	init_menu_img(t_data *data)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 	data->menu_img = mlx_texture_to_image(data->mlx, menu_text);
 	mlx_delete_texture(menu_text);
+	if (!data->menu_img)
+		error_exit(data, mlx_strerror(mlx_errno), 1);
+	if (mlx_resize_image(data->menu_img, WINDOW_WIDTH, WINDOW_HEIGHT) == false)
+		error_exit(data, mlx_strerror(mlx_errno), 1);
 	if (mlx_image_to_window(data->mlx, data->menu_img, 0, 0) < 0)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
 }

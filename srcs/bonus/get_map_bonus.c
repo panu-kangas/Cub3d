@@ -120,7 +120,7 @@ void	get_map(t_data *data, char *map_name)
 	allocate_map(data);
 	assign_map_contents(data);
 	change_spaces_to_x(data);
-	check_map_syntax(data);
+	check_map_syntax(data, -1);
 	if (data->player_flag == 0)
 		error_exit(data, "No player", 0);
 	if (check_map_borders(data) == -1)

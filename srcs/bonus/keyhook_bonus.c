@@ -5,8 +5,6 @@ void	key_action_left(t_data *data)
 	data->player_angle -= PLAYER_TURN_SPEED;
 	if (data->player_angle < 0)
 		data->player_angle = 360 - (data->player_angle * -1);
-	delete_and_init_images(data);
-	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 }
 
 void	key_action_right(t_data *data)
@@ -14,8 +12,6 @@ void	key_action_right(t_data *data)
 	data->player_angle += PLAYER_TURN_SPEED;
 	if (data->player_angle >= 360)
 		data->player_angle -= 360;
-	delete_and_init_images(data);
-	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 }
 
 void	keyhook(void *param)
@@ -42,6 +38,8 @@ void	keyhook(void *param)
 	mlx_get_mouse_pos(data->mlx, &pos_x, &pos_y);
 	if (pos_x != WINDOW_WIDTH / 2)
 		rotation(pos_x, data);
+	delete_and_init_images(data);
+	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 }
 
 void	special_keys(mlx_key_data_t keydata, void *param)

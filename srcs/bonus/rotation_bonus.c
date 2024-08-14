@@ -19,7 +19,5 @@ void	rotation(double x_pos, t_data *data)
 		data->player_angle -= 360;
 	else if (data->player_angle < 0)
 		data->player_angle = 360 - (data->player_angle * -1);
-	delete_and_init_images(data);
-	draw_image(data, data->player_angle - 30, WINDOW_WIDTH);
 	mlx_set_mouse_pos(data->mlx, WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 }

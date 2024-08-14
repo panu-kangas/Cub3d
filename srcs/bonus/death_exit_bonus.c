@@ -11,6 +11,9 @@ void	get_end_txt_img(t_data *data)
 	mlx_delete_texture(end_texture);
 	if (!data->death_text_img)
 		error_exit(data, mlx_strerror(mlx_errno), 1);
+	if (mlx_resize_image(data->death_text_img, WINDOW_WIDTH, \
+	data->death_text_img->height) == false)
+		error_exit(data, mlx_strerror(mlx_errno), 1);
 }
 
 void	draw_death_img(t_data *data)

@@ -27,12 +27,10 @@ void	assign_player_position(t_data *data, int x, int y, char type)
 		data->player_angle = 270;
 }
 
-void	check_map_syntax(t_data *data)
+void	check_map_syntax(t_data *data, int i)
 {
-	int	i;
 	int	j;
 
-	i = -1;
 	data->player_flag = 0;
 	while (++i < data->map_height)
 	{
@@ -50,7 +48,8 @@ void	check_map_syntax(t_data *data)
 					error_exit(data, "Too many players", 0);
 				data->map[i][j].type = 'P';
 			}
-			if (data->map[i][j].type == 'D' || data->map[i][j].type == 'A' || data->map[i][j].type == 'F')
+			if (data->map[i][j].type == 'D' || data->map[i][j].type == 'A' \
+			|| data->map[i][j].type == 'F')
 				validate_door_and_enemy_positions(data, i, j);
 		}
 	}

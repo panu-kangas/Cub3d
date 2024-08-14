@@ -38,7 +38,7 @@ double enemy_player_angle, double dist_to_enemy)
 	{
 		start_coord = (WINDOW_HEIGHT / 2) - (draw_height / 2) \
 		+ data->enemy[data->enemy_iter].enemy_anim_height_iter;
-		if (dist_to_enemy < data->dist_to_wall_list[data->ray_iterator])
+		if (dist_to_enemy <= data->dist_to_wall_list[data->ray_iterator])
 			enemy_draw_execute(data, (get_column(enemy_lim, ray_angle) * 4), \
 			draw_height, start_coord);
 		ray_angle += addition;

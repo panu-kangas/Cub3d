@@ -28,7 +28,7 @@ void	init_ptrs(t_data *data)
 	data->texture_path_e = NULL;
 	data->texture_path_s = NULL;
 	data->texture_path_w = NULL;
-	data->ceiling_color = NULL;
+	data->ceiling_col = NULL;
 	data->floor_color = NULL;
 	data->map_name = NULL;
 	data->file = NULL;
@@ -60,6 +60,19 @@ void	init_data(t_data *data)
 	data->show_menu = 1;
 }
 
+void	set_window_pos(t_data *data)
+{
+	int	monitor_width;
+	int	monitor_height;
+	int	x;
+	int	y;
+
+	mlx_get_monitor_size(0, &monitor_width, &monitor_height);
+	x = (monitor_width / 2) - (WINDOW_WIDTH / 2);
+	y = (monitor_height / 2) - (WINDOW_HEIGHT / 2);
+	mlx_set_window_pos(data->mlx, x, y);
+}
+
 static int	check_ac(int ac)
 {
 	if (ac < 2)
@@ -84,6 +97,7 @@ int	main(int argc, char *argv[])
 	data->mlx = mlx_init(WINDOW_WIDTH, WINDOW_HEIGHT, "Cub3D", false);
 	if (!data->mlx)
 		error_exit(data, mlx_strerror(mlx_errno), 0);
+	set_window_pos(data);
 	get_images(data);
 	init_gun_animation(&data->anim, data);
 	mlx_loop_hook(data->mlx, &enemy_handler, data);

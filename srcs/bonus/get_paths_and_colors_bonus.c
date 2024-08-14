@@ -26,7 +26,7 @@ int	check_texture_paths(t_data *data)
 		|| open(data->texture_path_s, O_RDONLY) == -1
 		|| open(data->texture_path_w, O_RDONLY) == -1)
 		return (-1);
-	if (data->floor_color == NULL || data->ceiling_color == NULL)
+	if (data->floor_color == NULL || data->ceiling_col == NULL)
 		return (-1);
 	return (0);
 }
@@ -55,34 +55,11 @@ static int	check_rgb_syntax(char *rgb, int len)
 	return (0);
 }
 
-static int	rgb_atoi(t_color *color, char *rgb, int pos)
+static int	get_rgb(t_color **color, char *rgb, int *flag, int i)
 {
-	int		num;
-
-	num = ft_atoi(rgb);
-	if (num < 0 || num > 255)
-		return (-1);
-	if (pos == 0)
-		color->r = num;
-	else if (pos == 1)
-		color->g = num;
-	else if (pos == 2)
-		color->b = num;
-	if (num % 100 > 0 || num == 100)
-		return (2);
-	else if (num % 10 > 0 || num == 10)
-		return (1);
-	else
-		return (0);
-}
-
-static int	get_rgb(t_color **color, char *rgb, int *flag)
-{
-	int		i;
 	int		len;
 	int		j;
 
-	i = 0;
 	j = -1;
 	while (*rgb == ' ')
 		rgb++;
@@ -138,9 +115,9 @@ int	get_texture_paths(t_data *data)
 		else if (ft_strncmp(data->file[i], "EA ", 3) == 0)
 			data->texture_path_e = copy_texture_path(data->file[i] + 3);
 		else if (ft_strncmp(data->file[i], "F ", 2) == 0)
-			ret = get_rgb(&data->floor_color, data->file[i] + 2, &data->fc);
+			ret = get_rgb(&data->floor_color, data->file[i] + 2, &data->fc, 0);
 		else if (ft_strncmp(data->file[i], "C ", 2) == 0)
-			ret = get_rgb(&data->ceiling_color, data->file[i] + 2, &data->cc);
+			ret = get_rgb(&data->ceiling_col, data->file[i] + 2, &data->cc, 0);
 		else if (data->file[i][0] != '\n')
 			return (-1);
 		if (ret != 0)
