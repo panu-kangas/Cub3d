@@ -66,7 +66,7 @@ void	get_closed_door_pixels(t_data *data)
 
 void	draw_pixels(t_data *data, double wall_height)
 {
-	int		column_to_draw;
+	int		column;
 
 	if (data->v_h_flag == 0)
 	{
@@ -76,7 +76,7 @@ void	draw_pixels(t_data *data, double wall_height)
 			data->pixels = data->wall_img_w->pixels;
 		if (data->door_found_vert == 1)
 			get_closed_door_pixels(data);
-		column_to_draw = (int)data->vert_inters_crd[1] % IMG_SIZE;
+		get_column_to_draw(data, 'V', &column);
 	}
 	else
 	{
@@ -86,9 +86,9 @@ void	draw_pixels(t_data *data, double wall_height)
 			data->pixels = data->wall_img_n->pixels;
 		if (data->door_found_horiz == 1)
 			get_closed_door_pixels(data);
-		column_to_draw = (int)data->horiz_inters_crd[0] % IMG_SIZE;
+		get_column_to_draw(data, 'H', &column);
 	}
-	execute_drawing(data, column_to_draw, wall_height);
+	execute_drawing(data, column, wall_height);
 }
 
 void	draw_image(t_data *data, double ray_angle, double window_width)

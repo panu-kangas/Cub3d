@@ -24,8 +24,8 @@
 # include <MLX42/MLX42.h>
 # include "libft.h"
 
-# define WINDOW_WIDTH 1280 // Panu's laptop: 800 // At school: 1600
-# define WINDOW_HEIGHT 1024 // Panu's laptop: 600 // At school: 1200
+# define WINDOW_WIDTH 1280 // Panu's laptop: 800 // At school: 1280
+# define WINDOW_HEIGHT 1024 // Panu's laptop: 600 // At school: 1024
 
 # define IMG_SIZE 128 // 64 x 64 pixels --> NOTE: We might need bigger images for school, because on bigger game window the images strech out a lot!
 # define PI 3.14159265358979323846 // Not the dessert... sadly
@@ -275,6 +275,7 @@ void	delete_and_init_images(t_data *data);
 void	death_exit(t_data *data);
 void	put_images_to_window(t_data *data);
 int		rgb_atoi(t_color *color, char *rgb, int pos);
+void	get_column_to_draw(t_data *data, char vh_flag, int *column);
 
 // MINIMAP FUNCTIONS
 

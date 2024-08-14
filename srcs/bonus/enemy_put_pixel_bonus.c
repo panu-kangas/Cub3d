@@ -82,7 +82,7 @@ int	enemy_draw_execute(t_data *data, int i, double e_height, long long s_coord)
 }
 
 int	get_column(double *enemy_limits, double ray_angle)
-{	
+{
 	int				column;
 	double			column_width;
 

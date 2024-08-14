@@ -30,3 +30,21 @@ int	rgb_atoi(t_color *color, char *rgb, int pos)
 	else
 		return (0);
 }
+
+void	get_column_to_draw(t_data *data, char vh_flag, int *column)
+{
+	if (vh_flag == 'V')
+	{
+		if (data->player_coord[0] > data->vert_inters_crd[0])
+			*column = IMG_SIZE - (int)data->vert_inters_crd[1] % IMG_SIZE;
+		else
+			*column = (int)data->vert_inters_crd[1] % IMG_SIZE;
+	}
+	else
+	{
+		if (data->player_coord[1] > data->horiz_inters_crd[1])
+			*column = (int)data->horiz_inters_crd[0] % IMG_SIZE;
+		else
+			*column = IMG_SIZE - (int)data->horiz_inters_crd[0] % IMG_SIZE;
+	}
+}
