@@ -32,6 +32,8 @@ char vh_flag, double r_ang)
 	{
 		if (data->map[xy[1]][xy[0]].is_door == 1)
 			return (handle_found_door(data, vh_flag, r_ang, xy));
+		if (data->map[xy[1]][xy[0]].is_exit == 1)
+			data->is_exit = 1;
 		return (1);
 	}
 	return (0);

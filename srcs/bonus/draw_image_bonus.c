@@ -20,6 +20,7 @@ void	execute_drawing(t_data *data, int column, double wall_height)
 	data->door_found_horiz = 0;
 	data->found_open_door_vert = 0;
 	data->found_open_door_horiz = 0;
+	data->is_exit = 0;
 }
 
 char	get_closed_door_direction(t_data *data)
@@ -76,6 +77,8 @@ void	draw_pixels(t_data *data, double wall_height)
 			data->pixels = data->wall_img_w->pixels;
 		if (data->door_found_vert == 1)
 			get_closed_door_pixels(data);
+		if (data->is_exit == 1)
+			get_exit_pixels(data);
 		column_to_draw = (int)data->vert_inters_crd[1] % IMG_SIZE;
 	}
 	else
@@ -86,6 +89,8 @@ void	draw_pixels(t_data *data, double wall_height)
 			data->pixels = data->wall_img_n->pixels;
 		if (data->door_found_horiz == 1)
 			get_closed_door_pixels(data);
+		if (data->is_exit == 1)
+			get_exit_pixels(data);
 		column_to_draw = (int)data->horiz_inters_crd[0] % IMG_SIZE;
 	}
 	execute_drawing(data, column_to_draw, wall_height);
@@ -116,4 +121,5 @@ void	draw_image(t_data *data, double ray_angle, double window_width)
 	draw_enemy_loop(data);
 	draw_minimap(data);
 	put_images_to_window(data);
+	print_to_screen_exit(data);
 }

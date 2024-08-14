@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/12 19:34:37 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:10:25 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,15 @@
 # define ANIM_DELAY 0.1
 # define SP_WIDTH 238
 # define SP_HEIGHT 308
-# define EXIT_PATH "./tiles/exit/exit_temp.png"
+# define EXIT_PATH "./tiles/exit/exit_door.png"
+
+typedef enum e_direction
+{
+	NORTH = 0,
+	EAST = 1,
+	SOUTH = 2,
+	WEST = 3
+}	t_direction;
 
 typedef struct s_map
 {
@@ -117,7 +125,7 @@ typedef struct s_data
 	mlx_image_t	*wall_img_e; // etc...
 	mlx_image_t	*wall_img_s;
 	mlx_image_t	*wall_img_w;
-	mlx_image_t	*exit_img;
+	mlx_image_t	*exit_img[4];
 
 	mlx_image_t	*d_closed_img[4][4];
 	mlx_image_t	*d_open_img[3][4];
@@ -137,7 +145,7 @@ typedef struct s_data
 
 	uint8_t		*pixels; // pixel data of a single wall
 	uint8_t		*pixels_door; // pixel data of a single wall
-	
+
 	t_map		**map;
 
 	t_enemy		*enemy;
@@ -198,6 +206,9 @@ typedef struct s_data
 	int			show_menu;
 	mlx_image_t	*menu_img;
 	mlx_image_t	*menu_canvas;
+	int			is_exit;
+	mlx_image_t *exit_text;
+	int			exit_rdy;
 }			t_data;
 
 // ERROR HANDLING
@@ -232,12 +243,15 @@ long long *w_coord, int cnt);
 double	compare_distance(t_data *data, double ray_angle);
 int		draw_wall(t_data *data, int i, double wall_height, long long start_coord);
 void	print_to_screen(t_data *data);
+void	print_to_screen_exit(t_data *data);
 
 void	get_wall_sw_images(t_data *data);
 void	get_wall_ne_images(t_data *data);
 void	get_closed_door_image_1(t_data *data);
 void	get_closed_door_image_2(t_data *data);
 void	get_open_door_image_2(t_data *data);
+char	get_closed_door_direction(t_data *data);
+void	get_exit_pixels(t_data *data);
 
 // INTERSECTION MATH HELPERS
 
@@ -379,12 +393,5 @@ void		animate(void *param);
 void		menu_key_hook(mlx_key_data_t keydata, void *param);
 void		init_menu_img(t_data *data);
 uint32_t	get_pixel(mlx_image_t *sprite, uint32_t x, uint32_t y);
-
-// DEBUGGING REMOVE THESE
-
-void		print_map_lines(t_data *data);
-void		print_map(t_data *data);
-void		print_info(t_data *data);
-void		print_data(t_data *data);
 
 #endif
