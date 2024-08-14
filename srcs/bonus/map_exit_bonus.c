@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 19:08:13 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/14 16:34:52 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/14 16:58:33 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	get_exit_image(t_data *data)
 	fix_door_img(data->exit_img[EAST], data->wall_img_e, 0);
 	fix_door_img(data->exit_img[SOUTH], data->wall_img_s, 0);
 	fix_door_img(data->exit_img[WEST], data->wall_img_w, 0);
-	printf("getting_exit_image succeeded!");
 }
 
 int	validate_exit_x(t_map *map, int j, int map_width)

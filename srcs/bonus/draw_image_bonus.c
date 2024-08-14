@@ -121,4 +121,5 @@ void	draw_image(t_data *data, double ray_angle, double window_width)
 	draw_enemy_loop(data);
 	draw_minimap(data);
 	put_images_to_window(data);
+	print_to_screen_exit(data);
 }

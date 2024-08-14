@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:17:31 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/14 16:14:31 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:10:44 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	init_data(t_data *data)
 	data->enemy_count = 0;
 	data->show_menu = 1;
 	data->is_exit = 0;
+	data->exit_rdy = 0;
 }
 
 void	set_window_pos(t_data *data)

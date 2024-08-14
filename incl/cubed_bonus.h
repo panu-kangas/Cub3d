@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/14 16:27:56 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/14 17:10:25 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,8 @@ typedef struct s_data
 	mlx_image_t	*menu_img;
 	mlx_image_t	*menu_canvas;
 	int			is_exit;
+	mlx_image_t *exit_text;
+	int			exit_rdy;
 }			t_data;
 
 // ERROR HANDLING
@@ -241,6 +243,7 @@ long long *w_coord, int cnt);
 double	compare_distance(t_data *data, double ray_angle);
 int		draw_wall(t_data *data, int i, double wall_height, long long start_coord);
 void	print_to_screen(t_data *data);
+void	print_to_screen_exit(t_data *data);
 
 void	get_wall_sw_images(t_data *data);
 void	get_wall_ne_images(t_data *data);
@@ -390,12 +393,5 @@ void		animate(void *param);
 void		menu_key_hook(mlx_key_data_t keydata, void *param);
 void		init_menu_img(t_data *data);
 uint32_t	get_pixel(mlx_image_t *sprite, uint32_t x, uint32_t y);
-
-// DEBUGGING REMOVE THESE
-
-void		print_map_lines(t_data *data);
-void		print_map(t_data *data);
-void		print_info(t_data *data);
-void		print_data(t_data *data);
 
 #endif
