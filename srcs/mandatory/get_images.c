@@ -63,6 +63,6 @@ void	get_images(t_data *data)
 	data->player_coord[1] = (data->player_y_pos * IMG_SIZE) + (IMG_SIZE / 2);
 	data->fl_colour = get_rgba(data->floor_color->r, data->floor_color->g, \
 	data->floor_color->b, 255);
-	data->ceil_colour = get_rgba(data->ceiling_color->r, \
-	data->ceiling_color->g, data->ceiling_color->b, 255);
+	data->ceil_colour = get_rgba(data->ceiling_col->r, \
+	data->ceiling_col->g, data->ceiling_col->b, 255);
 }

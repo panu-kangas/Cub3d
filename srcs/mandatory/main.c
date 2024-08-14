@@ -33,10 +33,25 @@ void	init_data(t_data *data)
 	data->texture_path_e = NULL;
 	data->texture_path_s = NULL;
 	data->texture_path_w = NULL;
-	data->ceiling_color = NULL;
+	data->ceiling_col = NULL;
 	data->floor_color = NULL;
 	data->cc = 0;
 	data->fc = 0;
+}
+
+void	set_window_pos(t_data *data)
+{
+	int	monitor_width;
+	int	monitor_height;
+	int	x;
+	int	y;
+
+	mlx_get_monitor_size(0, &monitor_width, &monitor_height);
+	x = (monitor_width / 2) - (WINDOW_WIDTH / 2);
+	y = (monitor_height / 2) - (WINDOW_HEIGHT / 2);
+	mlx_set_window_pos(data->mlx, x, y);
+	if (mlx_image_to_window(data->mlx, data->game_img, 0, 0) < 0)
+		error_exit(data, mlx_strerror(mlx_errno), 1);
 }
 
 int	check_ac(int ac)
@@ -68,8 +83,7 @@ int	main(int argc, char *argv[])
 		error_exit(data, mlx_strerror(mlx_errno), 0);
 	get_images(data);
 	draw_image(data);
-	if (mlx_image_to_window(data->mlx, data->game_img, 0, 0) < 0)
-		error_exit(data, mlx_strerror(mlx_errno), 1);
+	set_window_pos(data);
 	mlx_loop_hook(data->mlx, keyhook, data);
 	mlx_key_hook(data->mlx, &special_keys, data);
 	mlx_loop(data->mlx);

@@ -39,8 +39,8 @@ void	free_data(t_data *data)
 			free_2d_array_len(data->map_lines, data->map_height);
 		if (data->file != NULL)
 			free_2d_array_len(data->file, data->file_height);
-		if (data->ceiling_color != NULL)
-			free(data->ceiling_color);
+		if (data->ceiling_col != NULL)
+			free(data->ceiling_col);
 		if (data->floor_color != NULL)
 			free(data->floor_color);
 		if (data->texture_path_e != NULL)

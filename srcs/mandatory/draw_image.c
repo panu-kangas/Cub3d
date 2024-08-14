@@ -12,7 +12,7 @@
 
 #include "cubed.h"
 
-int	colour_the_pixel(t_data *data, long long *start_coord, int pixel_counter, int i)
+int	colour_the_pixel(t_data *data, long long *start_coord, int px_count, int i)
 {
 	int		colour;
 	uint8_t	*pixels;
@@ -21,7 +21,7 @@ int	colour_the_pixel(t_data *data, long long *start_coord, int pixel_counter, in
 	colour = get_rgba(pixels[i], pixels[i + 1], pixels[i + 2], pixels[i + 3]);
 	mlx_put_pixel(data->game_img, data->ray_iterator, *start_coord, colour);
 	*start_coord += 1;
-	return (pixel_counter + 1);
+	return (px_count + 1);
 }
 
 int	draw_wall(t_data *data, int i, double wall_height, long long start_coord)
@@ -31,15 +31,12 @@ int	draw_wall(t_data *data, int i, double wall_height, long long start_coord)
 
 	px_cnt = 0;
 	pixel_iter = 0.0;
+	if (start_coord < -1000)
+		start_coord = -300;
 	while (i < (IMG_SIZE * IMG_SIZE * 4) && px_cnt < WINDOW_HEIGHT)
 	{
-		if (start_coord < 0) // TEST
-		{
-			pixel_iter = (IMG_SIZE / wall_height) * llabs(start_coord - 1);
-			i = (IMG_SIZE * 4) * (int)pixel_iter;
-			pixel_iter = pixel_iter - (int)pixel_iter;
-			start_coord = 0;
-		}
+		if (start_coord < 0)
+			start_coord++;
 		else
 			px_cnt = colour_the_pixel(data, &start_coord, px_cnt, i);
 		pixel_iter += (IMG_SIZE / wall_height);
@@ -80,17 +77,17 @@ void	draw_pixels(t_data *data, double wall_height)
 	if (data->v_h_flag == 0)
 	{
 		if (data->player_coord[0] > data->vert_intersection_coord[0])
-			data->pixels = data->wall_img_w->pixels;
-		else
 			data->pixels = data->wall_img_e->pixels;
+		else
+			data->pixels = data->wall_img_w->pixels;
 		column_to_draw = (int)data->vert_intersection_coord[1] % IMG_SIZE;
 	}
 	else
 	{
 		if (data->player_coord[1] > data->horizon_intersection_coord[1])
-			data->pixels = data->wall_img_n->pixels;
-		else
 			data->pixels = data->wall_img_s->pixels;
+		else
+			data->pixels = data->wall_img_n->pixels;
 		column_to_draw = (int)data->horizon_intersection_coord[0] % IMG_SIZE;
 	}
 	execute_drawing(data, column_to_draw, wall_height);
@@ -106,7 +103,7 @@ void	draw_image(t_data *data)
 
 	ray_angle = data->player_angle - 30;
 	if (ray_angle < 0)
-		ray_angle = 360 - (ray_angle * -1);
+		ray_angle += 360;
 	data->ray_iterator = 0;
 	window_width = WINDOW_WIDTH;
 	addition = 60.0 / window_width;
@@ -118,6 +115,6 @@ void	draw_image(t_data *data)
 		data->ray_iterator++;
 		ray_angle = ray_angle + addition;
 		if (ray_angle > 360)
-			ray_angle = 0;
+			ray_angle -= 360;
 	}
 }

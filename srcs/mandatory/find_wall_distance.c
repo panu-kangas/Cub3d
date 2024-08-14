@@ -19,9 +19,6 @@ int	check_for_wall(t_data *data, long long *wall_coord, char vh_flag)
 
 	x = wall_coord[0];
 	y = wall_coord[1];
-
-//	printf("X= %lld, y=%lld\n", x, y);
-
 	if (x < 0 || y < 0)
 	{
 		if (vh_flag == 'V')
@@ -38,7 +35,6 @@ int	check_for_wall(t_data *data, long long *wall_coord, char vh_flag)
 			data->invalid_horiz = 1;
 		return (1);
 	}
-
 	if (data->map[y][x].type == '1')
 		return (1);
 	return (0);
@@ -62,11 +58,6 @@ long long *w_coord, int cnt)
 		+ (cnt * IMG_SIZE);
 		w_coord[1] = (temp_coord[1] + 1) / IMG_SIZE;
 	}
-
-//	printf("pcrd: x=%lld, y=%lld\n", p_crd[0], p_crd[1]);
-//	printf("RAYANGLE: %f\n", ray_angle);
-//	printf("HORIZ Y=%lld\n\n", temp_coord[1]);
-
 	if (ray_angle < 90)
 		w_coord[0] = get_up_right_x(data, temp_coord, ray_angle);
 	else if (ray_angle > 90 && ray_angle < 180)
@@ -75,9 +66,6 @@ long long *w_coord, int cnt)
 		w_coord[0] = get_down_left_x(data, temp_coord, ray_angle);
 	else
 		w_coord[0] = get_up_left_x(data, temp_coord, ray_angle);
-
-//	printf("W_COORDS: x=%lld, y=%lld\n\n", w_coord[0], w_coord[1]);
-
 	data->horizon_intersection_coord[0] = temp_coord[0];
 	data->horizon_intersection_coord[1] = temp_coord[1];
 }

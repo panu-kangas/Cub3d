@@ -15,9 +15,7 @@ SRCS	= $(MAND)/main.c $(MAND)/error_and_exit.c $(MAND)/get_map.c $(MAND)/utils.c
 		$(MAND)/compare_distance.c $(MAND)/check_for_collision.c $(MAND)/check_map_borders.c \
 		$(MAND)/get_paths_and_colors.c $(MAND)/map_validation.c \
 		$(MAND)/key_actions.c $(MAND)/get_map_utils.c $(MAND)/map_validation_utils.c \
-		\
-		\
-		$(MAND)/debug.c
+
 OBJS	= ${SRCS:.c=.o}
 
 BONSRCS	= $Bmain_bonus.c $Berror_and_exit_bonus.c $Bget_map_bonus.c $Butils_bonus.c \
@@ -30,19 +28,15 @@ BONSRCS	= $Bmain_bonus.c $Berror_and_exit_bonus.c $Bget_map_bonus.c $Butils_bonu
 		$Bvalidate_doors_and_enemies_bonus.c $Bdraw_minimap_bonus.c  $Bdraw_wall_bonus.c \
 		$Bdraw_open_door_bonus.c \
 		$Benemy_draw_bonus.c $Benemy_draw_utils_bonus.c $Benemy_draw_utils_2_bonus.c \
-		$Benemy_handler_bonus.c $Benemy_draw_order_bonus.c \
-		$Benemy_init_bonus.c \
+		$Benemy_handler_bonus.c $Benemy_draw_order_bonus.c $Benemy_init_bonus.c \
 		$Bget_intersection_door_x_bonus.c $Bfind_wall_dist_utils_bonus.c \
 		$Bget_intersection_door_y_bonus.c \
 		$Bdoor_animation_bonus.c $Bcount_open_doors_bonus.c $Bdraw_open_door_utils_bonus.c \
 		$Bdraw_open_door_px_bonus.c $Bopen_door_action_bonus.c \
-		$Banimation_hooks_bonus.c \
-		$Bget_animation_images_bonus.c \
-		$Brotation_bonus.c \
+		$Banimation_hooks_bonus.c $Bget_animation_images_bonus.c $Brotation_bonus.c \
 		$Benemy_put_pixel_bonus.c $Bget_enemy_px_bonus.c \
 		$Benemy_movement_bonus.c $Benemy_movement_utils_bonus.c \
-		$Bprint_help_bonus.c \
-		$Bdeath_exit_bonus.c $Butils_2_bonus.c \
+		$Bprint_help_bonus.c $Bdeath_exit_bonus.c $Butils_2_bonus.c \
 		$Bstart_menu_bonus.c $Bget_images_utils_bonus.c \
 		$Bmap_exit_bonus.c
 
