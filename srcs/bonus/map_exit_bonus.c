@@ -6,11 +6,19 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 19:08:13 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/14 17:20:59 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/16 12:54:13 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cubed_bonus.h"
+
+void	set_exit_found(t_data *data, int vh_flag)
+{
+	if (vh_flag == 'V')
+		data->exit_found_vert = 1;
+	else if (vh_flag == 'H')
+		data->exit_found_horiz = 1;
+}
 
 void	get_exit_pixels(t_data *data)
 {
