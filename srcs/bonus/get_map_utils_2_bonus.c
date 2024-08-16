@@ -37,6 +37,7 @@ void	init_map_flags(t_data *data)
 			data->map[y][x].is_closing = 0;
 			data->map[y][x].open_img_iter = -1;
 			data->map[y][x].is_enemy = 0;
+			data->map[y][x].is_exit = 0;
 		}
 	}
 }

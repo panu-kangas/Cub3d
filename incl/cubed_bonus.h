@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/14 17:10:25 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/16 13:04:12 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include "libft.h"
 
 # define WINDOW_WIDTH 1280 // Panu's laptop: 800 // At school: 1600
-# define WINDOW_HEIGHT 1024 // Panu's laptop: 600 // At school: 1200
+# define WINDOW_HEIGHT 1080 // Panu's laptop: 600 // At school: 1200
 
 # define IMG_SIZE 128 // 64 x 64 pixels --> NOTE: We might need bigger images for school, because on bigger game window the images strech out a lot!
 # define PI 3.14159265358979323846 // Not the dessert... sadly
@@ -206,7 +206,8 @@ typedef struct s_data
 	int			show_menu;
 	mlx_image_t	*menu_img;
 	mlx_image_t	*menu_canvas;
-	int			is_exit;
+	int			exit_found_vert;
+	int			exit_found_horiz;
 	mlx_image_t *exit_text;
 	int			exit_rdy;
 }			t_data;
@@ -252,6 +253,7 @@ void	get_closed_door_image_2(t_data *data);
 void	get_open_door_image_2(t_data *data);
 char	get_closed_door_direction(t_data *data);
 void	get_exit_pixels(t_data *data);
+void	set_exit_found(t_data *data, int vh_flag);
 
 // INTERSECTION MATH HELPERS
 

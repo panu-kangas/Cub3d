@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:36:51 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/12 19:41:56 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/16 11:19:44 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,13 +119,13 @@ void	get_map(t_data *data, char *map_name)
 		sys_error_exit(data, "Malloc failed", 0);
 	allocate_map(data);
 	assign_map_contents(data);
+	init_map_flags(data);
 	change_spaces_to_x(data);
 	check_map_syntax(data, -1);
 	if (data->player_flag == 0)
 		error_exit(data, "No player", 0);
 	if (check_map_borders(data) == -1)
 		error_exit(data, "Map is not surrounded by walls", 0);
-	init_map_flags(data);
 	if (get_texture_paths(data) < 0 || check_texture_paths(data) == -1)
 		error_exit(data, "Invalid game settings given", 0);
 	change_door_status(data);
