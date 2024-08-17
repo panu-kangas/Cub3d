@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_intersection_y_bonus.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/17 13:03:33 by llitovuo          #+#    #+#             */
+/*   Updated: 2024/08/17 13:03:34 by llitovuo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cubed_bonus.h"
 
 long long	get_up_right_y(t_data *data, long long *t_coord, double ray_angle)

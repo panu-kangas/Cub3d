@@ -51,26 +51,34 @@ $(LIBFT):
 	make -C ./lib/libft/.
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	@echo "\033[32;1mCompiling cub3D...\033[0m"
+	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	@echo "\033[32;1mcub3D Compilation successful!\033[0m"
 
 bonus: .bonus
 
 .bonus: $(LIBMLX) $(LIBFT) $(BONOBJS)
-	$(CC) $(BONOBJS) $(LIBS) $(HEADERS) -o $(NAME)
-	touch .bonus
+	@echo "\033[32;1mCompiling cub3D Bonus...\033[0m"
+	@$(CC) $(BONOBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	@touch .bonus
+	@echo "\033[32;1mcub3D Bonus Compilation Successful!\033[0m"
 
 %.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
 clean:
-	rm -f $(OBJS)
-	rm -f $(BONOBJS)
-	make fclean -C ./lib/libft/.
-	rm -rf ./lib/MLX42/build
-	rm -f .bonus
+	@echo "\033[32;1mCleaning...\033[0m"
+	@rm -f $(OBJS)
+	@rm -f $(BONOBJS)
+	@make fclean -C ./lib/libft/.
+	@rm -rf ./lib/MLX42/build
+	@rm -f .bonus
+	@echo "\033[32;1mCleaning successful!\033[0m"
 
 fclean: clean
-	rm -f $(NAME)
+	@echo "\033[32;1mFull Cleaning...\033[0m"
+	@rm -f $(NAME)
+	@echo "\033[32;1mFull Cleaning successful!\033[0m"
 
 re: clean all
 

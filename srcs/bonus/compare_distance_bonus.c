@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   compare_distance_bonus.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/17 13:01:09 by llitovuo          #+#    #+#             */
+/*   Updated: 2024/08/17 13:01:11 by llitovuo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cubed_bonus.h"
 
 double	get_vert_distance(t_data *data, double ray_angle)

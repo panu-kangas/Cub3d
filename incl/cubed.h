@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/13 17:23:22 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/17 12:56:44 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 # define IMG_SIZE 128 // 64 x 64 pixels
 # define PI 3.14159265358979323846 // Not the dessert... sadly
 # define PP_DIST 450 // Projection Plane Distance, 255 is recommendation
-# define PLAYER_SPEED 8 // VALUE SUGGESTION FOR SCHOOL: 6-8 // move X pixels per keypress
-# define PLAYER_TURN_SPEED 3 // VALUE SUGGESTION FOR SCHOOL: 3 // X degrees change to angle per keypress
-# define WALL_LIMIT 30 // you can't get closer to aa wall than WALL_LIMIT -amount of pixels
+# define PLAYER_SPEED 8 // VALUE SUGGESTION: 6-8 // move X pixels per keypress
+# define PLAYER_TURN_SPEED 3 // X degrees change to angle per keypress
+# define WALL_LIMIT 30 // you can't get closer to a wall -amount of pixels
 
 # define VALIDCHARS "01 NEWS"
 # define VALIDMAPCHARS "01XNEWS"
@@ -116,7 +116,6 @@ void		free_map(t_data *data);
 void		get_map(t_data *data, char *map_name);
 int			rgb_atoi(t_color *color, char *rgb, int pos);
 
-
 /* UTILS */
 
 double		convert_to_radians(double angle_in_degrees);
@@ -144,10 +143,12 @@ long long	get_down_right_y(t_data *data, \
 long long	get_down_left_y(t_data *data, long long *t_coord, double ray_angle);
 long long	get_up_left_y(t_data *data, long long *t_coord, double ray_angle);
 
-void 		find_next_wall_from_max(t_data *data, long long *t_coord, char xy_flag);
-void		find_next_wall_from_zero(t_data *data, long long *t_coord, char xy_flag);
-void 		check_for_valid_coord(t_data *data, long long *t_coord, char xy_flag);
-
+void		find_next_wall_from_max(t_data *data, \
+long long *t_coord, char xy_flag);
+void		find_next_wall_from_zero(t_data *data, \
+long long *t_coord, char xy_flag);
+void		check_for_valid_coord(t_data *data, \
+long long *t_coord, char xy_flag);
 
 /* HOOK FUNCTIONS */
 
@@ -171,12 +172,5 @@ void		get_widest_width(t_data *data);
 void		check_map_syntax(t_data *data);
 int			check_path_lines(t_data *data, int i, int no_flag, int so_flag);
 int			check_color_lines(t_data *data);
-
-// DEBUGGING REMOVE THESE
-
-void		print_map_lines(t_data *data);
-void		print_map(t_data *data);
-void		print_info(t_data *data);
-void		print_data(t_data *data);
 
 #endif

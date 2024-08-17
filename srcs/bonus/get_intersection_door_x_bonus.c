@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_intersection_door_x_bonus.c                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/17 13:03:22 by llitovuo          #+#    #+#             */
+/*   Updated: 2024/08/17 13:03:23 by llitovuo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cubed_bonus.h"
 
 long long	get_up_right_door_x(t_data *data, long long *t_crd, \

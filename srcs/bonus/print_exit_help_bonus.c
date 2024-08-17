@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 17:12:44 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/14 17:13:08 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/17 13:07:21 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static int	check_closeby_exit(t_data *data, long long x, long long y)
 		return (is_it_a_exit(data, x - 1, y));
 	return (0);
 }
-
 
 void	print_to_screen_exit(t_data *data)
 {

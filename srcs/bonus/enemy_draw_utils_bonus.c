@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   enemy_draw_utils_bonus.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/17 13:02:26 by llitovuo          #+#    #+#             */
+/*   Updated: 2024/08/17 13:02:27 by llitovuo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cubed_bonus.h"
 
 int	get_ray_iterator(double enemy_start_angle, double player_fov_start)

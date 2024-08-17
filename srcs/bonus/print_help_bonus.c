@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 15:13:36 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/14 17:13:18 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/17 13:07:29 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,3 @@ void	print_to_screen(t_data *data)
 	else if (check_closeby_door(data, x, y) != 1 && data->text)
 		data->text->enabled = false;
 }
-
