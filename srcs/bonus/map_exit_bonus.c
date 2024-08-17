@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 19:08:13 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/16 12:54:13 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/17 13:07:48 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	get_exit_pixels(t_data *data)
 
 void	get_exit_image(t_data *data)
 {
-	int i;
+	int				i;
 	mlx_texture_t	*exit_text;
 
 	i = 0;

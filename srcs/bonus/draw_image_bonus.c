@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_image_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/17 13:01:36 by llitovuo          #+#    #+#             */
+/*   Updated: 2024/08/17 13:10:09 by llitovuo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cubed_bonus.h"
 
 void	execute_drawing(t_data *data, int column, double wall_height)
@@ -66,10 +78,8 @@ void	get_closed_door_pixels(t_data *data)
 	}
 }
 
-void	draw_pixels(t_data *data, double wall_height)
+void	draw_pixels(t_data *data, double wall_height, int column_to_draw)
 {
-	int		column_to_draw;
-
 	if (data->v_h_flag == 0)
 	{
 		if (data->player_coord[0] > data->vert_inters_crd[0])
@@ -112,7 +122,7 @@ void	draw_image(t_data *data, double ray_angle, double window_width)
 		dist_to_wall = find_wall_distance(data, ray_angle, addition);
 		data->dist_to_wall_list[data->ray_iterator] = dist_to_wall;
 		drawn_wall_height = (IMG_SIZE / dist_to_wall) * PP_DIST;
-		draw_pixels(data, drawn_wall_height);
+		draw_pixels(data, drawn_wall_height, 0);
 		data->ray_iterator++;
 		ray_angle = ray_angle + addition;
 		if (ray_angle > 360)

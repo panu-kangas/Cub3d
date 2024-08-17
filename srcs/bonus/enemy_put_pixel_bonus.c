@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   enemy_put_pixel_bonus.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/17 13:02:48 by llitovuo          #+#    #+#             */
+/*   Updated: 2024/08/17 13:07:05 by llitovuo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cubed_bonus.h"
 
 void	get_dead_enemy_pixels(t_data *data, int i)
@@ -82,7 +94,7 @@ int	enemy_draw_execute(t_data *data, int i, double e_height, long long s_coord)
 }
 
 int	get_column(double *enemy_limits, double ray_angle)
-{	
+{
 	int				column;
 	double			column_width;
 
