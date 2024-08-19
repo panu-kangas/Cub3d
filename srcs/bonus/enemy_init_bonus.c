@@ -97,7 +97,7 @@ int	set_enemy_struct(t_data *data, int i, int x, int y)
 {
 	data->enemy[i].x = x * IMG_SIZE + (IMG_SIZE / 2);
 	data->enemy[i].y = y * IMG_SIZE + (IMG_SIZE / 2);
-	data->enemy[i].direction = -1;
+	data->enemy[i].direction = 0;
 	data->enemy[i].step_count = -1;
 	data->enemy[i].is_dying = 0;
 	data->enemy[i].is_dead = 0;

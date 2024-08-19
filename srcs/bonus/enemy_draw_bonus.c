@@ -29,7 +29,7 @@ double y_x_ratio, int i)
 }
 
 void	draw_enemy(t_data *data, double draw_height, \
-double enemy_player_angle, double dist_to_enemy)
+double enemy_player_angle, double dist_enemy)
 {
 	double		addition;
 	double		enemy_lim[2];
@@ -38,7 +38,7 @@ double enemy_player_angle, double dist_to_enemy)
 	double		p_fov_limits[2];
 
 	set_player_fov(data, p_fov_limits);
-	set_enemy_limits(enemy_lim, enemy_player_angle, dist_to_enemy);
+	set_enemy_limits(enemy_lim, enemy_player_angle, dist_enemy);
 	addition = 60.0 / WINDOW_WIDTH;
 	data->ray_iterator = get_ray_iterator(enemy_lim[0], p_fov_limits[0]);
 	ray_angle = enemy_lim[0];
@@ -50,7 +50,7 @@ double enemy_player_angle, double dist_to_enemy)
 	{
 		start_coord = (WINDOW_HEIGHT / 2) - (draw_height / 2) \
 		+ data->enemy[data->enemy_iter].enemy_anim_height_iter;
-		if (dist_to_enemy <= data->dist_to_wall_list[data->ray_iterator])
+		if ((dist_enemy - 60) <= data->dist_to_wall_list[data->ray_iterator])
 			enemy_draw_execute(data, (get_column(enemy_lim, ray_angle) * 4), \
 			draw_height, start_coord);
 		ray_angle += addition;
