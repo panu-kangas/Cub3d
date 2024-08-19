@@ -108,6 +108,7 @@ void	enemy_movement(t_data *data, int i)
 	int	return_direction;
 	int	step_count;
 
+	data->enemy[i].is_charging = 0;
 	direction = data->enemy[i].direction;
 	return_direction = set_return_direction(direction);
 	step_count = data->enemy[i].step_count;

@@ -35,7 +35,7 @@ BONSRCS	= $Bmain_bonus.c $Berror_and_exit_bonus.c $Bget_map_bonus.c $Butils_bonu
 		$Bdraw_open_door_px_bonus.c $Bopen_door_action_bonus.c \
 		$Banimation_hooks_bonus.c $Bget_animation_images_bonus.c $Brotation_bonus.c \
 		$Benemy_put_pixel_bonus.c $Bget_enemy_px_bonus.c \
-		$Benemy_movement_bonus.c $Benemy_movement_utils_bonus.c \
+		$Benemy_movement_bonus.c $Benemy_movement_utils_bonus.c $Benemy_charge_bonus.c \
 		$Bprint_help_bonus.c $Bdeath_exit_bonus.c $Butils_2_bonus.c \
 		$Bstart_menu_bonus.c $Bget_images_utils_bonus.c \
 		$Bmap_exit_bonus.c

@@ -50,7 +50,7 @@ void	draw_open_door_pixels(t_data *data, double dist, double wall_height)
 			data->found_open_door_horiz = 0;
 			return ;
 		}
-		column_to_draw = (int)data->vert_inters_crd[1] % IMG_SIZE;
+		get_column_to_draw(data, 'V', &column_to_draw);
 		get_open_door_pixels(data, dist, column_to_draw);
 	}
 	else
@@ -60,7 +60,7 @@ void	draw_open_door_pixels(t_data *data, double dist, double wall_height)
 			data->found_open_door_vert = 0;
 			return ;
 		}
-		column_to_draw = (int)data->horiz_inters_crd[0] % IMG_SIZE;
+		get_column_to_draw(data, 'H', &column_to_draw);
 		get_open_door_pixels(data, dist, column_to_draw);
 	}
 	execute_open_door_drawing(data, column_to_draw, wall_height);

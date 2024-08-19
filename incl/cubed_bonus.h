@@ -44,6 +44,7 @@
 
 # define ENEMY_WIDTH 	80
 # define ENEMY_HEIGHT	80
+# define CHARGE_SPEED	20
 
 # define VALIDCHARS "01 NEWSDAF"
 # define VALIDMAPCHARS "01XNEWSDAF"
@@ -88,6 +89,8 @@ typedef struct s_enemy
 	double		prev_time;
 	double		prev_dead_time;
 	int			enemy_anim_height_iter;
+	int			is_charging;
+	double		charge_dir;
 }			t_enemy;
 
 typedef struct s_color
@@ -298,6 +301,9 @@ int		enemy_draw_execute(t_data *data, int i, \
 double drawn_enemy_height, long long start_coord);
 void	get_draw_order(t_data *data);
 
+int		is_player_visible(t_data *data, int i);
+void	enemy_charge(t_data *data, int i);
+
 // ENEMY DRAW UTILS
 
 int		get_ray_iterator(double enemy_start_angle, double player_fov_start);
@@ -324,6 +330,7 @@ int		set_return_direction(int direction);
 void	set_enemy_x_edges(t_data *data, int *x_edge, int dir, int i);
 void	set_enemy_y_edges(t_data *data, int *y_edge, int dir, int i);
 void	change_enemy_coord(t_data *data, int direction, int i);
+int		check_enemy_wall(t_data *data, int direction, int i);
 
 // DOOR FUNCTIONS
 

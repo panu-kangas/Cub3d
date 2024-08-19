@@ -60,7 +60,10 @@ void	enemy_animation(t_data *data, int i, int *height_dir)
 	x = data->enemy[i].x / IMG_SIZE;
 	y = data->enemy[i].y / IMG_SIZE;
 	data->map[y][x].is_enemy = 0;
-	enemy_movement(data, i);
+	if (is_player_visible(data, i) == 1)
+		enemy_charge(data, i);
+	else
+		enemy_movement(data, i);
 	x = data->enemy[i].x / IMG_SIZE;
 	y = data->enemy[i].y / IMG_SIZE;
 	data->map[y][x].is_enemy = 1;
