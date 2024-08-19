@@ -96,6 +96,7 @@ int	set_enemy_struct(t_data *data, int i, int x, int y)
 	data->enemy[i].distance_to_player = -1;
 	data->enemy[i].angle_to_player = -1;
 	data->enemy[i].is_charging = 0;
+	data->enemy[i].charge_iter = 0;
 	data->map[y][x].is_enemy = 1;
 	i += 1;
 	return (i);
@@ -113,6 +114,7 @@ void	init_enemies(t_data *data)
 	get_enemy_img_1(data);
 	get_enemy_img_2(data);
 	get_enemy_img_3(data);
+	get_enemy_img_4(data);
 	i = -1;
 	y = -1;
 	i = 0;

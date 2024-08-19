@@ -44,7 +44,7 @@
 
 # define ENEMY_WIDTH 	80
 # define ENEMY_HEIGHT	80
-# define CHARGE_SPEED	20
+# define C_SPEED		40
 
 # define VALIDCHARS "01 NEWSDAF"
 # define VALIDMAPCHARS "01XNEWSDAF"
@@ -91,6 +91,7 @@ typedef struct s_enemy
 	int			enemy_anim_height_iter;
 	int			is_charging;
 	double		charge_dir;
+	int			charge_iter;
 }			t_enemy;
 
 typedef struct s_color
@@ -136,6 +137,7 @@ typedef struct s_data
 	mlx_image_t *player_icon;
 	mlx_image_t *enemy_img[4];
 	mlx_image_t	*enemy_dead_img[5];
+	mlx_image_t	*enemy_charge_img[2];
 	mlx_image_t *text;
 
 	uint8_t		*pixels; // pixel data of a single wall
@@ -146,7 +148,7 @@ typedef struct s_data
 	t_enemy		*enemy;
 	int			*draw_order;
 	int			enemy_iter;
-	int			enemy_anim_img_iter;
+//	int			enemy_anim_img_iter;
 	int			shooting;
 	int			is_dead;
 	double		time;
@@ -331,6 +333,10 @@ void	set_enemy_x_edges(t_data *data, int *x_edge, int dir, int i);
 void	set_enemy_y_edges(t_data *data, int *y_edge, int dir, int i);
 void	change_enemy_coord(t_data *data, int direction, int i);
 int		check_enemy_wall(t_data *data, int direction, int i);
+void	get_enemy_img_4(t_data *data);
+int		get_enemy_dir(double en_perspect_ang);
+void	move_along_wall(t_data *data, int i, int enemy_dir);
+int		check_enemy_wall_charge(t_data *data, int direction, int i);
 
 // DOOR FUNCTIONS
 

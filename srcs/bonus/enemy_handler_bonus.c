@@ -57,6 +57,10 @@ void	enemy_animation(t_data *data, int i, int *height_dir)
 	else if (data->enemy[i].enemy_anim_height_iter <= height_limits[0])
 		*height_dir = 1;
 	data->enemy[i].enemy_anim_height_iter += (height_add * *height_dir);
+	if (data->enemy[i].charge_iter == 0)
+		data->enemy[i].charge_iter = 1;
+	else
+		data->enemy[i].charge_iter = 0;
 	x = data->enemy[i].x / IMG_SIZE;
 	y = data->enemy[i].y / IMG_SIZE;
 	data->map[y][x].is_enemy = 0;

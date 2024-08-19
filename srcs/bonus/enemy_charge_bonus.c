@@ -75,71 +75,27 @@ int	is_player_visible(t_data *data, int i)
 		return (0);
 }
 
-void	move_enemy_charge(t_data *data, int i, double en_perspect_ang)
+void	move_enemy_charge(t_data *data, int i, double enemy_ang)
 {
-	if (en_perspect_ang < 90)
+	if (enemy_ang < 90)
 	{
-		data->enemy[i].x += (CHARGE_SPEED * sin(conv_to_rad(en_perspect_ang)));
-		data->enemy[i].y -= (CHARGE_SPEED * cos(conv_to_rad(en_perspect_ang)));
+		data->enemy[i].x += (C_SPEED * sin(conv_to_rad(enemy_ang)));
+		data->enemy[i].y -= (C_SPEED * cos(conv_to_rad(enemy_ang)));
 	}
-	else if (en_perspect_ang < 180)
+	else if (enemy_ang < 180)
 	{
-		data->enemy[i].x += (CHARGE_SPEED * cos(conv_to_rad(en_perspect_ang - 90.0)));
-		data->enemy[i].y += (CHARGE_SPEED * sin(conv_to_rad(en_perspect_ang - 90.0)));
+		data->enemy[i].x += (C_SPEED * cos(conv_to_rad(enemy_ang - 90.0)));
+		data->enemy[i].y += (C_SPEED * sin(conv_to_rad(enemy_ang - 90.0)));
 	}
-	else if (en_perspect_ang < 270)
+	else if (enemy_ang < 270)
 	{
-		data->enemy[i].x -= (CHARGE_SPEED * sin(conv_to_rad(en_perspect_ang - 180.0)));
-		data->enemy[i].y += (CHARGE_SPEED * cos(conv_to_rad(en_perspect_ang - 180.0)));
+		data->enemy[i].x -= (C_SPEED * sin(conv_to_rad(enemy_ang - 180.0)));
+		data->enemy[i].y += (C_SPEED * cos(conv_to_rad(enemy_ang - 180.0)));
 	}
-	else if (en_perspect_ang < 360)
+	else if (enemy_ang < 360)
 	{
-		data->enemy[i].x -= (CHARGE_SPEED * cos(conv_to_rad(en_perspect_ang - 270.0)));
-		data->enemy[i].y -= (CHARGE_SPEED * sin(conv_to_rad(en_perspect_ang - 270.0)));
-	}
-}
-
-int	get_enemy_dir(double en_perspect_ang)
-{
-	if (en_perspect_ang > 315 || en_perspect_ang <= 45)
-		return (0);
-	else if (en_perspect_ang > 45 && en_perspect_ang <= 135)
-		return (1);
-	else if (en_perspect_ang > 135 && en_perspect_ang <= 225)
-		return (2);
-	else
-		return (3);
-}
-
-void	move_along_wall(t_data *data, int i, int enemy_dir)
-{
-	if (enemy_dir == 0 || enemy_dir == 2)
-	{
-		if (check_enemy_wall_charge(data, 1, i) == 1 || check_enemy_wall_charge(data, 3, i) == 1)
-		{
-			if (enemy_dir == 0)
-				data->enemy[i].y -= CHARGE_SPEED;
-			else
-				data->enemy[i].y += CHARGE_SPEED;
-		}
-		else if (data->player_coord[0] < data->enemy[i].x)
-			data->enemy[i].x -= CHARGE_SPEED;
-		else if (data->player_coord[0] > data->enemy[i].x)
-			data->enemy[i].x += CHARGE_SPEED;
-	}
-	else
-	{
-		if (check_enemy_wall_charge(data, 0, i) == 1 || check_enemy_wall_charge(data, 2, i) == 1)
-		{
-			if (enemy_dir == 1)
-				data->enemy[i].x += CHARGE_SPEED;
-			else
-				data->enemy[i].x -= CHARGE_SPEED;
-		}
-		else if (data->player_coord[1] < data->enemy[i].y)
-			data->enemy[i].y -= CHARGE_SPEED;
-		else if (data->player_coord[1] > data->enemy[i].y)
-			data->enemy[i].y += CHARGE_SPEED;
+		data->enemy[i].x -= (C_SPEED * cos(conv_to_rad(enemy_ang - 270.0)));
+		data->enemy[i].y -= (C_SPEED * sin(conv_to_rad(enemy_ang - 270.0)));
 	}
 }
 
@@ -147,7 +103,7 @@ void	enemy_charge(t_data *data, int i)
 {
 	double		en_perspect_ang;
 	long long	orig_xy[2];
-	int	enemy_dir;
+	int			enemy_dir;
 
 	data->enemy[i].is_charging = 1;
 	en_perspect_ang = data->enemy[i].angle_to_player - 180;
