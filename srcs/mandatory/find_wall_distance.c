@@ -66,8 +66,8 @@ long long *w_coord, int cnt)
 		w_coord[0] = get_down_left_x(data, temp_coord, ray_angle);
 	else
 		w_coord[0] = get_up_left_x(data, temp_coord, ray_angle);
-	data->horizon_intersection_coord[0] = temp_coord[0];
-	data->horizon_intersection_coord[1] = temp_coord[1];
+	data->horiz_inters_crd[0] = temp_coord[0];
+	data->horiz_inters_crd[1] = temp_coord[1];
 }
 
 void	get_vert_intersection(t_data *data, double ray_angle, \
@@ -96,8 +96,8 @@ long long *w_coord, int cnt)
 		w_coord[1] = get_down_left_y(data, temp_coord, ray_angle);
 	else
 		w_coord[1] = get_up_left_y(data, temp_coord, ray_angle);
-	data->vert_intersection_coord[0] = temp_coord[0];
-	data->vert_intersection_coord[1] = temp_coord[1];
+	data->vert_inters_crd[0] = temp_coord[0];
+	data->vert_inters_crd[1] = temp_coord[1];
 }
 
 double	find_wall_distance(t_data *data, double ray_angle, double addition)

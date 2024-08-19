@@ -72,25 +72,31 @@ void	execute_drawing(t_data *data, int column, double wall_height)
 
 void	draw_pixels(t_data *data, double wall_height)
 {
-	int		column_to_draw;
+	int		column;
 
 	if (data->v_h_flag == 0)
 	{
-		if (data->player_coord[0] > data->vert_intersection_coord[0])
+		if (data->player_coord[0] > data->vert_inters_crd[0])
 			data->pixels = data->wall_img_e->pixels;
 		else
 			data->pixels = data->wall_img_w->pixels;
-		column_to_draw = (int)data->vert_intersection_coord[1] % IMG_SIZE;
+		if (data->player_coord[0] > data->vert_inters_crd[0])
+			column = IMG_SIZE - ((int)data->vert_inters_crd[1] % IMG_SIZE);
+		else
+			column = (int)data->vert_inters_crd[1] % IMG_SIZE;
 	}
 	else
 	{
-		if (data->player_coord[1] > data->horizon_intersection_coord[1])
+		if (data->player_coord[1] > data->horiz_inters_crd[1])
 			data->pixels = data->wall_img_s->pixels;
 		else
 			data->pixels = data->wall_img_n->pixels;
-		column_to_draw = (int)data->horizon_intersection_coord[0] % IMG_SIZE;
+		if (data->player_coord[1] > data->horiz_inters_crd[1])
+			column = (int)data->horiz_inters_crd[0] % IMG_SIZE;
+		else
+			column = IMG_SIZE - (int)data->horiz_inters_crd[0] % IMG_SIZE;
 	}
-	execute_drawing(data, column_to_draw, wall_height);
+	execute_drawing(data, column, wall_height);
 }
 
 void	draw_image(t_data *data)

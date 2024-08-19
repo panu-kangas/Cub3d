@@ -35,12 +35,14 @@ void	get_dead_enemy_pixels(t_data *data, int i)
 
 void	get_enemy_pixels(t_data *data, int i, double enemy_player_angle)
 {
+	int	charge_iter;
+
+	charge_iter = data->enemy[i].charge_iter;
 	if (data->enemy[i].is_dying == 1)
-	{
 		get_dead_enemy_pixels(data, i);
-		return ;
-	}
-	if (enemy_player_angle > 315 || enemy_player_angle <= 45)
+	else if (data->enemy[i].is_charging == 1)
+		data->pixels = data->enemy_charge_img[charge_iter]->pixels;
+	else if (enemy_player_angle > 315 || enemy_player_angle <= 45)
 		get_enemy_px_up(data, i);
 	else if (enemy_player_angle > 45 && enemy_player_angle <= 135)
 		get_enemy_px_right(data, i);

@@ -70,8 +70,8 @@ typedef struct s_data
 	int			invalid_vert;
 	int			invalid_horiz;
 	int			ray_iterator;
-	double		vert_intersection_coord[2];
-	double		horizon_intersection_coord[2];
+	double		vert_inters_crd[2];
+	double		horiz_inters_crd[2];
 	int			map_height;
 	int			map_width;
 	long long	player_coord[2];

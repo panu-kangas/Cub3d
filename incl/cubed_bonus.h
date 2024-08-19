@@ -46,6 +46,7 @@ Panu laptop: 176 = MINIMAP_IMG_SIZE * TILE_COUNT (16 * 11)*/
 
 # define ENEMY_WIDTH 	80
 # define ENEMY_HEIGHT	80
+# define C_SPEED		40
 
 # define VALIDCHARS "01 NEWSDAF"
 # define VALIDMAPCHARS "01XNEWSDAF"
@@ -98,6 +99,9 @@ typedef struct s_enemy
 	double		prev_time;
 	double		prev_dead_time;
 	int			enemy_anim_height_iter;
+	int			is_charging;
+	double		charge_dir;
+	int			charge_iter;
 }			t_enemy;
 
 typedef struct s_color
@@ -143,7 +147,8 @@ typedef struct s_data
 	mlx_image_t	*player_icon;
 	mlx_image_t	*enemy_img[4];
 	mlx_image_t	*enemy_dead_img[5];
-	mlx_image_t	*text;
+	mlx_image_t	*enemy_charge_img[2];
+	mlx_image_t *text;
 
 	uint8_t		*pixels; // pixel data of a single wall
 	uint8_t		*pixels_door; // pixel data of a single wall
@@ -152,7 +157,7 @@ typedef struct s_data
 	t_enemy		*enemy;
 	int			*draw_order;
 	int			enemy_iter;
-	int			enemy_anim_img_iter;
+//	int			enemy_anim_img_iter;
 	int			shooting;
 	int			is_dead;
 	double		time;
@@ -285,14 +290,15 @@ void		key_action_right(t_data *data);
 
 // UTILS
 
-double		conv_to_rad(double angle_in_degrees);
-double		conv_to_deg(double angle_in_rad);
-void		print_goodbye_message(void);
-int			get_rgba(int r, int g, int b, int a);
-void		delete_and_init_images(t_data *data);
-void		death_exit(t_data *data);
-void		put_images_to_window(t_data *data);
-int			rgb_atoi(t_color *color, char *rgb, int pos);
+double  conv_to_rad(double angle_in_degrees);
+double	conv_to_deg(double angle_in_rad);
+void	print_goodbye_message(void);
+int 	get_rgba(int r, int g, int b, int a);
+void	delete_and_init_images(t_data *data);
+void	death_exit(t_data *data);
+void	put_images_to_window(t_data *data);
+int		rgb_atoi(t_color *color, char *rgb, int pos);
+void	get_column_to_draw(t_data *data, char vh_flag, int *column);
 
 // MINIMAP FUNCTIONS
 
@@ -315,6 +321,9 @@ int			enemy_draw_execute(t_data *data, int i, \
 double drawn_enemy_height, long long start_coord);
 void		get_draw_order(t_data *data);
 
+int		is_player_visible(t_data *data, int i);
+void	enemy_charge(t_data *data, int i);
+
 // ENEMY DRAW UTILS
 
 int			get_ray_iterator(double enemy_start_angle, double player_fov_start);
@@ -336,10 +345,15 @@ void		get_enemy_px_left(t_data *data, int i);
 
 // ENEMY MOVE UTILS
 
-int			set_return_direction(int direction);
-void		set_enemy_x_edges(t_data *data, int *x_edge, int dir, int i);
-void		set_enemy_y_edges(t_data *data, int *y_edge, int dir, int i);
-void		change_enemy_coord(t_data *data, int direction, int i);
+int		set_return_direction(int direction);
+void	set_enemy_x_edges(t_data *data, int *x_edge, int dir, int i);
+void	set_enemy_y_edges(t_data *data, int *y_edge, int dir, int i);
+void	change_enemy_coord(t_data *data, int direction, int i);
+int		check_enemy_wall(t_data *data, int direction, int i);
+void	get_enemy_img_4(t_data *data);
+int		get_enemy_dir(double en_perspect_ang);
+void	move_along_wall(t_data *data, int i, int enemy_dir);
+int		check_enemy_wall_charge(t_data *data, int direction, int i);
 
 // DOOR FUNCTIONS
 
