@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 13:01:40 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/17 13:01:41 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:41:11 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	find_minimap_colour(t_data *data, long long *draw_coord)
 	if (draw_coord[0] < 0 || draw_coord[1] < 0 \
 	|| draw_coord[0] >= data->map_width || draw_coord[1] >= data->map_height)
 		return (get_rgba(10, 10, 10, 255));
-	if (data->map[draw_coord[1]][draw_coord[0]].is_enemy == 1)
-		return (get_rgba(227, 16, 16, 255));
 	else if (data->map[draw_coord[1]][draw_coord[0]].type == '0' \
 	|| data->map[draw_coord[1]][draw_coord[0]].type == 'P'
 	|| data->map[draw_coord[1]][draw_coord[0]].type == 'A')

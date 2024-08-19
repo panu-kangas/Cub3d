@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/17 13:00:17 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:39:28 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define WINDOW_WIDTH 1280 // Panu's laptop: 800 // At school: 1600
 # define WINDOW_HEIGHT 1080 // Panu's laptop: 600 // At school: 1200
 
-# define IMG_SIZE 128 
+# define IMG_SIZE 128
 # define PI 3.14159265358979323846 // Not the dessert... sadly
 # define PP_DIST 450 // Projection Plane Distance, 255 is recommendation
 # define PLAYER_SPEED 8 // VALUE SUGGESTION: 6-8 // move X pixels per keypress
@@ -39,7 +39,7 @@
 
 /* MINIMAP: At school: 275 = MINIMAP_IMG_SIZE * TILE_COUNT (25 * 11)
 Panu laptop: 176 = MINIMAP_IMG_SIZE * TILE_COUNT (16 * 11)*/
-# define MINIMAP_WIDTH 176 
+# define MINIMAP_WIDTH 176
 # define MINIMAP_HEIGHT	176 // At school: 275 // Panu laptop: 176
 # define MINIMAP_IMG_SIZE 16 // At school: 25 // Panu laptop: 16
 # define MINIMAP_TILE_COUNT 11
@@ -148,7 +148,7 @@ typedef struct s_data
 	mlx_image_t	*enemy_img[4];
 	mlx_image_t	*enemy_dead_img[5];
 	mlx_image_t	*enemy_charge_img[2];
-	mlx_image_t *text;
+	mlx_image_t	*text;
 
 	uint8_t		*pixels; // pixel data of a single wall
 	uint8_t		*pixels_door; // pixel data of a single wall
@@ -290,15 +290,15 @@ void		key_action_right(t_data *data);
 
 // UTILS
 
-double  conv_to_rad(double angle_in_degrees);
-double	conv_to_deg(double angle_in_rad);
-void	print_goodbye_message(void);
-int 	get_rgba(int r, int g, int b, int a);
-void	delete_and_init_images(t_data *data);
-void	death_exit(t_data *data);
-void	put_images_to_window(t_data *data);
-int		rgb_atoi(t_color *color, char *rgb, int pos);
-void	get_column_to_draw(t_data *data, char vh_flag, int *column);
+double		conv_to_rad(double angle_in_degrees);
+double		conv_to_deg(double angle_in_rad);
+void		print_goodbye_message(void);
+int			get_rgba(int r, int g, int b, int a);
+void		delete_and_init_images(t_data *data);
+void		death_exit(t_data *data);
+void		put_images_to_window(t_data *data);
+int			rgb_atoi(t_color *color, char *rgb, int pos);
+void		get_column_to_draw(t_data *data, char vh_flag, int *column);
 
 // MINIMAP FUNCTIONS
 
@@ -321,8 +321,8 @@ int			enemy_draw_execute(t_data *data, int i, \
 double drawn_enemy_height, long long start_coord);
 void		get_draw_order(t_data *data);
 
-int		is_player_visible(t_data *data, int i);
-void	enemy_charge(t_data *data, int i);
+int			is_player_visible(t_data *data, int i);
+void		enemy_charge(t_data *data, int i);
 
 // ENEMY DRAW UTILS
 
@@ -345,15 +345,15 @@ void		get_enemy_px_left(t_data *data, int i);
 
 // ENEMY MOVE UTILS
 
-int		set_return_direction(int direction);
-void	set_enemy_x_edges(t_data *data, int *x_edge, int dir, int i);
-void	set_enemy_y_edges(t_data *data, int *y_edge, int dir, int i);
-void	change_enemy_coord(t_data *data, int direction, int i);
-int		check_enemy_wall(t_data *data, int direction, int i);
-void	get_enemy_img_4(t_data *data);
-int		get_enemy_dir(double en_perspect_ang);
-void	move_along_wall(t_data *data, int i, int enemy_dir);
-int		check_enemy_wall_charge(t_data *data, int direction, int i);
+int			set_return_direction(int direction);
+void		set_enemy_x_edges(t_data *data, int *x_edge, int dir, int i);
+void		set_enemy_y_edges(t_data *data, int *y_edge, int dir, int i);
+void		change_enemy_coord(t_data *data, int direction, int i);
+int			check_enemy_wall(t_data *data, int direction, int i);
+void		get_enemy_img_4(t_data *data);
+int			get_enemy_dir(double en_perspect_ang);
+void		move_along_wall(t_data *data, int i, int enemy_dir);
+int			check_enemy_wall_charge(t_data *data, int direction, int i);
 
 // DOOR FUNCTIONS
 
