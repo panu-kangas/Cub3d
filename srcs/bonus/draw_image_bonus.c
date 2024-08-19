@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_image_bonus.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/17 13:01:36 by llitovuo          #+#    #+#             */
+/*   Updated: 2024/08/17 13:10:09 by llitovuo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cubed_bonus.h"
 
 void	execute_drawing(t_data *data, int column, double wall_height)
@@ -20,6 +32,8 @@ void	execute_drawing(t_data *data, int column, double wall_height)
 	data->door_found_horiz = 0;
 	data->found_open_door_vert = 0;
 	data->found_open_door_horiz = 0;
+	data->exit_found_horiz = 0;
+	data->exit_found_vert = 0;
 }
 
 char	get_closed_door_direction(t_data *data)
@@ -64,7 +78,7 @@ void	get_closed_door_pixels(t_data *data)
 	}
 }
 
-void	draw_pixels(t_data *data, double wall_height)
+void	draw_pixels(t_data *data, double wall_height, int column_to_draw)
 {
 	int		column;
 
@@ -76,6 +90,8 @@ void	draw_pixels(t_data *data, double wall_height)
 			data->pixels = data->wall_img_w->pixels;
 		if (data->door_found_vert == 1)
 			get_closed_door_pixels(data);
+		if (data->exit_found_vert == 1)
+			get_exit_pixels(data);
 		get_column_to_draw(data, 'V', &column);
 	}
 	else
@@ -86,6 +102,8 @@ void	draw_pixels(t_data *data, double wall_height)
 			data->pixels = data->wall_img_n->pixels;
 		if (data->door_found_horiz == 1)
 			get_closed_door_pixels(data);
+		if (data->exit_found_horiz == 1)
+			get_exit_pixels(data);
 		get_column_to_draw(data, 'H', &column);
 	}
 	execute_drawing(data, column, wall_height);
@@ -106,7 +124,7 @@ void	draw_image(t_data *data, double ray_angle, double window_width)
 		dist_to_wall = find_wall_distance(data, ray_angle, addition);
 		data->dist_to_wall_list[data->ray_iterator] = dist_to_wall;
 		drawn_wall_height = (IMG_SIZE / dist_to_wall) * PP_DIST;
-		draw_pixels(data, drawn_wall_height);
+		draw_pixels(data, drawn_wall_height, 0);
 		data->ray_iterator++;
 		ray_angle = ray_angle + addition;
 		if (ray_angle > 360)
@@ -116,4 +134,5 @@ void	draw_image(t_data *data, double ray_angle, double window_width)
 	draw_enemy_loop(data);
 	draw_minimap(data);
 	put_images_to_window(data);
+	print_to_screen_exit(data);
 }

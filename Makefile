@@ -38,7 +38,7 @@ BONSRCS	= $Bmain_bonus.c $Berror_and_exit_bonus.c $Bget_map_bonus.c $Butils_bonu
 		$Benemy_movement_bonus.c $Benemy_movement_utils_bonus.c $Benemy_charge_bonus.c $Benemy_charge_utils_bonus.c\
 		$Bprint_help_bonus.c $Bdeath_exit_bonus.c $Butils_2_bonus.c \
 		$Bstart_menu_bonus.c $Bget_images_utils_bonus.c \
-		$Bmap_exit_bonus.c
+		$Bmap_exit_bonus.c $Bprint_exit_help_bonus.c \
 
 BONOBJS	= ${BONSRCS:.c=.o}
 
@@ -51,26 +51,34 @@ $(LIBFT):
 	make -C ./lib/libft/.
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	@echo "\033[32;1mCompiling cub3D...\033[0m"
+	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	@echo "\033[32;1mcub3D Compilation successful!\033[0m"
 
 bonus: .bonus
 
 .bonus: $(LIBMLX) $(LIBFT) $(BONOBJS)
-	$(CC) $(BONOBJS) $(LIBS) $(HEADERS) -o $(NAME)
-	touch .bonus
+	@echo "\033[32;1mCompiling cub3D Bonus...\033[0m"
+	@$(CC) $(BONOBJS) $(LIBS) $(HEADERS) -o $(NAME)
+	@touch .bonus
+	@echo "\033[32;1mcub3D Bonus Compilation Successful!\033[0m"
 
 %.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
 
 clean:
-	rm -f $(OBJS)
-	rm -f $(BONOBJS)
-	make fclean -C ./lib/libft/.
-	rm -rf ./lib/MLX42/build
-	rm -f .bonus
+	@echo "\033[32;1mCleaning...\033[0m"
+	@rm -f $(OBJS)
+	@rm -f $(BONOBJS)
+	@make fclean -C ./lib/libft/.
+	@rm -rf ./lib/MLX42/build
+	@rm -f .bonus
+	@echo "\033[32;1mCleaning successful!\033[0m"
 
 fclean: clean
-	rm -f $(NAME)
+	@echo "\033[32;1mFull Cleaning...\033[0m"
+	@rm -f $(NAME)
+	@echo "\033[32;1mFull Cleaning successful!\033[0m"
 
 re: clean all
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   keyhook_bonus.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/17 13:04:02 by llitovuo          #+#    #+#             */
+/*   Updated: 2024/08/17 13:04:03 by llitovuo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cubed_bonus.h"
 
 void	key_action_left(t_data *data)
@@ -58,9 +70,14 @@ void	special_keys(mlx_key_data_t keydata, void *param)
 		return ;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_E))
 		open_door(data);
-	else if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
+	if (keydata.key == MLX_KEY_SPACE && keydata.action == MLX_PRESS)
 	{
 		data->anim.has_shot = 1;
 		data->shooting = 1;
+	}
+	if (mlx_is_key_down(data->mlx, MLX_KEY_F))
+	{
+		if (data->exit_rdy == 1)
+			success_exit(data);
 	}
 }

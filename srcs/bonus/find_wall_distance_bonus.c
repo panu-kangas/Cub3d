@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   find_wall_distance_bonus.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/17 13:03:03 by llitovuo          #+#    #+#             */
+/*   Updated: 2024/08/17 13:03:04 by llitovuo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cubed_bonus.h"
 
 int	handle_found_door(t_data *data, char vh_flag, double r_ang, long long *xy)
@@ -32,6 +44,8 @@ char vh_flag, double r_ang)
 	{
 		if (data->map[xy[1]][xy[0]].is_door == 1)
 			return (handle_found_door(data, vh_flag, r_ang, xy));
+		if (data->map[xy[1]][xy[0]].is_exit == 1)
+			set_exit_found(data, vh_flag);
 		return (1);
 	}
 	return (0);

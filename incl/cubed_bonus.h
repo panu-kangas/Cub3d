@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:18:06 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/12 19:34:37 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/17 13:00:17 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,22 @@
 # include <MLX42/MLX42.h>
 # include "libft.h"
 
-# define WINDOW_WIDTH 1280 // Panu's laptop: 800 // At school: 1280
-# define WINDOW_HEIGHT 1024 // Panu's laptop: 600 // At school: 1024
+# define WINDOW_WIDTH 1280 // Panu's laptop: 800 // At school: 1600
+# define WINDOW_HEIGHT 1080 // Panu's laptop: 600 // At school: 1200
 
-# define IMG_SIZE 128 // 64 x 64 pixels --> NOTE: We might need bigger images for school, because on bigger game window the images strech out a lot!
+# define IMG_SIZE 128 
 # define PI 3.14159265358979323846 // Not the dessert... sadly
 # define PP_DIST 450 // Projection Plane Distance, 255 is recommendation
-# define PLAYER_SPEED 8 // VALUE SUGGESTION FOR SCHOOL: 6-8 // move X pixels per keypress
-# define PLAYER_TURN_SPEED 3 // VALUE SUGGESTION FOR SCHOOL: 3 // X degrees change to angle per keypress
+# define PLAYER_SPEED 8 // VALUE SUGGESTION: 6-8 // move X pixels per keypress
+# define PLAYER_TURN_SPEED 3 // SUGGESTION: 3 - X degrees per keypress
 # define MOUSE_SENS 0.05
 
-# define WALL_LIMIT 30 // you can't get closer to aa wall than WALL_LIMIT -amount of pixels
+# define WALL_LIMIT 30 // you can't get closer to aa wall -amount of pixels
 # define ENEMY_WALL_LIMIT 60
 
-# define MINIMAP_WIDTH 176 // At school: 275 = MINIMAP_IMG_SIZE * TILE_COUNT (25 * 11) // Panu laptop: 176 = MINIMAP_IMG_SIZE * TILE_COUNT (16 * 11)
+/* MINIMAP: At school: 275 = MINIMAP_IMG_SIZE * TILE_COUNT (25 * 11)
+Panu laptop: 176 = MINIMAP_IMG_SIZE * TILE_COUNT (16 * 11)*/
+# define MINIMAP_WIDTH 176 
 # define MINIMAP_HEIGHT	176 // At school: 275 // Panu laptop: 176
 # define MINIMAP_IMG_SIZE 16 // At school: 25 // Panu laptop: 16
 # define MINIMAP_TILE_COUNT 11
@@ -61,7 +63,15 @@
 # define ANIM_DELAY 0.1
 # define SP_WIDTH 238
 # define SP_HEIGHT 308
-# define EXIT_PATH "./tiles/exit/exit_temp.png"
+# define EXIT_PATH "./tiles/exit/exit_door.png"
+
+typedef enum e_direction
+{
+	NORTH = 0,
+	EAST = 1,
+	SOUTH = 2,
+	WEST = 3
+}	t_direction;
 
 typedef struct s_map
 {
@@ -121,11 +131,11 @@ typedef struct s_data
 	mlx_image_t	*wall_img_e; // etc...
 	mlx_image_t	*wall_img_s;
 	mlx_image_t	*wall_img_w;
-	mlx_image_t	*exit_img;
+	mlx_image_t	*exit_img[4];
 
 	mlx_image_t	*d_closed_img[4][4];
 	mlx_image_t	*d_open_img[3][4];
-	mlx_image_t *door_canvas;
+	mlx_image_t	*door_canvas;
 
 	mlx_image_t	*death_img;
 	mlx_image_t	*death_text_img;
@@ -134,15 +144,14 @@ typedef struct s_data
 	int			opening_in_action;
 	long long	opening_door_coord[2];
 
-	mlx_image_t *player_icon;
-	mlx_image_t *enemy_img[4];
+	mlx_image_t	*player_icon;
+	mlx_image_t	*enemy_img[4];
 	mlx_image_t	*enemy_dead_img[5];
 	mlx_image_t	*enemy_charge_img[2];
 	mlx_image_t *text;
 
 	uint8_t		*pixels; // pixel data of a single wall
 	uint8_t		*pixels_door; // pixel data of a single wall
-	
 	t_map		**map;
 
 	t_enemy		*enemy;
@@ -155,7 +164,7 @@ typedef struct s_data
 
 	int			ceil_colour; // ceiling colour
 	int			fl_colour; // floor colour
-	int			v_h_flag; // vertical intersection found wall = 0, horizontal intersection = 1 (used in find_wall_distance.c)
+	int			v_h_flag; // vert intersection found wall = 0, horizontal = 1
 	int			invalid_vert;
 	int			invalid_horiz;
 
@@ -203,6 +212,10 @@ typedef struct s_data
 	int			show_menu;
 	mlx_image_t	*menu_img;
 	mlx_image_t	*menu_canvas;
+	int			exit_found_vert;
+	int			exit_found_horiz;
+	mlx_image_t	*exit_text;
+	int			exit_rdy;
 }			t_data;
 
 // ERROR HANDLING
@@ -227,22 +240,27 @@ void		change_door_status(t_data *data);
 
 // IMAGE DRAWING
 
-void    get_images(t_data *data);
-void	draw_image(t_data *data, double ray_angle, double window_width);
-double	find_wall_distance(t_data *data, double ray_angle, double addition);
-void	get_vert_intersection(t_data *data, double ray_angle, \
+void		get_images(t_data *data);
+void		draw_image(t_data *data, double ray_angle, double window_width);
+double		find_wall_distance(t_data *data, double ray_angle, double addition);
+void		get_vert_intersection(t_data *data, double ray_angle, \
 long long *w_coord, int cnt);
-void	get_horizon_intersection(t_data *data, double ray_angle, \
+void		get_horizon_intersection(t_data *data, double ray_angle, \
 long long *w_coord, int cnt);
-double	compare_distance(t_data *data, double ray_angle);
-int		draw_wall(t_data *data, int i, double wall_height, long long start_coord);
-void	print_to_screen(t_data *data);
+double		compare_distance(t_data *data, double ray_angle);
+int			draw_wall(t_data *data, int i, \
+double wall_height, long long start_coord);
+void		print_to_screen(t_data *data);
+void		print_to_screen_exit(t_data *data);
 
-void	get_wall_sw_images(t_data *data);
-void	get_wall_ne_images(t_data *data);
-void	get_closed_door_image_1(t_data *data);
-void	get_closed_door_image_2(t_data *data);
-void	get_open_door_image_2(t_data *data);
+void		get_wall_sw_images(t_data *data);
+void		get_wall_ne_images(t_data *data);
+void		get_closed_door_image_1(t_data *data);
+void		get_closed_door_image_2(t_data *data);
+void		get_open_door_image_2(t_data *data);
+char		get_closed_door_direction(t_data *data);
+void		get_exit_pixels(t_data *data);
+void		set_exit_found(t_data *data, int vh_flag);
 
 // INTERSECTION MATH HELPERS
 
@@ -284,47 +302,46 @@ void	get_column_to_draw(t_data *data, char vh_flag, int *column);
 
 // MINIMAP FUNCTIONS
 
-void	draw_minimap(t_data *data);
-void	draw_player_icon(t_data *data);
+void		draw_minimap(t_data *data);
+void		draw_player_icon(t_data *data);
 
 // ENEMY FUNCTIONS
 
-void	init_enemies(t_data *data);
-void	enemy_handler(void *param);
-void    draw_enemy_loop(t_data *data);
-int		get_column(double *enemy_limits, double ray_angle);
-void	enemy_movement(t_data *data, int i);
-void	get_enemy_pixels(t_data *data, int i, double enemy_player_angle);
-void	enemy_to_screen(t_data *data, double drawn_enemy_height, \
+void		init_enemies(t_data *data);
+void		enemy_handler(void *param);
+void		draw_enemy_loop(t_data *data);
+int			get_column(double *enemy_limits, double ray_angle);
+void		enemy_movement(t_data *data, int i);
+void		get_enemy_pixels(t_data *data, int i, double enemy_player_angle);
+void		enemy_to_screen(t_data *data, double drawn_enemy_height, \
 double enemy_player_angle, double dist_to_enemy);
-double	handle_exception(t_data *data, double *xy_diff, \
+double		handle_exception(t_data *data, double *xy_diff, \
 double *enemy_player_angle, double *p_fov_limits);
-int		enemy_draw_execute(t_data *data, int i, \
+int			enemy_draw_execute(t_data *data, int i, \
 double drawn_enemy_height, long long start_coord);
-void	get_draw_order(t_data *data);
+void		get_draw_order(t_data *data);
 
 int		is_player_visible(t_data *data, int i);
 void	enemy_charge(t_data *data, int i);
 
 // ENEMY DRAW UTILS
 
-int		get_ray_iterator(double enemy_start_angle, double player_fov_start);
-void	set_player_fov(t_data *data, double *player_fov_limits);
-void	set_enemy_limits(double *enemy_limits, double enemy_player_angle, \
+int			get_ray_iterator(double enemy_start_angle, double player_fov_start);
+void		set_player_fov(t_data *data, double *player_fov_limits);
+void		set_enemy_limits(double *enemy_limits, double enemy_player_angle, \
 double dist_to_enemy);
-void	skip_extra_rays(t_data *data, double *ray_angle, double addition);
-void	get_xy_diff(t_data *data, int i, double *x_diff, double *y_diff);
-void	fix_fov_limits(t_data *data, double *enemy_player_angle, \
+void		skip_extra_rays(t_data *data, double *ray_angle, double addition);
+void		get_xy_diff(t_data *data, int i, double *x_diff, double *y_diff);
+void		fix_fov_limits(t_data *data, double *enemy_player_angle, \
 double *p_fov_limits);
-double	handle_y_is_zero(t_data *data, double *enemy_player_angle, \
+double		handle_y_is_zero(t_data *data, double *enemy_player_angle, \
 double *p_fov_limits);
-double	handle_xy_exception(t_data *data, double *xy_diff, \
+double		handle_xy_exception(t_data *data, double *xy_diff, \
 double *enemy_player_angle, double *p_fov_limits);
-
-void	get_enemy_px_up(t_data *data, int i);
-void	get_enemy_px_right(t_data *data, int i);
-void	get_enemy_px_down(t_data *data, int i);
-void	get_enemy_px_left(t_data *data, int i);
+void		get_enemy_px_up(t_data *data, int i);
+void		get_enemy_px_right(t_data *data, int i);
+void		get_enemy_px_down(t_data *data, int i);
+void		get_enemy_px_left(t_data *data, int i);
 
 // ENEMY MOVE UTILS
 
@@ -340,31 +357,39 @@ int		check_enemy_wall_charge(t_data *data, int direction, int i);
 
 // DOOR FUNCTIONS
 
-void	door_animation(void *param);
-void	init_door_canvas(t_data *data);
-void	fix_door_img(mlx_image_t *door_img, mlx_image_t *wall_img, long i);
-void	draw_open_door(t_data *data, double ray_angle, double window_width, int counter);
-void	draw_open_door_pixels(t_data *data, double dist, double wall_height);
-int		find_open_door_iter(t_data *data);
-int		check_for_door(t_data *data, long long x, long long y);
-void	count_open_doors(t_data *data, double ray_angle, double addition);
-int		is_player_too_close(t_data *data);
-int		check_invalid_coords(t_data *data, long long *check_coord, char vh_flag);
-int		handle_open_door_counter(t_data *data, int counter, double ray_angle, double addition);
-
-long long	get_up_right_door_y(long long *t_coord, double *start_coord, double ray_angle);
-long long	get_down_right_door_y(t_data *data, long long *t_coord, double *start_coord, double ray_angle);
-long long	get_down_left_door_y(t_data *data, long long *t_coord, double *start_coord, double ray_angle);
-long long	get_up_left_door_y(long long *t_coord, double *start_coord, double ray_angle);
-
-long long	get_up_right_door_x(t_data *data, long long *t_coord, double *start_coord, double ray_angle);
-long long	get_down_right_door_x(t_data *data, long long *t_coord, double *start_coord, double ray_angle);
-long long	get_down_left_door_x(long long *t_coord, double *start_coord, double ray_angle);
-long long	get_up_left_door_x(long long *t_coord, double *start_coord, double ray_angle);
-
+void		door_animation(void *param);
+void		init_door_canvas(t_data *data);
+void		fix_door_img(mlx_image_t *door_img, mlx_image_t *wall_img, long i);
+void		draw_open_door(t_data *data, double ray_angle, \
+double window_width, int counter);
+void		draw_open_door_pixels(t_data *data, double dist, \
+double wall_height);
+int			find_open_door_iter(t_data *data);
+int			check_for_door(t_data *data, long long x, long long y);
+void		count_open_doors(t_data *data, double ray_angle, double addition);
+int			is_player_too_close(t_data *data);
+int			check_invalid_coords(t_data *data, \
+long long *check_coord, char vh_flag);
+int			handle_open_door_counter(t_data *data, int counter, \
+double ray_angle, double addition);
+long long	get_up_right_door_y(long long *t_coord, \
+double *start_coord, double ray_angle);
+long long	get_down_right_door_y(t_data *data, \
+long long *t_coord, double *start_coord, double ray_angle);
+long long	get_down_left_door_y(t_data *data, \
+long long *t_coord, double *start_coord, double ray_angle);
+long long	get_up_left_door_y(long long *t_coord, \
+double *start_coord, double ray_angle);
+long long	get_up_right_door_x(t_data *data, \
+long long *t_coord, double *start_coord, double ray_angle);
+long long	get_down_right_door_x(t_data *data, \
+long long *t_coord, double *start_coord, double ray_angle);
+long long	get_down_left_door_x(long long *t_coord, \
+double *start_coord, double ray_angle);
+long long	get_up_left_door_x(long long *t_coord, \
+double *start_coord, double ray_angle);
 int			check_ray_door_vert(t_data *data, double ray_angle);
 int			check_ray_door_horiz(t_data *data, double ray_angle);
-
 void		update_wall_dist_list(t_data *data, int dist, int column, int iter);
 char		get_open_door_direction(t_data *data);
 void		set_open_door_iterator(t_data *data, long long *xy, int *iterator);
@@ -393,12 +418,5 @@ void		animate(void *param);
 void		menu_key_hook(mlx_key_data_t keydata, void *param);
 void		init_menu_img(t_data *data);
 uint32_t	get_pixel(mlx_image_t *sprite, uint32_t x, uint32_t y);
-
-// DEBUGGING REMOVE THESE
-
-void		print_map_lines(t_data *data);
-void		print_map(t_data *data);
-void		print_info(t_data *data);
-void		print_data(t_data *data);
 
 #endif

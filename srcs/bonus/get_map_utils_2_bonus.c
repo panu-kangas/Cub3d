@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_map_utils_2_bonus.c                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/08/17 13:03:46 by llitovuo          #+#    #+#             */
+/*   Updated: 2024/08/17 13:03:47 by llitovuo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cubed_bonus.h"
 
 void	change_door_status(t_data *data)
@@ -37,6 +49,7 @@ void	init_map_flags(t_data *data)
 			data->map[y][x].is_closing = 0;
 			data->map[y][x].open_img_iter = -1;
 			data->map[y][x].is_enemy = 0;
+			data->map[y][x].is_exit = 0;
 		}
 	}
 }

@@ -6,7 +6,7 @@
 #    By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/17 13:19:59 by pkangas           #+#    #+#              #
-#    Updated: 2024/07/30 15:45:38 by llitovuo         ###   ########.fr        #
+#    Updated: 2024/08/17 13:25:07 by llitovuo         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,18 +35,23 @@ BONUS_OBJ = $(BONUS_SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(MY_OBJECTS)
-	ar -rcs $(NAME) $(MY_OBJECTS)
+	@ar -rcs $(NAME) $(MY_OBJECTS)
+	@echo "\033[32;1m LIBFT Compilation successful!\033[0m"
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 clean:
-	rm -f $(MY_OBJECTS) $(BONUS_OBJ) .bonus
+	@rm -f $(MY_OBJECTS) $(BONUS_OBJ) .bonus
 
 re: fclean all
 
 bonus: .bonus
 
 .bonus: $(BONUS_OBJ)
-	ar -rcs $(NAME) $(BONUS_OBJ)
-	touch .bonus
+	@ar -rcs $(NAME) $(BONUS_OBJ)
+	@touch .bonus
+	@echo "\033[32;1mLIBFT BONUS Compilation successful!\033[0m"
+
+%.o: %.c
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS)
