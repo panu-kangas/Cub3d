@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/17 13:01:36 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/17 13:10:09 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:32:43 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,8 @@ void	get_closed_door_pixels(t_data *data)
 	}
 }
 
-void	draw_pixels(t_data *data, double wall_height, int column_to_draw)
+void	draw_pixels(t_data *data, double wall_height, int column)
 {
-	int		column;
-
 	if (data->v_h_flag == 0)
 	{
 		if (data->player_coord[0] > data->vert_inters_crd[0])
