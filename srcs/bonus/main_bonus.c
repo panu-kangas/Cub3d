@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 11:17:31 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/16 12:56:07 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:59:21 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 void	init_ptrs(t_data *data)
 {
 	data->mlx = NULL;
+	data->game_img = NULL;
+	data->door_canvas = NULL;
+	data->player_icon = NULL;
 	data->map = NULL;
 	data->map_lines = NULL;
 	data->wall_img_n = NULL;
@@ -33,6 +36,8 @@ void	init_ptrs(t_data *data)
 	data->map_name = NULL;
 	data->file = NULL;
 	data->anim.sprites = NULL;
+	data->exit_text = NULL;
+	data->text = NULL;
 }
 
 void	init_data(t_data *data)

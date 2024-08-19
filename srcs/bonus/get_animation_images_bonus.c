@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 10:06:51 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/12 16:50:41 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:55:00 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ uint32_t	get_pixel(mlx_image_t *sprite, uint32_t x, uint32_t y)
 {
 	uint8_t	*px_start;
 
-	if (x > SP_WIDTH || y > SP_HEIGHT)
+	if (x >= SP_WIDTH || y >= SP_HEIGHT)
 		return (0xFF000000);
 	px_start = sprite->pixels + (y * SP_WIDTH + x) * sizeof(uint32_t);
 	return (get_rgba(*(px_start), \
@@ -79,7 +79,7 @@ void	init_animation_canvas(t_anim *anim, t_data *data)
 	while (++i < SP_HEIGHT)
 	{
 		j = -1;
-		while (j++ < SP_WIDTH)
+		while (++j < SP_WIDTH)
 		{
 			px = get_pixel(anim->sprites[0], j, i);
 			mlx_put_pixel(anim->canvas, j, i, px);
