@@ -30,8 +30,7 @@ To install and run Cub3D, follow these steps:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/Lauri-Litovuo/Cub3d
-   cd cub3d
+   git clone https://github.com/Lauri-Litovuo/Cub3d && cd cub3d
 2. **Compile the project**:
 - **For the standard version**:
    ```bash
@@ -90,7 +89,7 @@ cub3d\
 |		└── [invalid/](./maps/invalid/)\
 ├── [textures/](./textures/) # Test textures to showcase the directions\
 ├── [tiles/](./tiles/) # Textures used in the game\
-|		├── door/\
+|	   	├── door/\
 |		├── exit/\
 |		└──wall/\
 ├── [sprites/](./sprites/) # Sprites used in the game\
