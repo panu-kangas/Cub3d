@@ -43,8 +43,8 @@ To install and run Cub3D, follow these steps:
    ```bash
    ./cub3D [map_path]
 Example:
-      ```bash
-   ./cub3D ./maps/levels/level1.cub
+	```bash
+	./cub3D ./maps/levels/level1.cub
 
 ## Usage
 
@@ -79,19 +79,19 @@ In addition to the core features, we implemented several advanced features to en
 ## Project Structure
 
 Our project is organized as follows:
-
-cub3d/
-├── src/ # Source code files
-├── incl/ # Header files
-├── incl/ # Engine and own c lib functions
-├── maps/ # Example map files
-├── textures/ # Test textures to showcase the directions
-├── tiles/ # Textures used in the game
-├── sprites/ # Sprites used in the game
-├── map_generators/ # Programs for maze generation
-├── Makefile # Build script
-├── run_invalid_maps.sh # Tester for map parsing
-└── README.md # Project documentation
+	```bash
+	cub3d/
+	├── src/ # Source code files
+	├── incl/ # Header files
+	├── incl/ # Engine and own c lib functions
+	├── maps/ # Example map files
+	├── textures/ # Test textures to showcase the directions
+	├── tiles/ # Textures used in the game
+	├── sprites/ # Sprites used in the game
+	├── map_generators/ # Programs for maze generation
+	├── Makefile # Build script
+	├── run_invalid_maps.sh # Tester for map parsing
+	└── README.md # Project documentation
 
 
 ## Contributing
