@@ -80,20 +80,29 @@ In addition to the core features, we implemented several advanced features to en
 
 Our project is organized as follows:
 
-```
+	```
 	cub3d/
-	├── src/ # Source code files
+	├── srcs/ #**Source code files**
+	|	├──mandatory/
+	|	└── bonus/
 	├── incl/ # Header files
-	├── incl/ # Engine and own c lib functions
+	├── lib/ # Engine and own c lib functions
 	├── maps/ # Example map files
+	|	└── invalid/
 	├── textures/ # Test textures to showcase the directions
 	├── tiles/ # Textures used in the game
+	|	├── door/
+	|	├── exit/
+	|	├── wall/
 	├── sprites/ # Sprites used in the game
+	|	├── enemy/
+	|	├── gun/
+	|	├── menu/
+	|	└── minimap/
 	├── map_generators/ # Programs for maze generation
 	├── Makefile # Build script
 	├── run_invalid_maps.sh # Tester for map parsing
 	└── README.md # Project documentation
-...
 
 ## Contributing
 
