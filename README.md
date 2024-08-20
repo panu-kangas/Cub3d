@@ -80,28 +80,28 @@ In addition to the core features, we implemented several advanced features to en
 
 Our project is organized as follows:
 
-	cub3d/
-	├── srcs/ #**Source code files**
-	|	├──mandatory/
-	|	└── bonus/
-	├── incl/ # Header files
-	├── lib/ # Engine and own c lib functions
-	├── maps/ # Example map files
-	|	└── invalid/
-	├── textures/ # Test textures to showcase the directions
-	├── tiles/ # Textures used in the game
-	|	├── door/
-	|	├── exit/
-	|	├── wall/
-	├── sprites/ # Sprites used in the game
-	|	├── enemy/
-	|	├── gun/
-	|	├── menu/
-	|	└── minimap/
-	├── map_generators/ # Programs for maze generation
-	├── Makefile # Build script
-	├── run_invalid_maps.sh # Tester for map parsing
-	└── README.md # Project documentation
+cub3d/
+├── [srcs/](./srcs/) # Source code files
+|	├──[mandatory/](./srcs/mandatory/)
+|	└── [bonus/](./srcs/bonus/)
+├── [incl/](./incl/) # Header files
+├── [lib/](./lib/) # Engine and own c lib functions
+├── [maps/](./maps/) # Example map files
+|	└── [invalid/](./maps/invalid/)
+├── [textures/](./textures/) # Test textures to showcase the directions
+├── [tiles/](./tiles/) # Textures used in the game
+|	├── door/
+|	├── exit/
+|	├── wall/
+├── [sprites/](./sprites/) # Sprites used in the game
+|	├── enemy/
+|	├── gun/
+|	├── menu/
+|	└── minimap/
+├── [map_generators/](./map_generators/) # Programs for maze generation
+├── [Makefile](./Makefile) # Build script
+├── [run_invalid_maps.sh](./run_invalid_maps.sh) # Tester for map parsing
+└── [README.md](./README.md) # Project documentation
 
 ## Contributing
 
