@@ -82,22 +82,22 @@ Our project is organized as follows:
 
 cub3d\
 ├── [srcs/](./srcs/) # Source code files\
-|	├──[mandatory/](./srcs/mandatory/)\
-|	└── [bonus/](./srcs/bonus/)\
+|		├──[mandatory/](./srcs/mandatory/)\
+|		└── [bonus/](./srcs/bonus/)\
 ├── [incl/](./incl/) # Header files\
 ├── [lib/](./lib/) # Engine and own c lib functions\
 ├── [maps/](./maps/) # Example map files\
-|	└── [invalid/](./maps/invalid/)\
+|		└── [invalid/](./maps/invalid/)\
 ├── [textures/](./textures/) # Test textures to showcase the directions\
 ├── [tiles/](./tiles/) # Textures used in the game\
-|	├── door/\
-|	├── exit/\
-|	├── wall/\
+|		├── door/\
+|		├── exit/\
+|		└──wall/\
 ├── [sprites/](./sprites/) # Sprites used in the game\
-|	├── enemy/\
-|	├── gun/\
-|	├── menu/\
-|	└── minimap/\
+|		├── enemy/\
+|		├── gun/\
+|		├── menu/\
+|		└── minimap/\
 ├── [map_generators/](./map_generators/) # Programs for maze generation\
 ├── [Makefile](./Makefile) # Build script\
 ├── [run_invalid_maps.sh](./run_invalid_maps.sh) # Tester for map parsing\
