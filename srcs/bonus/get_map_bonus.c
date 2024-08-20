@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/29 18:36:51 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/16 11:19:44 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/20 10:16:47 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ int	copy_file_contents(t_data *data, char *map_name)
 			break ;
 		data->file[i] = ft_strdup_nonl(line);
 		free (line);
+		if (!data->file[i])
+			break ;
 		i++;
 	}
 	data->file[i] = NULL;
