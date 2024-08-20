@@ -6,7 +6,7 @@
 /*   By: llitovuo <llitovuo@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 15:18:08 by llitovuo          #+#    #+#             */
-/*   Updated: 2024/08/12 19:36:35 by llitovuo         ###   ########.fr       */
+/*   Updated: 2024/08/20 09:56:17 by llitovuo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void	validate_door_and_enemy_positions(t_data *data, int i, int j)
 		if (validate_enemy(&data->map_lines[i], j, data->map_width) == -1)
 			error_exit(data, "Invalid enemy position", 0);
 		data->enemy_count++;
+		if (data->enemy_count > 100)
+			error_exit(data, "Too many enemies (max 100)", 0);
 	}
 	if (data->map[i][j].type == 'F')
 	{
