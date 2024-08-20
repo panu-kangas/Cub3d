@@ -80,7 +80,6 @@ In addition to the core features, we implemented several advanced features to en
 
 Our project is organized as follows:
 
-	```
 	cub3d/
 	├── srcs/ #**Source code files**
 	|	├──mandatory/
