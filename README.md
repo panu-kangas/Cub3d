@@ -42,7 +42,7 @@ To install and run Cub3D, follow these steps:
 3. **Run the game**:
    ```bash
    ./cub3D [map_path]
-Example:
+**Example**:
 	```bash
 	./cub3D ./maps/levels/level1.cub
 
@@ -79,7 +79,8 @@ In addition to the core features, we implemented several advanced features to en
 ## Project Structure
 
 Our project is organized as follows:
-	```bash
+
+```
 	cub3d/
 	├── src/ # Source code files
 	├── incl/ # Header files
@@ -92,7 +93,7 @@ Our project is organized as follows:
 	├── Makefile # Build script
 	├── run_invalid_maps.sh # Tester for map parsing
 	└── README.md # Project documentation
-
+...
 
 ## Contributing
 
