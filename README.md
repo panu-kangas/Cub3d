@@ -36,14 +36,14 @@ To install and run Cub3D, follow these steps:
    ```bash
    make
 - **For the bonus version with additional features**:
-   ```bash
+  ```bash
    make bonus
 3. **Run the game**:
    ```bash
    ./cub3D [map_path]
-**Example**:
-	```bash
-	./cub3D ./maps/levels/level1.cub
+- **Example**:
+  ```bash
+  ./cub3D ./maps/levels/level1.cub
 
 ## Usage
 
@@ -79,7 +79,7 @@ In addition to the core features, we implemented several advanced features to en
 
 Our project is organized as follows:
 
-cub3d\
+ cub3d\
 ├── [srcs/](./srcs/) # Source code files\
 |		├──[mandatory/](./srcs/mandatory/)\
 |		└── [bonus/](./srcs/bonus/)\
@@ -108,8 +108,13 @@ cub3d\
 - [@panu-kangas](https://github.com/panu-kangas)
 
 ## Acknowledgements
-We used ready made sprites to make this game possible. Hence we would like to thank the following creators:
+We used readymade sprites to make this game possible. Hence we would like to thank the following creators:
 - **Sprites**:
+	- [Demon door by Jitsukoan](https://jitsukoan.itch.io/demon-door)
+ 	- [Weapon sprite by MarcelusSK](https://www.moddb.com/games/doom/addons/upscaled-classic-weapons-sprites-for-doom-and-doom-2)
+  	- [Cacodemon ripped by Harsh29](https://spritedatabase.net/file/562) 
+- **Textures**:
+	- [Wall textures by Miguelsgp](https://miguelsgp.itch.io/free-tileset-dungeon)
 
 
 ## License
