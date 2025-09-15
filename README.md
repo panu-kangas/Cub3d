@@ -1,5 +1,11 @@
 # Cub3D
 
+<p align="center">
+  <img src="https://github.com/Lauri-Litovuo/Cub3d/blob/main/videos/cubed.gif" />
+</p>
+
+## Introduction
+
 Cub3D is a 3D game engine project inspired by the classic game **Wolfenstein 3D**. We implemented this project as part of the curriculum at Hive Helsinki Coding School to explore the fundamentals of raycasting, graphics rendering, and game development. The game allows players to navigate through a 3D maze, interact with enemies, and find exits, all rendered using a custom-built engine and C.
 
 ## Table of Contents
